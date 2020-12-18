@@ -1,18 +1,19 @@
+import { render } from '@testing-library/react';
 import React from 'react';
 import './App.css';
-import Clock from './components/Clock';
+import Login from './components/auth/Login';
 
-let testProp: string = 'Am I getting passed to the Clock component?'
-let optionalProp: string = 'You sure are!';
-
-const App: React.FunctionComponent = () => {
-  return (
-    <div className="App">
-      <div className="verticalCenter">
-        <Clock testProp={testProp} optionalProp={optionalProp} />
+class App extends React.Component {
+  
+  render() {
+    return (
+      <div className="App">
+        <div className="verticalCenter">
+        
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default App;
