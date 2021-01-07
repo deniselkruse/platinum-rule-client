@@ -1,7 +1,13 @@
 import { render } from '@testing-library/react';
-import React from 'react';
+import React, { Component } from 'react';
+// import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
-import Login from './components/auth/Login';
+// import {BrowserRouter as Router} from 'react-router-dom';
+
+// import Login from './components/auth/Login';
+import Nav from './components/home/Navbar';
+import Home from './components/home/Home';
+
 
 class App extends React.Component {
   
@@ -9,7 +15,8 @@ class App extends React.Component {
     return (
       <div className="App">
         <div className="verticalCenter">
-        
+        <Nav />
+        <Home />
         </div>
       </div>
     );
