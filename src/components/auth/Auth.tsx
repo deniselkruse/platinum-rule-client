@@ -69,16 +69,16 @@ class Auth extends React.Component<{}, AuthStates> {
             <Row>
                 <Col md="6" className="login-col">
                     <br />
-                   <Login 
+                   {/* <Login 
                    email={this.state.email} 
                    password={this.state.password} 
                    setEmail={this.state.setEmail} 
                    setPassword={this.state.setPassword} 
-                   sessionToken={this.state.sessionToken}/>
+                   sessionToken={this.state.sessionToken}/> */}
                 </Col>
                 <Col md="6">
                     <br />
-                    <Register 
+                    {/* <Register 
                     firstName={this.state.firstName} 
                     lastName={this.state.lastName} 
                     email={this.state.email}
@@ -91,7 +91,7 @@ class Auth extends React.Component<{}, AuthStates> {
                     setLastName={this.state.setLastName}
                     setUsername={this.state.setUsername}
                     setZipCode={this.state.setZipCode}
-                    sessionToken={this.state.sessionToken}/>
+                    sessionToken={this.state.sessionToken}/> */}
                 </Col>
             </Row>
         </Container>

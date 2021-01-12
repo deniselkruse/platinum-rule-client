@@ -4,9 +4,11 @@ import { Form, FormGroup, Input, Button } from 'reactstrap';
 type LoginAcceptedProps = {
   email: string;
   password: string;
-  sessionToken: any;
   setEmail: (e: any) => any;
   setPassword: (e: any) => any;
+  sessionToken: any;
+  updateToken: any;
+  getToken: any;
 }
 
 class Login extends React.Component<LoginAcceptedProps, {}> {
@@ -14,9 +16,19 @@ class Login extends React.Component<LoginAcceptedProps, {}> {
     super(props)
   }
 
+  // loginToggle = () => {
+  //   this.setState(!this.login)
+  // }
+
+  updateToken = (newToken: any) => {
+    localStorage.setItem('token', newToken);
+    this.setState({ sessionToken: newToken });
+    console.log(newToken);
+  };
+
   handleSubmit = (event: any) => {
     event.preventDefault();
-    fetch(`/user/login`, {
+    fetch(`http://localhost:3000/user/${'login' ? 'login' : 'register'}`, {
       method: 'POST',
       body: JSON.stringify({
         user: {
@@ -37,8 +49,7 @@ class Login extends React.Component<LoginAcceptedProps, {}> {
         return response.json();
       })
       .then((data) => {
-        // if (data.sessionToken)
-          // this.props.updateToken(data.sessionToken);
+        this.updateToken(data.sessionToken);
       })
   }
 
@@ -49,14 +60,26 @@ class Login extends React.Component<LoginAcceptedProps, {}> {
         <Form className="login" onSubmit={this.handleSubmit}>
           <FormGroup>
             <div className="input-group mb-3">
-              <Input className="email" placeholder="Email" onChange={(e) => this.props.setEmail(e.target.value)} name="email" value={this.props.email} />
+              <Input
+                className="email"
+                name="email"
+                placeholder="Email"
+                onChange={(e) =>
+                  this.props.setEmail(e.target.value)}
+                value={this.props.email} />
               {/* <div className="input-group-append">
                 <span className="input-group-text" id="basic-addon2">@example.com</span>
               </div> */}
             </div>
           </FormGroup>
           <FormGroup>
-            <Input className="password" placeholder="Password" onChange={(e) => this.props.setPassword(e.target.value)} name="password" value={this.props.password} />
+            <Input
+              className="password"
+              name="password"
+              placeholder="Password"
+              onChange={(e) =>
+                this.props.setPassword(e.target.value)}
+              value={this.props.password} />
           </FormGroup>
           <Button type="submit">Login</Button>
         </Form>

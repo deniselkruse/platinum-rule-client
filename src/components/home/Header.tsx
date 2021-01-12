@@ -21,6 +21,9 @@ class Header extends React.Component<{}, HeaderStates> {
         window.location.href = `localhost:3000`;
     };
 
+    
+
+
     render() {
         return (
             <div>
@@ -30,7 +33,7 @@ class Header extends React.Component<{}, HeaderStates> {
                         <Collapse isOpen={this.state.isOpen} navbar>
                             <Nav navbar>
                                 <NavItem>
-                                    <NavLink href="/">Home</NavLink>
+                                    <NavLink href="/" >Home</NavLink>
                                 </NavItem>
                                 <NavItem>
                                     <NavLink href="">Link</NavLink>

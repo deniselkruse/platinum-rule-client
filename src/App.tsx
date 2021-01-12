@@ -5,8 +5,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 import Header from './components/home/Header';
 import Home from './components/home/Home';
-import Auth from './components/auth/Auth';
-
+import Routers from './components/home/Routers';
 
 type AppStates = {
   email: string;
@@ -104,6 +103,7 @@ class App extends React.Component<{}, AppStates> {
           <Header />
           <Home />
           {/* {this.protectedViews()} */}
+          <Routers />
         </div>
       </div>
     );
