@@ -1,32 +1,25 @@
-import React, { Component } from 'react';
-import { Form } from 'reactstrap';
+import React, { Component } from "react";
+import { Form, FormGroup, Input, Button } from 'reactstrap';
 
-type AcceptedProps = {
-  firstName: string;
-  lastName: string;
-  username: string;
-  zipCode: number;
+type LoginAcceptedProps = {
   email: string;
   password: string;
-  updateToken: any;
   sessionToken: any;
+  setEmail: (e: any) => any;
+  setPassword: (e: any) => any;
 }
 
-class Login extends React.Component<AcceptedProps, {}> {
-  constructor(props: AcceptedProps) {
+class Login extends React.Component<LoginAcceptedProps, {}> {
+  constructor(props: LoginAcceptedProps) {
     super(props)
   }
 
   handleSubmit = (event: any) => {
     event.preventDefault();
-    fetch(`http://localhost:3000/user/login`, {
+    fetch(`/user/login`, {
       method: 'POST',
       body: JSON.stringify({
         user: {
-          firstName: this.props.firstName,
-          lastName: this.props.lastName,
-          username: this.props.username,
-          zipCode: this.props.zipCode,
           email: this.props.email,
           password: this.props.password
         }
@@ -44,58 +37,29 @@ class Login extends React.Component<AcceptedProps, {}> {
         return response.json();
       })
       .then((data) => {
-        if (data.sessionToken)
-          this.props.updateToken(data.sessionToken);
+        // if (data.sessionToken)
+          // this.props.updateToken(data.sessionToken);
       })
   }
 
-
   render() {
     return (
-      <div className="container">
-        <div className="d-flex justify-content-center h-100">
-          <div className="card">
-            <div className="card-header">
-              <h3>Sign In</h3>
-              <div className="d-flex justify-content-end social_icon">
-                <span><i className="fab fa-facebook-square"></i></span>
-                <span><i className="fab fa-google-plus-square"></i></span>
-                <span><i className="fab fa-twitter-square"></i></span>
-              </div>
+      <div>
+        <h4 className="loginHeader">Login</h4>
+        <Form className="login" onSubmit={this.handleSubmit}>
+          <FormGroup>
+            <div className="input-group mb-3">
+              <Input className="email" placeholder="Email" onChange={(e) => this.props.setEmail(e.target.value)} name="email" value={this.props.email} />
+              {/* <div className="input-group-append">
+                <span className="input-group-text" id="basic-addon2">@example.com</span>
+              </div> */}
             </div>
-            <div className="card-body">
-              <Form>
-                <div className="input-group form-group">
-                  <div className="input-group-prepend">
-                    <span className="input-group-text"><i className="fas fa-user"></i></span>
-                  </div>
-                  <input type="text" className="form-control" placeholder="username">
-                  </input>
-                </div>
-                <div className="input-group form-group">
-                  <div className="input-group-prepend">
-                    <span className="input-group-text"><i className="fas fa-key"></i></span>
-                  </div>
-                  <input type="password" className="form-control" placeholder="password"></input>
-                </div>
-                <div className="row align-items-center remember">
-                  <input type="checkbox">Remember Me</input>
-                </div>
-                <div className="form-group">
-                  <input type="submit" value="Login" className="btn float-right login_btn"></input>
-                </div>
-              </Form>
-            </div>
-            <div className="card-footer">
-              <div className="d-flex justify-content-center links">
-                Don't have an account?<a href="#">Sign Up</a>
-              </div>
-              <div className="d-flex justify-content-center">
-                <a href="#">Forgot your password?</a>
-              </div>
-            </div>
-          </div>
-        </div>
+          </FormGroup>
+          <FormGroup>
+            <Input className="password" placeholder="Password" onChange={(e) => this.props.setPassword(e.target.value)} name="password" value={this.props.password} />
+          </FormGroup>
+          <Button type="submit">Login</Button>
+        </Form>
       </div>
     );
   }
