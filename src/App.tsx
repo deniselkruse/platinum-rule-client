@@ -1,11 +1,12 @@
 import { render } from '@testing-library/react';
 import React, { Component } from 'react';
 import './App.css';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Header from './components/home/Header';
+import Footer from './components/home/Footer';
 import Home from './components/home/Home';
-import Routers from './components/home/Routers';
+import Auth from './components/auth/Auth';
 
 type AppStates = {
   email: string;
@@ -91,19 +92,26 @@ class App extends React.Component<{}, AppStates> {
     this.setState({ sessionToken: '' });
   };
 
-  // protectedViews = () => {
-  //   return (sessionToken === localStorage.getItem('token')) ? <Router><Home sessionToken={this.sessionToken} /></Router>
-  //     : <Auth updateToken={this.updateToken} />
-  // }
+
 
   render() {
     return (
       <div className="App">
         <div className="verticalCenter">
           <Header />
-          <Home />
-          {/* {this.protectedViews()} */}
-          <Routers />
+
+          <Router>
+            <Switch>
+              <Route exact path="/">
+                <Home />
+              </Route>
+              <Route>
+                <Auth />
+              </Route>
+            </Switch>
+          </Router>
+
+          <Footer />
         </div>
       </div>
     );

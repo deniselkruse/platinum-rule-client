@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Container, Row, Col } from 'reactstrap';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Login from './Login';
 import Register from './Register';
@@ -12,6 +13,8 @@ type AuthStates = {
   username: string;
   zipCode: number;
   sessionToken: any;
+  updateToken: any;
+  getToken: any;
   setEmail: (e: any) => any;
   setPassword: (e: any) => any;
   setFirstName: (e: any) => any;
@@ -21,7 +24,7 @@ type AuthStates = {
 }
 
 class Auth extends React.Component<{}, AuthStates> {
-  constructor(props: any){
+  constructor(props: any) {
     super(props)
     this.state = {
       email: "",
@@ -31,6 +34,8 @@ class Auth extends React.Component<{}, AuthStates> {
       username: "",
       zipCode: 0,
       sessionToken: "",
+      getToken: "",
+      updateToken: "",
       setEmail: (e) => {
         this.setState({
           email: e
@@ -63,40 +68,55 @@ class Auth extends React.Component<{}, AuthStates> {
       }
     }
   }
-    render() {
-      return (
-        <Container className="auth-container">
-            <Row>
-                <Col md="6" className="login-col">
-                    <br />
-                   {/* <Login 
-                   email={this.state.email} 
-                   password={this.state.password} 
-                   setEmail={this.state.setEmail} 
-                   setPassword={this.state.setPassword} 
-                   sessionToken={this.state.sessionToken}/> */}
-                </Col>
-                <Col md="6">
-                    <br />
-                    {/* <Register 
-                    firstName={this.state.firstName} 
-                    lastName={this.state.lastName} 
+  render() {
+    return (
+      <Container className="auth-container">
+        <Row>
+          <Col md="6" className="login-col">
+            <br />
+            <Router>
+              <Switch>
+                <Route exact path="/user/login">
+                  <Login
+                    email={this.state.email}
+                    password={this.state.password}
+                    setEmail={this.state.setEmail}
+                    setPassword={this.state.setPassword}
+                    sessionToken={this.state.sessionToken}
+                    getToken={this.state.getToken}
+                    updateToken={this.state.updateToken} />
+                </Route>
+              </Switch>
+            </Router>
+          </Col>
+          <Col md="6">
+            <br />
+            <Router>
+              <Switch>
+                <Route exact path="/user/register">
+                  <Register
+                    firstName={this.state.firstName}
+                    lastName={this.state.lastName}
                     email={this.state.email}
                     username={this.state.username}
                     zipCode={this.state.zipCode}
                     password={this.state.password}
-                    setEmail={this.state.setEmail} 
+                    setEmail={this.state.setEmail}
                     setPassword={this.state.setPassword}
                     setFirstName={this.state.setFirstName}
                     setLastName={this.state.setLastName}
                     setUsername={this.state.setUsername}
                     setZipCode={this.state.setZipCode}
-                    sessionToken={this.state.sessionToken}/> */}
-                </Col>
-            </Row>
-        </Container>
-      );
-    }
+                    sessionToken={this.state.sessionToken}
+                    updateToken={this.state.updateToken} />
+                </Route>
+              </Switch>
+            </Router>
+          </Col>
+        </Row>
+      </Container>
+    );
+  }
 }
 
 export default Auth;

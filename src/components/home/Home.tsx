@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
 import { Button, Container, Row } from 'reactstrap';
 
 import DoorsImages from '../home/DoorsImages';
@@ -8,8 +7,8 @@ class Home extends React.Component {
   render() {
     return (
       <div>
-        <Container>
-          <Row className="platinum">
+        <Container className="platinum">
+          <Row>
             <br />
             <h1 className="welcome">WELCOME TO
           <br></br>
@@ -19,11 +18,12 @@ class Home extends React.Component {
             for neighbors.</h2>
             <br />
           </Row>
+
+          <Row className="dustyBlue">
+            <br />
+            <br />
+          </Row>
         </Container>
-        <Row className="dustyBlue">
-          <br />
-          <br />
-        </Row>
         <DoorsImages />
         <Row className="dustyBlue">
           <br />
