@@ -7,6 +7,8 @@ import Header from './components/home/Header';
 import Footer from './components/home/Footer';
 import Home from './components/home/Home';
 import Auth from './components/auth/Auth';
+import Menu from './components/home/Menu';
+
 
 type AppStates = {
   email: string;
@@ -24,15 +26,15 @@ type AppStates = {
   setZipCode: (e: any) => any;
 }
 
-type AppProps = {
-  updateToken: any;
-  getToken: any;
-  clearToken: any;
-  sessionToken: any;
-}
+// type AppProps = {
+//   updateToken: any;
+//   getToken: any;
+//   clearToken: any;
+//   sessionToken: any;
+// }
 
 class App extends React.Component<{}, AppStates> {
-  constructor(props: AppProps) {
+  constructor(props: any) {
     super(props);
     this.state = {
       email: "",
@@ -105,8 +107,11 @@ class App extends React.Component<{}, AppStates> {
               <Route exact path="/">
                 <Home />
               </Route>
-              <Route>
-                <Auth />
+              <Route path="/user">
+                <Auth updateToken={this.updateToken} />
+              </Route>
+              <Route path='/menu'>
+                <Menu />
               </Route>
             </Switch>
           </Router>

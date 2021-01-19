@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Form, FormGroup, Input, Button } from 'reactstrap';
+import {Redirect} from 'react-router-dom';
+
 
 type LoginAcceptedProps = {
   email: string;
@@ -11,24 +13,23 @@ type LoginAcceptedProps = {
   getToken: any;
 }
 
-class Login extends React.Component<LoginAcceptedProps, {}> {
+class Login extends React.Component<LoginAcceptedProps, {redirect: null | string}> {
   constructor(props: LoginAcceptedProps) {
     super(props)
+    this.state = {
+      redirect: null
+    }
   }
 
-  // loginToggle = () => {
-  //   this.setState(!this.login)
-  // }
-
-  updateToken = (newToken: any) => {
-    localStorage.setItem('token', newToken);
-    this.setState({ sessionToken: newToken });
-    console.log(newToken);
-  };
+  // updateToken = (newToken: any) => {
+  //   localStorage.setItem('token', newToken);
+  //   this.setState({ sessionToken: newToken });
+  //   console.log(newToken);
+  // };
 
   handleSubmit = (event: any) => {
     event.preventDefault();
-    fetch(`http://localhost:3000/user/${'login' ? 'login' : 'register'}`, {
+    fetch(`http://localhost:3000/user/login`, {
       method: 'POST',
       body: JSON.stringify({
         user: {
@@ -49,11 +50,15 @@ class Login extends React.Component<LoginAcceptedProps, {}> {
         return response.json();
       })
       .then((data) => {
-        this.updateToken(data.sessionToken);
+        this.props.updateToken(data.sessionToken);
+        this.setState({redirect: '/menu'})
       })
   }
 
   render() {
+    if (this.state.redirect){
+      return <Redirect to = {this.state.redirect} />
+    }
     return (
       <div>
         <h4 className="loginHeader">Login</h4>
@@ -88,4 +93,4 @@ class Login extends React.Component<LoginAcceptedProps, {}> {
   }
 }
 
-export default Login;
+export default (Login);

@@ -57,7 +57,6 @@ class Register extends React.Component<RegisterAcceptedProps, {}> {
           <FormGroup>
             <Input
               className="firstName"
-              name="firstName"
               placeholder="First Name"
               onChange={(e) =>
                 this.props.setFirstName(e.target.value)}
@@ -66,15 +65,14 @@ class Register extends React.Component<RegisterAcceptedProps, {}> {
           <FormGroup>
             <Input
               className="lastName"
-              name="lastName"
               placeholder="Last Name"
-              onChange={(e) => this.props.setLastName(e.target.value)}
+              onChange={(e) =>
+                this.props.setLastName(e.target.value)}
               value={this.props.lastName} />
           </FormGroup>
           <FormGroup>
             <Input
               className="username"
-              name="username"
               placeholder="Username"
               onChange={(e) =>
                 this.props.setUsername(e.target.value)}
@@ -83,7 +81,6 @@ class Register extends React.Component<RegisterAcceptedProps, {}> {
           <FormGroup>
             <Input
               className="zipCode"
-              name="zipCode"
               placeholder="Zip Code"
               onChange={(e) =>
                 this.props.setZipCode(e.target.value)}
@@ -92,7 +89,6 @@ class Register extends React.Component<RegisterAcceptedProps, {}> {
           <FormGroup>
             <Input
               className="email"
-              name="email"
               placeholder="Email"
               onChange={(e) =>
                 this.props.setEmail(e.target.value)}
@@ -101,7 +97,6 @@ class Register extends React.Component<RegisterAcceptedProps, {}> {
           <FormGroup>
             <Input
               className="password"
-              name="password"
               placeholder="Password"
               onChange={(e) =>
                 this.props.setPassword(e.target.value)}

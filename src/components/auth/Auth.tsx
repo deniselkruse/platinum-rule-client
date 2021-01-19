@@ -23,7 +23,7 @@ type AuthStates = {
   setZipCode: (e: any) => any;
 }
 
-class Auth extends React.Component<{}, AuthStates> {
+class Auth extends React.Component<{updateToken: any}, AuthStates> {
   constructor(props: any) {
     super(props)
     this.state = {
@@ -72,9 +72,8 @@ class Auth extends React.Component<{}, AuthStates> {
     return (
       <Container className="auth-container">
         <Row>
-          <Col md="6" className="login-col">
-            <br />
-            <Router>
+          <Col md="6">
+            {/* <Router> */}
               <Switch>
                 <Route exact path="/user/login">
                   <Login
@@ -84,15 +83,14 @@ class Auth extends React.Component<{}, AuthStates> {
                     setPassword={this.state.setPassword}
                     sessionToken={this.state.sessionToken}
                     getToken={this.state.getToken}
-                    updateToken={this.state.updateToken} />
+                    updateToken={this.props.updateToken} />
                 </Route>
-              </Switch>
-            </Router>
-          </Col>
-          <Col md="6">
-            <br />
-            <Router>
-              <Switch>
+              {/* </Switch> */}
+            {/* </Router> */}
+          {/* </Col> */}
+          {/* <Col md="6"> */}
+            {/* <Router> */}
+              {/* <Switch> */}
                 <Route exact path="/user/register">
                   <Register
                     firstName={this.state.firstName}
@@ -111,7 +109,7 @@ class Auth extends React.Component<{}, AuthStates> {
                     updateToken={this.state.updateToken} />
                 </Route>
               </Switch>
-            </Router>
+            {/* </Router> */}
           </Col>
         </Row>
       </Container>
