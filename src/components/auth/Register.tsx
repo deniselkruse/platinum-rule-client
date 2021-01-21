@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Form, FormGroup, Input, Button } from 'reactstrap';
+import {Redirect} from 'react-router-dom';
 
 type RegisterAcceptedProps = {
   email: string;
@@ -14,14 +15,18 @@ type RegisterAcceptedProps = {
   setLastName: (e: any) => any;
   setUsername: (e: any) => any;
   setZipCode: (e: any) => any;
-  updateToken: any;
   sessionToken: any;
+  updateToken: any;
+  getToken: any;
 }
 
 
-class Register extends React.Component<RegisterAcceptedProps, {}> {
+class Register extends React.Component<RegisterAcceptedProps, {redirect: null | string}> {
   constructor(props: RegisterAcceptedProps) {
     super(props)
+    this.state = {
+      redirect: null
+    }
   }
 
   handleSubmit = (event: any) => {
@@ -42,14 +47,25 @@ class Register extends React.Component<RegisterAcceptedProps, {}> {
         'Content-Type': 'application/json'
       })
     })
-      .then((res) => res.json())
+      .then((response) => {
+        if (response.status === 200) {
+          console.log("Registration successful.");
+        } else {
+          console.log("Registration failed.");
+        }
+        return response.json();
+      })
       .then((data) => {
-        this.props.updateToken(data.sessionToken)
+        this.props.updateToken(data.sessionToken);
+        this.setState({redirect: '/menu'})
       })
   }
 
 
   render() {
+    if (this.state.redirect){
+      return <Redirect to = {this.state.redirect} />
+    }
     return (
       <Container>
         <h4 className="registerHeader">Register</h4>

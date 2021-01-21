@@ -21,12 +21,6 @@ class Login extends React.Component<LoginAcceptedProps, {redirect: null | string
     }
   }
 
-  // updateToken = (newToken: any) => {
-  //   localStorage.setItem('token', newToken);
-  //   this.setState({ sessionToken: newToken });
-  //   console.log(newToken);
-  // };
-
   handleSubmit = (event: any) => {
     event.preventDefault();
     fetch(`http://localhost:3000/user/login`, {
@@ -72,9 +66,6 @@ class Login extends React.Component<LoginAcceptedProps, {redirect: null | string
                 onChange={(e) =>
                   this.props.setEmail(e.target.value)}
                 value={this.props.email} />
-              {/* <div className="input-group-append">
-                <span className="input-group-text" id="basic-addon2">@example.com</span>
-              </div> */}
             </div>
           </FormGroup>
           <FormGroup>

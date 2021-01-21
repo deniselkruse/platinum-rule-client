@@ -1,15 +1,16 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 class EditHelpPost extends React.Component {
 
 
-    render(){
-        return(
+    render() {
+        return (
             <div>
 
             </div>
-        )
+        );
     }
 }
+
 
 export default EditHelpPost;

@@ -22,8 +22,7 @@ type HelpProps = {
     setInstances: (e: any) => any;
     setDate: (e: any) => any;
     setInactiveDate: (e: any) => any;
-    updateToken: any;
-    sessionToken: any;
+    sessionToken?: any;
 }
 
 type HelpState = {
@@ -37,8 +36,6 @@ type HelpState = {
     instances: number;
     date: any;
     inactiveDate: any;
-    updateToken: any;
-    sessionToken: any;
 }
 
 class CreateHelpPost extends React.Component<HelpProps, HelpState> {
@@ -55,8 +52,6 @@ class CreateHelpPost extends React.Component<HelpProps, HelpState> {
             instances: 0,
             date: " ",
             inactiveDate: " ",
-            updateToken: "",
-            sessionToken: "",
         }
     }
 
@@ -84,9 +79,19 @@ class CreateHelpPost extends React.Component<HelpProps, HelpState> {
                 'Authorization': this.props.sessionToken
             })
         })
-            .then((res) => res.json())
+            .then((response) => response.json())
             .then((data) => {
-                this.props.updateToken(data.sessionToken)
+                console.log(data);
+                this.props.setUsername('');
+                this.props.setFirstName('');
+                this.props.setLastInitial('');
+                this.props.setOwner('');
+                this.props.setTitle('');
+                this.props.setDescription('');
+                this.props.setAvailability('');
+                this.props.setInstances('');
+                this.props.setDate('');
+                this.props.setInactiveDate('');
             })
     }
 
@@ -104,7 +109,7 @@ class CreateHelpPost extends React.Component<HelpProps, HelpState> {
                             className="helpTitle"
                             type="select"
                             onChange={(e) => { this.setState({ title: e.target.value }) }}
-                            value={this.props.title}>
+                            value={this.state.title}>
                             <option value=""></option>
                             <option value="Rake Leaves">Rake Leaves</option>
                             <option value="Shovel Snow">Shovel Snow</option>
@@ -118,16 +123,16 @@ class CreateHelpPost extends React.Component<HelpProps, HelpState> {
                             className="helpDescription"
                             type="textarea"
                             onChange={(e) => { this.setState({ description: e.target.value }) }}
-                            value={this.props.description}>
+                            value={this.state.description}>
                         </Input>
                         <Label htmlFor="description" className="helpDescription">Description</Label>
                     </FormGroup>
                     <FormGroup>
                         <Input
                             className="instances"
-                            type="checkbox" 
-                            onChange={(e) => {this.setState({ instances: 0}) }}
-                            value={this.props.instances}/>
+                            type="checkbox"
+                            onChange={(e) => { this.setState({ instances: 0 }) }}
+                            value={this.state.instances} />
                         <Label htmlFor="instances" className="instances">Instances</Label>
                     </FormGroup>
                     <FormGroup>
@@ -139,7 +144,7 @@ class CreateHelpPost extends React.Component<HelpProps, HelpState> {
                     <FormGroup>
 
                     </FormGroup>
-                    <Button type="submit">Submit Helper Post</Button>
+                    <Button type="submit">Submit Services Post</Button>
                 </Form>
             </Container>
         );

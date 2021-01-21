@@ -14,9 +14,6 @@ import doors9 from '../../assets/doors9.jpg';
 import doors10 from '../../assets/doors10.jpg';
 
 class DoorsImages extends React.Component {
-    constructor(props: any) {
-        super(props);
-    }
 
     render() {
         return (
@@ -32,16 +29,16 @@ class DoorsImages extends React.Component {
                 ]}
                 animationSpeed={500}
             >
-                <img src={doors1} className='doors' width='100%'/>
-                <img src={doors2} className='doors' width='100%'/>
-                <img src={doors3} className='doors' width='100%'/>
-                <img src={doors4} className='doors' width='100%'/>
-                <img src={doors5} className='doors' width='100%'/>
-                <img src={doors6} className='doors' width='100%'/>
-                <img src={doors7} className='doors' width='100%'/>
-                <img src={doors8} className='doors' width='100%'/>
-                <img src={doors9} className='doors' width='100%'/>
-                <img src={doors10} className='doors' width='100%'/>
+                <img src={doors1} className='doors' width='100%' alt=''/>
+                <img src={doors2} className='doors' width='100%' alt=''/>
+                <img src={doors3} className='doors' width='100%' alt=''/>
+                <img src={doors4} className='doors' width='100%' alt=''/>
+                <img src={doors5} className='doors' width='100%' alt=''/>
+                <img src={doors6} className='doors' width='100%' alt=''/>
+                <img src={doors7} className='doors' width='100%' alt=''/>
+                <img src={doors8} className='doors' width='100%' alt=''/>
+                <img src={doors9} className='doors' width='100%' alt=''/>
+                <img src={doors10} className='doors' width='100%' alt=''/>
             </Carousel>
         )
     }
