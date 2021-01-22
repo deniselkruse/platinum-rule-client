@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import { Button } from 'reactstrap';
 
 import CreateHelpPost from '../volunteers/CreateHelpPost';
+import CreateRequestPost from '../recipients/CreateRequestPost';
 import ViewHelpPosts from '../volunteers/ViewHelpPosts';
 
 type postProps = {
@@ -108,12 +109,18 @@ class Menu extends React.Component<postProps, postStates> {
       <div>
         <Switch>
           <Route exact path='/menu'>
-            <Button href='/menu/create'>Create Service Post</Button>
+            <Button href='/volunteer/create'>Create Service Post</Button>
             <br></br>
             <br></br>
-            <Button href='/menu/posts'>View Service Posts</Button>
+            <Button href='/volunteer/posts'>View Service Posts</Button>
+            <br></br>
+            <br></br>
+            <Button href='/request/create'>Create Request Post</Button>
+            <br></br>
+            <br></br>
+            <Button href='/request/posts'>Create Request Post</Button>
           </Route>
-          <Route path="/menu/create">
+          <Route path='/volunteer/create'>
             <CreateHelpPost
               username={this.state.username}
               firstName={this.state.firstName}
@@ -135,13 +142,44 @@ class Menu extends React.Component<postProps, postStates> {
               setInstances={this.state.setInstances}
               setDate={this.state.setDate}
               setInactiveDate={this.state.setInactiveDate}
-              sessionToken={this.props.sessionToken} 
+              sessionToken={this.props.sessionToken}
             />
           </Route>
 
-          <Route path="/menu/posts">
+          <Route path='/menu/posts'>
             <ViewHelpPosts />
           </Route>
+
+          <Route path='/menu/request/create'>
+            <CreateRequestPost
+              username={this.state.username}
+              firstName={this.state.firstName}
+              lastInitial={this.state.lastInitial}
+              owner={this.state.owner}
+              title={this.state.title}
+              description={this.state.description}
+              availability={this.state.availability}
+              instances={this.state.instances}
+              date={this.state.date}
+              inactiveDate={this.state.inactiveDate}
+              setUsername={this.state.setUsername}
+              setFirstName={this.state.setFirstName}
+              setLastInitial={this.state.setLastInitial}
+              setOwner={this.state.setOwner}
+              setTitle={this.state.setTitle}
+              setDescription={this.state.setDescription}
+              setAvailability={this.state.setAvailability}
+              setInstances={this.state.setInstances}
+              setDate={this.state.setDate}
+              setInactiveDate={this.state.setInactiveDate}
+              sessionToken={this.props.sessionToken}
+            />
+          </Route>
+
+          <Route path='/request/posts'>
+            <ViewHelpPosts />
+          </Route>
+
         </Switch>
       </div>
 

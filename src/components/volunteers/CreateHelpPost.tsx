@@ -96,7 +96,6 @@ class CreateHelpPost extends React.Component<HelpProps, HelpState> {
     }
 
     render() {
-
         return (
             <Container>
                 <h4 className="registerHeader">New Helper Post</h4>

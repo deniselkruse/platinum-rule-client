@@ -25,7 +25,7 @@ class App extends React.Component<{}, AppStates> {
   getToken = () => {
     if (localStorage.getItem('token')) {
       this.setState({ sessionToken: localStorage.getItem('token') });
-    } 
+    }
   }
 
   updateToken = (newToken: any) => {
@@ -56,7 +56,7 @@ class App extends React.Component<{}, AppStates> {
                 <Auth updateToken={this.updateToken} />
               </Route>
               <Route path='/menu'>
-                <Menu sessionToken={this.state.sessionToken}/>
+                <Menu sessionToken={this.state.sessionToken} />
               </Route>
             </Switch>
           </Router>
