@@ -68,6 +68,8 @@ class Auth extends React.Component<{ updateToken: any }, AuthStates> {
       }
     }
   }
+
+  
   render() {
     return (
       <Container className="auth-container">

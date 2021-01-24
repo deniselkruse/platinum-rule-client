@@ -39,7 +39,9 @@ class App extends React.Component<{}, AppStates> {
     this.setState({ sessionToken: '' });
   };
 
-
+  componentDidMount(){
+    this.getToken()
+  }
 
   render() {
     return (

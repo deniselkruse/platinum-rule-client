@@ -2,20 +2,12 @@ import React, { Component } from 'react';
 import { Button, Container, Form, FormGroup, Input, Label } from 'reactstrap';
 
 type RequestProps = {
-    username: string;
-    firstName: string;
-    lastInitial: string;
-    owner: string;
     title: string;
     description: string;
-    availability: boolean;
+    availability: string;
     instances: number;
-    date: Date;
-    inactiveDate: Date;
-    setUsername: (e: any) => any;
-    setFirstName: (e: any) => any;
-    setLastInitial: (e: any) => any;
-    setOwner: (e: any) => any;
+    date: string;
+    inactiveDate: string;
     setTitle: (e: any) => any;
     setDescription: (e: any) => any;
     setAvailability: (e: any) => any;
@@ -26,13 +18,9 @@ type RequestProps = {
 }
 
 type RequestState = {
-    username: string;
-    firstName: string;
-    lastInitial: string;
-    owner: string;
     title: string;
     description: string;
-    availability: boolean;
+    availability: string;
     instances: number;
     date: any;
     inactiveDate: any;
@@ -43,13 +31,9 @@ class CreateRequestPost extends React.Component<RequestProps, RequestState> {
     constructor(props: RequestProps) {
         super(props);
         this.state = {
-            username: "",
-            firstName: "",
-            lastInitial: "",
-            owner: "",
             title: "",
             description: "",
-            availability: false,
+            availability: "",
             instances: 0,
             date: " ",
             inactiveDate: " ",
@@ -61,11 +45,7 @@ class CreateRequestPost extends React.Component<RequestProps, RequestState> {
         fetch(`http://localhost:3000/recipient/create`, {
             method: 'POST',
             body: JSON.stringify({
-                help: {
-                    username: this.props.username, // Auto populate
-                    firstName: this.props.firstName, // Auto populate
-                    lastInitial: this.props.lastInitial, // Auto populate; add code to grab first initial from last name
-                    owner: this.props.owner, // Auto populate
+                recipient: {
                     title: this.props.title, // Dropdown menu
                     description: this.props.description,
                     availability: this.props.availability, // Check boxes
@@ -82,10 +62,6 @@ class CreateRequestPost extends React.Component<RequestProps, RequestState> {
             .then((response) => response.json())
             .then((data) => {
                 console.log(data);
-                this.props.setUsername('');
-                this.props.setFirstName('');
-                this.props.setLastInitial('');
-                this.props.setOwner('');
                 this.props.setTitle('');
                 this.props.setDescription('');
                 this.props.setAvailability('');
@@ -100,9 +76,7 @@ class CreateRequestPost extends React.Component<RequestProps, RequestState> {
         return (
             <Container>
                 <h4 className='registerHeader'>New Request Post</h4>
-                <p>{this.props.username}</p>
-                <p>{this.props.firstName}</p>
-                <p>{this.props.lastInitial}</p>
+
                 <Form className='register' onSubmit={this.handleSubmit}>
                     <FormGroup>
                         <Input
@@ -144,8 +118,9 @@ class CreateRequestPost extends React.Component<RequestProps, RequestState> {
                     <FormGroup>
 
                     </FormGroup>
-                    <Button type="submit">Submit Services Post</Button>
+                    <Button type="submit">Submit Request Post</Button>
                 </Form>
+           
             </Container>
         )
     }

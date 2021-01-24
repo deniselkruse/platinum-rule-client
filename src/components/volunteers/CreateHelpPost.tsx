@@ -2,20 +2,12 @@ import React, { Component } from 'react';
 import { Button, Container, Form, FormGroup, Input, Label } from 'reactstrap';
 
 type HelpProps = {
-    username: string;
-    firstName: string;
-    lastInitial: string;
-    owner: string;
     title: string;
     description: string;
-    availability: boolean;
+    availability: string;
     instances: number;
-    date: Date;
-    inactiveDate: Date;
-    setUsername: (e: any) => any;
-    setFirstName: (e: any) => any;
-    setLastInitial: (e: any) => any;
-    setOwner: (e: any) => any;
+    date: string;
+    inactiveDate: string;
     setTitle: (e: any) => any;
     setDescription: (e: any) => any;
     setAvailability: (e: any) => any;
@@ -26,13 +18,9 @@ type HelpProps = {
 }
 
 type HelpState = {
-    username: string;
-    firstName: string;
-    lastInitial: string;
-    owner: string;
     title: string;
     description: string;
-    availability: boolean;
+    availability: string;
     instances: number;
     date: any;
     inactiveDate: any;
@@ -42,19 +30,14 @@ class CreateHelpPost extends React.Component<HelpProps, HelpState> {
     constructor(props: HelpProps) {
         super(props);
         this.state = {
-            username: "",
-            firstName: "",
-            lastInitial: "",
-            owner: "",
             title: "",
             description: "",
-            availability: false,
+            availability: "",
             instances: 0,
-            date: " ",
-            inactiveDate: " ",
+            date: "",
+            inactiveDate: "",
         }
     }
-
 
     handleSubmit = (event: any) => {
         event.preventDefault();
@@ -62,10 +45,6 @@ class CreateHelpPost extends React.Component<HelpProps, HelpState> {
             method: 'POST',
             body: JSON.stringify({
                 help: {
-                    username: this.props.username, // Auto populate
-                    firstName: this.props.firstName, // Auto populate
-                    lastInitial: this.props.lastInitial, // Auto populate; add code to grab first initial from last name
-                    owner: this.props.owner, // Auto populate
                     title: this.props.title, // Dropdown menu
                     description: this.props.description,
                     availability: this.props.availability, // Check boxes
@@ -82,10 +61,6 @@ class CreateHelpPost extends React.Component<HelpProps, HelpState> {
             .then((response) => response.json())
             .then((data) => {
                 console.log(data);
-                this.props.setUsername('');
-                this.props.setFirstName('');
-                this.props.setLastInitial('');
-                this.props.setOwner('');
                 this.props.setTitle('');
                 this.props.setDescription('');
                 this.props.setAvailability('');
@@ -99,9 +74,7 @@ class CreateHelpPost extends React.Component<HelpProps, HelpState> {
         return (
             <Container>
                 <h4 className="registerHeader">New Helper Post</h4>
-                <p>{this.props.username}</p>
-                <p>{this.props.firstName}</p>
-                <p>{this.props.lastInitial}</p>
+
                 <Form className="register" onSubmit={this.handleSubmit}>
                     <FormGroup>
                         <Input
@@ -129,7 +102,6 @@ class CreateHelpPost extends React.Component<HelpProps, HelpState> {
                     <FormGroup>
                         <Input
                             className="instances"
-                            type="checkbox"
                             onChange={(e) => { this.setState({ instances: 0 }) }}
                             value={this.state.instances} />
                         <Label htmlFor="instances" className="instances">Instances</Label>

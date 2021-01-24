@@ -45,7 +45,7 @@ class ViewHelpPosts extends React.Component<ViewHelpPostsProps, ViewHelpPostsSta
     render() {
         return (
             <div>
-                <p>This is the View Posts Page</p>
+                <p>This is the Volunteer Posts Page</p>
                 <div>
                     {this.state.helpPosts.length > 0 ? (this.state.helpPosts.map((event: any, index: any) => (
                         <Container key={this.state.helpPosts.id}>

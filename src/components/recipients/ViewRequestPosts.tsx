@@ -25,7 +25,7 @@ class ViewRequestPosts extends React.Component<ViewRequestPostsProps, ViewReques
     }
 
     fetchRequestPosts = () => {
-     fetch(`http://localhost:3000/help`, {
+     fetch(`http://localhost:3000/recipient`, {
             method: 'GET',
             headers: new Headers({
                 'Content-Type': 'application/json',
@@ -45,7 +45,7 @@ class ViewRequestPosts extends React.Component<ViewRequestPostsProps, ViewReques
     render() {
         return (
             <div>
-                <p>This is the View Posts Page</p>
+                <p>This is the Recipient Posts Page</p>
                 <div>
                     {this.state.requestPosts.length > 0 ? (this.state.requestPosts.map((event: any, index: any) => (
                         <Container key={this.state.requestPosts.id}>
