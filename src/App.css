@@ -23,6 +23,8 @@
 /* HOMEPAGE */
 
 .platinum {
+    display: block;
+    position: relative;
     text-align: center;
     background-color: #E5E5E5; 
     max-width: 100;
@@ -30,23 +32,41 @@
     padding-right: 1.1em;
 }
 
-.dustyBlue {
+.welcome {
+    display: block;
+    position: relative;
     text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    color: #525252;
+    font-size: 1.9em;
+}
+
+.helpful {
+    display: block;
+    position: relative;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    color: #525252;
+    font-size: 1.2em;
+}
+
+.dustyBlue {
     background-color: #D1DADC; 
     max-width: 100;
 }
 
-.welcome {
+
+/* SERVICE POSTS */
+
+.serviceCard {
+    display: inline-block;
+    position: relative;
     text-align: center;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
-    color: #525252;
-    font-size: 2em;
+    margin-bottom: 1.25em;
 }
 
-h2 {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
-    color: #525252;
-    font-size: 1.25em;
+ul {
+    list-style: none;
 }

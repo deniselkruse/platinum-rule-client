@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Button, Container, Form, FormGroup, Input, Label } from 'reactstrap';
 
+import Availability from '../forms/Availability';
+
 type HelpProps = {
     title: string;
     description: string;
@@ -65,7 +67,6 @@ class CreateHelpPost extends React.Component<HelpProps, HelpState> {
                 this.props.setDescription('');
                 this.props.setAvailability('');
                 this.props.setInstances('');
-                this.props.setDate('');
                 this.props.setInactiveDate('');
             })
     }
@@ -87,6 +88,8 @@ class CreateHelpPost extends React.Component<HelpProps, HelpState> {
                             <option value="Shovel Snow">Shovel Snow</option>
                             <option value="Take Out Trash">Take Out Trash</option>
                             <option value="Walk Dogs">Walk Dogs</option>
+                            <option value="Grocery Run">Grocery Run</option>
+                            <option value="Pharmacy Pickup">Pharmacy Pickup</option>
                         </Input>
                         <Label htmlFor="title" className="helpTitle"></Label>
                     </FormGroup>
@@ -99,6 +102,12 @@ class CreateHelpPost extends React.Component<HelpProps, HelpState> {
                         </Input>
                         <Label htmlFor="description" className="helpDescription">Description</Label>
                     </FormGroup>
+                    <FormGroup>
+                        <Label htmlFor="availability" className="availability">Availability</Label>
+                        <br />
+                        <Availability />
+                    </FormGroup>
+                    <br />
                     <FormGroup>
                         <Input
                             className="instances"

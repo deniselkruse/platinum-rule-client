@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Button } from 'reactstrap';
 
 import CreateHelpPost from '../volunteers/CreateHelpPost';
@@ -10,6 +10,8 @@ import ViewRequestPosts from '../recipients/ViewRequestPosts';
 
 type postProps = {
   sessionToken: any;
+  // clearToken: any;
+  // updateToken: any;
 }
 
 type postStates = {
@@ -25,8 +27,8 @@ type postStates = {
   setInstances: (e: any) => any;
   setDate: (e: any) => any;
   setInactiveDate: (e: any) => any;
-  updateToken: any;
-  sessionToken: any;
+  // updateToken: any;
+  // sessionToken: any;
 }
 
 class Menu extends React.Component<postProps, postStates> {
@@ -39,8 +41,8 @@ class Menu extends React.Component<postProps, postStates> {
       instances: 0,
       date: " ",
       inactiveDate: " ",
-      updateToken: "",
-      sessionToken: "",
+      // updateToken: "",
+      // sessionToken: "",
       setTitle: (e) => {
         this.setState({
           title: e
@@ -77,64 +79,68 @@ class Menu extends React.Component<postProps, postStates> {
   render() {
     return (
       <div>
-        <Switch>
+        <br />
+        <br />
+        <Router>
+          <Switch>
 
-          <Route exact path='/menu'>
-            <Button href='/menu/volunteer/create'>Create Service Post</Button>
-            <br></br>
-            <br></br>
-            <Button href='/menu/volunteer/posts'>View Service Posts</Button>
-            <br></br>
-            <br></br>
-            <Button href='/menu/request/create'>Create Request Post</Button>
-            <br></br>
-            <br></br>
-            <Button href='/menu/request/posts'>View Request Posts</Button>
-          </Route>
+            <Route exact path='/menu'>
+              <Button href='/menu/volunteer/create'>Create Service Post</Button>
+              <br></br>
+              <br></br>
+              <Button href='/menu/volunteer/posts'>View Service Posts</Button>
+              <br></br>
+              <br></br>
+              <Button href='/menu/request/create'>Create Request Post</Button>
+              <br></br>
+              <br></br>
+              <Button href='/menu/request/posts'>View Request Posts</Button>
+            </Route>
 
-          <Route path='/menu/volunteer/create'>
-            <CreateHelpPost
-              title={this.state.title}
-              description={this.state.description}
-              availability={this.state.availability}
-              instances={this.state.instances}
-              date={this.state.date}
-              inactiveDate={this.state.inactiveDate}
-              setTitle={this.state.setTitle}
-              setDescription={this.state.setDescription}
-              setAvailability={this.state.setAvailability}
-              setInstances={this.state.setInstances}
-              setDate={this.state.setDate}
-              setInactiveDate={this.state.setInactiveDate}
-              sessionToken={this.props.sessionToken}/>
-          </Route>
+            <Route path='/menu/volunteer/create'>
+              <CreateHelpPost
+                title={this.state.title}
+                description={this.state.description}
+                availability={this.state.availability}
+                instances={this.state.instances}
+                date={this.state.date}
+                inactiveDate={this.state.inactiveDate}
+                setTitle={this.state.setTitle}
+                setDescription={this.state.setDescription}
+                setAvailability={this.state.setAvailability}
+                setInstances={this.state.setInstances}
+                setDate={this.state.setDate}
+                setInactiveDate={this.state.setInactiveDate}
+                sessionToken={this.props.sessionToken} />
+            </Route>
 
-          <Route path='/menu/volunteer/posts'>
-            <ViewHelpPosts />
-          </Route>
+            <Route path='/menu/volunteer/posts'>
+              <ViewHelpPosts />
+            </Route>
 
-          <Route path='/menu/request/create'>
-            <CreateRequestPost
-              title={this.state.title}
-              description={this.state.description}
-              availability={this.state.availability}
-              instances={this.state.instances}
-              date={this.state.date}
-              inactiveDate={this.state.inactiveDate}
-              setTitle={this.state.setTitle}
-              setDescription={this.state.setDescription}
-              setAvailability={this.state.setAvailability}
-              setInstances={this.state.setInstances}
-              setDate={this.state.setDate}
-              setInactiveDate={this.state.setInactiveDate}
-              sessionToken={this.props.sessionToken}/>
-          </Route>
+            <Route path='/menu/request/create'>
+              <CreateRequestPost
+                title={this.state.title}
+                description={this.state.description}
+                availability={this.state.availability}
+                instances={this.state.instances}
+                date={this.state.date}
+                inactiveDate={this.state.inactiveDate}
+                setTitle={this.state.setTitle}
+                setDescription={this.state.setDescription}
+                setAvailability={this.state.setAvailability}
+                setInstances={this.state.setInstances}
+                setDate={this.state.setDate}
+                setInactiveDate={this.state.setInactiveDate}
+                sessionToken={this.props.sessionToken} />
+            </Route>
 
-          <Route path='/menu/request/posts'>
-            <ViewRequestPosts />
-          </Route>
+            <Route path='/menu/request/posts'>
+              <ViewRequestPosts />
+            </Route>
 
-        </Switch>
+          </Switch>
+        </Router>
       </div>
 
     )

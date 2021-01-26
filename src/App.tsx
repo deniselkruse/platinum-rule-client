@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Header from './components/home/Header';
 import Footer from './components/home/Footer';
-import Home from './components/home/Home';
+import HomePage from './components/home/HomePage';
 import Auth from './components/auth/Auth';
 import Menu from './components/home/Menu';
 
@@ -25,7 +25,13 @@ class App extends React.Component<{}, AppStates> {
   getToken = () => {
     if (localStorage.getItem('token')) {
       this.setState({ sessionToken: localStorage.getItem('token') });
+    } else {
+      console.log('Login required.')
     }
+  };
+
+  componentDidMount() {
+    this.getToken()
   }
 
   updateToken = (newToken: any) => {
@@ -37,34 +43,34 @@ class App extends React.Component<{}, AppStates> {
   clearToken = () => {
     localStorage.clear();
     this.setState({ sessionToken: '' });
+    console.log('Hello.')
   };
 
-  componentDidMount(){
-    this.getToken()
-  }
 
   render() {
     return (
-      <div className="App">
-        <div className="verticalCenter">
+      <div>
+
+        <Router>
           <Header clearToken={this.clearToken} />
+        
+  
+          <Switch>
 
-          <Router>
-            <Switch>
-              <Route exact path="/">
-                <Home />
+            {!this.state.sessionToken ?
+              <Route>
+                <HomePage updateToken={this.updateToken} />
               </Route>
-              <Route path="/user">
-                <Auth updateToken={this.updateToken} />
+              :
+              <Route> 
+              <Menu sessionToken={this.state.sessionToken} />
               </Route>
-              <Route path='/menu'>
-                <Menu sessionToken={this.state.sessionToken} />
-              </Route>
-            </Switch>
-          </Router>
+            }
 
-          <Footer />
-        </div>
+          </Switch>
+        </Router>
+
+        <Footer />
       </div>
     );
   }

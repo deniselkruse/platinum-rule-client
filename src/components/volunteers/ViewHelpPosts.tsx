@@ -48,16 +48,15 @@ class ViewHelpPosts extends React.Component<ViewHelpPostsProps, ViewHelpPostsSta
                 <p>This is the Volunteer Posts Page</p>
                 <div>
                     {this.state.helpPosts.length > 0 ? (this.state.helpPosts.map((event: any, index: any) => (
-                        <Container key={this.state.helpPosts.id}>
+                        <Container key={this.state.helpPosts.id} className="serviceCard">
                             <Card body inverse style={{ backgroundColor: '#CECECE', borderColor: '#525252', borderWidth: '.25em' }}>
                                 <CardHeader tag="h4">
                                     Service Available:
+                                    <br />
                                     {this.state.helpPosts[index].title}
                                 </CardHeader>
                                 <CardTitle>
-                                    Neighbor
-                                    {this.state.helpPosts[index].firstName}
-                                    {this.state.helpPosts[index].lastInitial}
+                                    {this.state.helpPosts[index].user.username}
                                 </CardTitle>
                                 <CardText>
                                     posted on

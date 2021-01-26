@@ -48,20 +48,20 @@ class ViewRequestPosts extends React.Component<ViewRequestPostsProps, ViewReques
                 <p>This is the Recipient Posts Page</p>
                 <div>
                     {this.state.requestPosts.length > 0 ? (this.state.requestPosts.map((event: any, index: any) => (
-                        <Container key={this.state.requestPosts.id}>
+                        <Container key={this.state.requestPosts.id} className="serviceCard">
                             <Card body inverse style={{ backgroundColor: '#CECECE', borderColor: '#525252', borderWidth: '.25em' }}>
                                 <CardHeader tag="h4">
                                     Service Available:
+                                    <br />
                                     {this.state.requestPosts[index].title}
                                 </CardHeader>
                                 <CardTitle>
-                                    Neighbor
-                                    {this.state.requestPosts[index].firstName}
-                                    {this.state.requestPosts[index].lastInitial}
+                                    {this.state.requestPosts[index].user.username}
                                 </CardTitle>
                                 <CardText>
-                                    posted on
-                                    {this.state.requestPosts[index].date}
+                                    posted on 
+                                    <br />
+                                    {this.state.requestPosts[index].createdAt}
                                 </CardText>
                                 <CardText>
                                     Description:
@@ -69,6 +69,7 @@ class ViewRequestPosts extends React.Component<ViewRequestPostsProps, ViewReques
                                 </CardText>
                                 <CardText >
                                     Availability:
+                                    <br />
                                     {this.state.requestPosts[index].availability}
                                 </CardText>
                                 <CardText >
@@ -78,6 +79,7 @@ class ViewRequestPosts extends React.Component<ViewRequestPostsProps, ViewReques
                                 <Button >Claim Service</Button>
                             </Card>
                         </Container>
+                        
                     ))
                     ) : (
                             <div>
