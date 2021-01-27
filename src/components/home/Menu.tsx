@@ -10,8 +10,6 @@ import ViewRequestPosts from '../recipients/ViewRequestPosts';
 
 type postProps = {
   sessionToken: any;
-  // clearToken: any;
-  // updateToken: any;
 }
 
 type postStates = {
@@ -27,8 +25,8 @@ type postStates = {
   setInstances: (e: any) => any;
   setDate: (e: any) => any;
   setInactiveDate: (e: any) => any;
-  // updateToken: any;
-  // sessionToken: any;
+  updateToken: any;
+  sessionToken: any;
 }
 
 class Menu extends React.Component<postProps, postStates> {
@@ -41,8 +39,8 @@ class Menu extends React.Component<postProps, postStates> {
       instances: 0,
       date: " ",
       inactiveDate: " ",
-      // updateToken: "",
-      // sessionToken: "",
+      updateToken: "",
+      sessionToken: "",
       setTitle: (e) => {
         this.setState({
           title: e

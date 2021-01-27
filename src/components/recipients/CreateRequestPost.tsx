@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { Button, Container, Form, FormGroup, Input, Label } from 'reactstrap';
+import { Redirect } from "react-router-dom";
+import { Button, Card, Container, Form, FormGroup, Input, Label } from 'reactstrap';
+
+import Availability from '../forms/Availability';
 
 type RequestProps = {
     title: string;
@@ -17,27 +20,19 @@ type RequestProps = {
     sessionToken?: any;
 }
 
-type RequestState = {
-    title: string;
-    description: string;
-    availability: string;
-    instances: number;
-    date: any;
-    inactiveDate: any;
-}
+// type RequestState = {
+//     title: string;
+//     description: string;
+//     availability: string;
+//     instances: number;
+//     date: any;
+//     inactiveDate: any;
+// }
 
 
-class CreateRequestPost extends React.Component<RequestProps, RequestState> {
+class CreateRequestPost extends React.Component<RequestProps, {}> {
     constructor(props: RequestProps) {
         super(props);
-        this.state = {
-            title: "",
-            description: "",
-            availability: "",
-            instances: 0,
-            date: " ",
-            inactiveDate: " ",
-        }
     }
 
     handleSubmit = (event: any) => {
@@ -46,11 +41,11 @@ class CreateRequestPost extends React.Component<RequestProps, RequestState> {
             method: 'POST',
             body: JSON.stringify({
                 recipient: {
-                    title: this.props.title, // Dropdown menu
+                    title: this.props.title, 
                     description: this.props.description,
-                    availability: this.props.availability, // Check boxes
+                    availability: this.props.availability, // Check boxes -- Why don't they work?!
                     instances: this.props.instances,
-                    date: this.props.date, // Auto populate
+                    date: this.props.date, // Auto populate -- Need to format!
                     inactiveDate: this.props.inactiveDate,
                 }
             }),
@@ -71,56 +66,81 @@ class CreateRequestPost extends React.Component<RequestProps, RequestState> {
             })
     }
 
+    componentDidMount() {
+        if (!this.props.sessionToken) {
+            return <Redirect to="/menu" />
+        } else {
+            return <Redirect to="/volunteer/create" />
+        }
+    }
 
     render() {
         return (
-            <Container>
-                <h4 className='registerHeader'>New Request Post</h4>
+            <Container className="postContainer">
+                <Card body inverse style={{ backgroundColor: '#CECECE', borderColor: '#525252', borderWidth: '.25em' }}>
+                    <h4 className='postHeader'>New Help Request Post</h4>
 
-                <Form className='register' onSubmit={this.handleSubmit}>
-                    <FormGroup>
-                        <Input
-                            className='helpTitle'
-                            type='select'
-                            onChange={(e) => { this.setState({ title: e.target.value }) }}
-                            value={this.state.title}>
-                            <option value=""></option>
-                            <option value="Rake Leaves">Rake Leaves</option>
-                            <option value="Shovel Snow">Shovel Snow</option>
-                            <option value="Take Out Trash">Take Out Trash</option>
-                            <option value="Walk Dogs">Walk Dogs</option>
-                        </Input>
-                        <Label htmlFor="title" className="helpTitle"></Label>
-                    </FormGroup>
-                    <FormGroup>
-                        <Input
-                            className="helpDescription"
-                            type="textarea"
-                            onChange={(e) => { this.setState({ description: e.target.value }) }}
-                            value={this.state.description}>
-                        </Input>
-                        <Label htmlFor="description" className="helpDescription">Description</Label>
-                    </FormGroup>
-                    <FormGroup>
-                        <Input
-                            className="instances"
-                            type="checkbox"
-                            onChange={(e) => { this.setState({ instances: 0 }) }}
-                            value={this.state.instances} />
-                        <Label htmlFor="instances" className="instances">Instances</Label>
-                    </FormGroup>
-                    <FormGroup>
+                    <Form className='postForm' onSubmit={this.handleSubmit}>
+                        <FormGroup>
+                            <Label
+                                htmlFor="helpTitle"
+                                className="helpTitle">
+                                Type of Help Available
+                        </Label>
+                            <Input
+                                className="helpTitle"
+                                type="select"
+                                onChange={(e) => { this.props.setTitle(e.target.value) }}
+                                value={this.props.title}>
+                                <option value="">Select One</option>
+                                <option value="Rake Leaves">Rake Leaves</option>
+                                <option value="Shovel Snow">Shovel Snow</option>
+                                <option value="Take Out Trash">Take Out Trash</option>
+                                <option value="Mow Lawn">Mow Lawn</option>
+                                <option value="Walk Dogs">Walk Dogs</option>
+                                <option value="Grocery Run">Grocery Run</option>
+                                <option value="Pharmacy Pickup">Pharmacy Pickup</option>
+                                <option value="Essential Errand">Essential Errand</option>
+                                <option value="Phone Check-ins">Phone Check-ins</option>
+                                <option value="Other">Other - Please list in description.</option>
+                            </Input>
+                        </FormGroup>
+                        <FormGroup>
+                            <Label
+                                htmlFor="description"
+                                className="helpDescription">
+                                Description
+                            </Label>
+                            <Input
+                                className="helpDescription"
+                                type="textarea"
+                                onChange={(e) => { this.props.setDescription(e.target.value) }}
+                                value={this.props.description}>
+                            </Input>
+                        </FormGroup>
+                        <FormGroup>
+                            <Label
+                                htmlFor="availability"
+                                className="availability">
+                                Availability
+                            </Label>
+                            <br />
+                            <Availability />
+                        </FormGroup>
+                        <FormGroup>
 
-                    </FormGroup>
-                    <FormGroup>
-
-                    </FormGroup>
-                    <FormGroup>
-
-                    </FormGroup>
-                    <Button type="submit">Submit Request Post</Button>
-                </Form>
-           
+                            <Label
+                                htmlFor="instances">
+                                Instances
+                                </Label>
+                            <Input
+                                id="instances"
+                                onChange={(e) => { this.props.setInstances(e.target.value) }}
+                                value={this.props.instances} />
+                        </FormGroup>
+                        <Button type="submit">Submit Request Post</Button>
+                    </Form>
+                </Card>
             </Container>
         )
     }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Container, Form, FormGroup, Input, Label } from 'reactstrap';
+import { Button, Card, Container, Form, FormGroup, Input, Label } from 'reactstrap';
 
 import Availability from '../forms/Availability';
 
@@ -19,26 +19,18 @@ type HelpProps = {
     sessionToken?: any;
 }
 
-type HelpState = {
-    title: string;
-    description: string;
-    availability: string;
-    instances: number;
-    date: any;
-    inactiveDate: any;
-}
+// type HelpState = {
+//     title: string;
+//     description: string;
+//     availability: string;
+//     instances: number;
+//     date: any;
+//     inactiveDate: any;
+// }
 
-class CreateHelpPost extends React.Component<HelpProps, HelpState> {
+class CreateHelpPost extends React.Component<HelpProps, {}> {
     constructor(props: HelpProps) {
         super(props);
-        this.state = {
-            title: "",
-            description: "",
-            availability: "",
-            instances: 0,
-            date: "",
-            inactiveDate: "",
-        }
     }
 
     handleSubmit = (event: any) => {
@@ -47,11 +39,11 @@ class CreateHelpPost extends React.Component<HelpProps, HelpState> {
             method: 'POST',
             body: JSON.stringify({
                 help: {
-                    title: this.props.title, // Dropdown menu
+                    title: this.props.title, 
                     description: this.props.description,
-                    availability: this.props.availability, // Check boxes
+                    availability: this.props.availability, // Why don't the checkboxes work?!
                     instances: this.props.instances,
-                    date: this.props.date, // Auto populate
+                    date: this.props.date, // Fix date formatting
                     inactiveDate: this.props.inactiveDate,
                 }
             }),
@@ -73,59 +65,72 @@ class CreateHelpPost extends React.Component<HelpProps, HelpState> {
 
     render() {
         return (
-            <Container>
-                <h4 className="registerHeader">New Helper Post</h4>
-
-                <Form className="register" onSubmit={this.handleSubmit}>
-                    <FormGroup>
-                        <Input
-                            className="helpTitle"
-                            type="select"
-                            onChange={(e) => { this.setState({ title: e.target.value }) }}
-                            value={this.state.title}>
-                            <option value=""></option>
-                            <option value="Rake Leaves">Rake Leaves</option>
-                            <option value="Shovel Snow">Shovel Snow</option>
-                            <option value="Take Out Trash">Take Out Trash</option>
-                            <option value="Walk Dogs">Walk Dogs</option>
-                            <option value="Grocery Run">Grocery Run</option>
-                            <option value="Pharmacy Pickup">Pharmacy Pickup</option>
-                        </Input>
-                        <Label htmlFor="title" className="helpTitle"></Label>
-                    </FormGroup>
-                    <FormGroup>
-                        <Input
-                            className="helpDescription"
-                            type="textarea"
-                            onChange={(e) => { this.setState({ description: e.target.value }) }}
-                            value={this.state.description}>
-                        </Input>
-                        <Label htmlFor="description" className="helpDescription">Description</Label>
-                    </FormGroup>
-                    <FormGroup>
-                        <Label htmlFor="availability" className="availability">Availability</Label>
-                        <br />
-                        <Availability />
-                    </FormGroup>
+            <Container className="postContainer">
+                <Card body inverse style={{ backgroundColor: '#CECECE', borderColor: '#525252', borderWidth: '.25em' }}>
+        
+                    <h4 className="postHeader">New Help Post</h4>
                     <br />
-                    <FormGroup>
-                        <Input
-                            className="instances"
-                            onChange={(e) => { this.setState({ instances: 0 }) }}
-                            value={this.state.instances} />
-                        <Label htmlFor="instances" className="instances">Instances</Label>
-                    </FormGroup>
-                    <FormGroup>
-
-                    </FormGroup>
-                    <FormGroup>
-
-                    </FormGroup>
-                    <FormGroup>
-
-                    </FormGroup>
-                    <Button type="submit">Submit Services Post</Button>
-                </Form>
+                    <Form className="postForm" onSubmit={this.handleSubmit}>
+                        <FormGroup>
+                            <Label
+                                htmlFor="helpTitle"
+                                className="helpTitle">
+                                Type of Help Available
+                        </Label>
+                            <Input
+                                className="helpTitle"
+                                type="select"
+                                onChange={(e) => { this.props.setTitle(e.target.value) }}
+                                value={this.props.title}>
+                                <option value="">Select One</option>
+                                <option value="Rake Leaves">Rake Leaves</option>
+                                <option value="Shovel Snow">Shovel Snow</option>
+                                <option value="Take Out Trash">Take Out Trash</option>
+                                <option value="Mow Lawn">Mow Lawn</option>
+                                <option value="Walk Dogs">Walk Dogs</option>
+                                <option value="Grocery Run">Grocery Run</option>
+                                <option value="Pharmacy Pickup">Pharmacy Pickup</option>
+                                <option value="Essential Errand">Essential Errand</option>
+                                <option value="Phone Check-ins">Phone Check-ins</option>
+                                <option value="Other">Other - Please list in description.</option>
+                            </Input>
+                        </FormGroup>
+                        <FormGroup>
+                            <Label
+                                htmlFor="description"
+                                className="helpDescription">
+                                Description
+                            </Label>
+                            <Input
+                                className="helpDescription"
+                                type="textarea"
+                                onChange={(e) => { this.props.setDescription(e.target.value) }}
+                                value={this.props.description}>
+                            </Input>
+                        </FormGroup>
+                        <FormGroup>
+                            <Label
+                                htmlFor="availability"
+                                className="availability">
+                                Availability
+                            </Label>
+                            <br />
+                            <Availability />
+                        </FormGroup>
+                        <FormGroup>
+                    
+                            <Label
+                                htmlFor="instances">
+                                Instances
+                                </Label>
+                            <Input
+                                id="instances"
+                                onChange={(e) => { this.props.setInstances(e.target.value) }}
+                                value={this.props.instances} />
+                        </FormGroup>
+                        <Button type="submit">Submit Services Post</Button>
+                    </Form>
+                </Card>
             </Container>
         );
     }

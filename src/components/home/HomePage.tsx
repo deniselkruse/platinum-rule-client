@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Container, Row } from 'reactstrap';
+import { Container, Row } from 'reactstrap';
 
 import DoorsImages from './DoorsImages';
 import Auth from '../auth/Auth';
@@ -39,12 +39,6 @@ class HomePage extends React.Component<{ updateToken: any }, {}> {
           <br /><br />
         </Row>
         <br />
-
-        <Container>
-          <Button href='/user/login'>Login</Button>
-          <br /><br />
-          <Button href='/user/register'>Register</Button>
-        </Container>
 
         <Auth updateToken={this.props.updateToken} />
 

@@ -45,18 +45,19 @@ class ViewRequestPosts extends React.Component<ViewRequestPostsProps, ViewReques
     render() {
         return (
             <div>
-                <p>This is the Recipient Posts Page</p>
+                <h4>Help Requests</h4>
+                <br />
                 <div>
                     {this.state.requestPosts.length > 0 ? (this.state.requestPosts.map((event: any, index: any) => (
                         <Container key={this.state.requestPosts.id} className="serviceCard">
                             <Card body inverse style={{ backgroundColor: '#CECECE', borderColor: '#525252', borderWidth: '.25em' }}>
                                 <CardHeader tag="h4">
-                                    Service Available:
-                                    <br />
-                                    {this.state.requestPosts[index].title}
+                            SOMETHING HEADER HERE
                                 </CardHeader>
                                 <CardTitle>
-                                    {this.state.requestPosts[index].user.username}
+                                    {this.state.requestPosts[index].user.username} 
+                                    <p> needs help with</p>
+                                    {this.state.requestPosts[index].title}
                                 </CardTitle>
                                 <CardText>
                                     posted on 
@@ -76,7 +77,7 @@ class ViewRequestPosts extends React.Component<ViewRequestPostsProps, ViewReques
                                     Instances:
                                     {this.state.requestPosts[index].instances}
                                 </CardText>
-                                <Button >Claim Service</Button>
+                                <Button >Volunteer to help {this.state.requestPosts[index].user.username} </Button>
                             </Card>
                         </Container>
                         

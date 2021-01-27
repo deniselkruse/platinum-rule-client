@@ -42,6 +42,7 @@ class ViewHelpPosts extends React.Component<ViewHelpPostsProps, ViewHelpPostsSta
         this.fetchHelpPosts();
     }
 
+
     render() {
         return (
             <div>

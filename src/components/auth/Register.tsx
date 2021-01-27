@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Form, FormGroup, Input, Button } from 'reactstrap';
-import {Redirect} from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 type RegisterAcceptedProps = {
   email: string;
@@ -21,7 +21,7 @@ type RegisterAcceptedProps = {
 }
 
 
-class Register extends React.Component<RegisterAcceptedProps, {redirect: null | string}> {
+class Register extends React.Component<RegisterAcceptedProps, { redirect: null | string }> {
   constructor(props: RegisterAcceptedProps) {
     super(props)
     this.state = {
@@ -57,14 +57,14 @@ class Register extends React.Component<RegisterAcceptedProps, {redirect: null | 
       })
       .then((data) => {
         this.props.updateToken(data.sessionToken);
-        this.setState({redirect: '/menu'})
+        this.setState({ redirect: '/menu' })
       })
   }
 
 
   render() {
-    if (this.state.redirect){
-      return <Redirect to = {this.state.redirect} />
+    if (this.state.redirect) {
+      return <Redirect to={this.state.redirect} />
     }
     return (
       <Container>

@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import { Redirect } from "react-router-dom";
 import { Button, Collapse, Navbar, NavbarToggler, Nav, NavItem, NavLink } from 'reactstrap';
 
 
 type HeaderProps = {
     clearToken: any;
+    sessionToken: any;
 }
 
 type HeaderStates = {
@@ -24,6 +26,7 @@ class Header extends React.Component<HeaderProps, HeaderStates> {
         });
     }
 
+
     render() {
         return (
             <div>
@@ -32,10 +35,10 @@ class Header extends React.Component<HeaderProps, HeaderStates> {
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav navbar>
                             <NavItem>
-                                <NavLink href="/" >Helper Posts</NavLink>
+                                <NavLink href="/menu/volunteer/posts" >Service Posts</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink href="">Request Posts</NavLink>
+                                <NavLink href="/menu/request/posts">Help Request Posts</NavLink>
                             </NavItem>
                             <NavItem>
                                 <NavLink href="">Link</NavLink>

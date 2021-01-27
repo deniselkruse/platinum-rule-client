@@ -12,12 +12,12 @@ class Availability extends React.Component<{}, AvailabilityStates> {
         super(props)
         this.state = {
             availability: [
-                { id: 1, value: "Sunday", isChecked: false },
-                { id: 2, value: "Monday", isChecked: false },
-                { id: 3, value: "Tuesday", isChecked: false },
-                { id: 4, value: "Wednesday", isChecked: false },
-                { id: 5, value: "Thursday", isChecked: false },
-                { id: 6, value: "Friday", isChecked: false },
+                { id: 1, value: "Sundays", isChecked: false },
+                { id: 2, value: "Mondays", isChecked: false },
+                { id: 3, value: "Tuesdays", isChecked: false },
+                { id: 4, value: "Wednesdays", isChecked: false },
+                { id: 5, value: "Thursdays", isChecked: false },
+                { id: 6, value: "Fridays", isChecked: false },
                 { id: 7, value: "Saturday", isChecked: false }
             ]
         }
@@ -50,7 +50,7 @@ class Availability extends React.Component<{}, AvailabilityStates> {
                     type="checkbox"
                     className="checkbox"
                     onChange={this.handleAllChecked}
-                    value="checkedall" />
+                    value="checkedall"/>
                     Check / Uncheck All
                 <ul>
                     {this.state.availability.map((availability: any, index: any) => {

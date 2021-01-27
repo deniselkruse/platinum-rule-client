@@ -58,6 +58,26 @@
 }
 
 
+/* NEW POSTS */
+
+
+.postContainer {
+    display: block;
+    position: relative;
+    text-align: center;
+}
+
+.checkbox {
+    margin: 20px;
+}
+
+#instances {
+    display: block;
+    position: relative;
+    text-align: center;
+    width: 8em;
+}
+
 /* SERVICE POSTS */
 
 .serviceCard {

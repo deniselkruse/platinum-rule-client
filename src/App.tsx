@@ -52,9 +52,8 @@ class App extends React.Component<{}, AppStates> {
       <div>
 
         <Router>
-          <Header clearToken={this.clearToken} />
-        
-  
+          <Header clearToken={this.clearToken} sessionToken={this.state.sessionToken}/>
+
           <Switch>
 
             {!this.state.sessionToken ?
@@ -62,8 +61,8 @@ class App extends React.Component<{}, AppStates> {
                 <HomePage updateToken={this.updateToken} />
               </Route>
               :
-              <Route> 
-              <Menu sessionToken={this.state.sessionToken} />
+              <Route>
+                <Menu sessionToken={this.state.sessionToken} />
               </Route>
             }
 

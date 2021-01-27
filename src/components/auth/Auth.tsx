@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Button, Container, Row, Col } from 'reactstrap';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Login from './Login';
 import Register from './Register';
@@ -21,9 +20,10 @@ type AuthStates = {
   sessionToken: any;
   updateToken: any;
   getToken: any;
+  register: boolean;
 }
 
-class Auth extends React.Component<{updateToken: any}, AuthStates> {
+class Auth extends React.Component<{ updateToken: any }, AuthStates> {
   constructor(props: any) {
     super(props)
     this.state = {
@@ -36,6 +36,7 @@ class Auth extends React.Component<{updateToken: any}, AuthStates> {
       sessionToken: "",
       getToken: "",
       updateToken: "",
+      register: true,
       setEmail: (e) => {
         this.setState({
           email: e
@@ -73,45 +74,51 @@ class Auth extends React.Component<{updateToken: any}, AuthStates> {
   render() {
     return (
       <Container className="auth-container">
-        <Row>
+
+        {this.state.register ?
           <Col md="6">
-
-            <Router>
-                
-                <Route exact path="/user/login">
-                  <Login
-                    email={this.state.email}
-                    password={this.state.password}
-                    setEmail={this.state.setEmail}
-                    setPassword={this.state.setPassword}
-                    sessionToken={this.state.sessionToken}
-                    updateToken={this.props.updateToken}
-                    getToken={this.state.getToken} />
-                </Route>
-                
-                <Route path="/user/register">
-                  <Register
-                    firstName={this.state.firstName}
-                    lastName={this.state.lastName}
-                    email={this.state.email}
-                    username={this.state.username}
-                    zipCode={this.state.zipCode}
-                    password={this.state.password}
-                    setEmail={this.state.setEmail}
-                    setPassword={this.state.setPassword}
-                    setFirstName={this.state.setFirstName}
-                    setLastName={this.state.setLastName}
-                    setUsername={this.state.setUsername}
-                    setZipCode={this.state.setZipCode}
-                    sessionToken={this.state.sessionToken}
-                    updateToken={this.props.updateToken}
-                    getToken={this.state.getToken} />
-                </Route>
-              
-            </Router>
-
+            <Login
+              email={this.state.email}
+              password={this.state.password}
+              setEmail={this.state.setEmail}
+              setPassword={this.state.setPassword}
+              sessionToken={this.state.sessionToken}
+              updateToken={this.props.updateToken}
+              getToken={this.state.getToken} />
           </Col>
-        </Row>
+          :
+          <Col md="6">
+            <Register
+              firstName={this.state.firstName}
+              lastName={this.state.lastName}
+              email={this.state.email}
+              username={this.state.username}
+              zipCode={this.state.zipCode}
+              password={this.state.password}
+              setEmail={this.state.setEmail}
+              setPassword={this.state.setPassword}
+              setFirstName={this.state.setFirstName}
+              setLastName={this.state.setLastName}
+              setUsername={this.state.setUsername}
+              setZipCode={this.state.setZipCode}
+              sessionToken={this.state.sessionToken}
+              updateToken={this.props.updateToken}
+              getToken={this.state.getToken} />
+          </Col>
+        }
+        
+        <br />
+        <Button
+          onClick={() => {
+            this.setState({
+              register: !this.state.register
+            })
+          }}>{this.state.register ?
+            "Need a login? Click here."
+            :
+            "Already have a login? Click here."}
+        </Button>
+
       </Container>
     );
   }
