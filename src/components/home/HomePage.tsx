@@ -4,11 +4,7 @@ import { Container, Row } from 'reactstrap';
 import DoorsImages from './DoorsImages';
 import Auth from '../auth/Auth';
 
-
 class HomePage extends React.Component<{ updateToken: any }, {}> {
-  constructor(props: any) {
-    super(props);
-  }
 
   render() {
     return (

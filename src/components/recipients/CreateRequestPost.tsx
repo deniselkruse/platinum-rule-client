@@ -18,22 +18,20 @@ type RequestProps = {
     setDate: (e: any) => any;
     setInactiveDate: (e: any) => any;
     sessionToken?: any;
+    setAvailabilityArray: (e: any) => void;
+    availabilityArray: Array<string>
 }
 
-// type RequestState = {
-//     title: string;
-//     description: string;
-//     availability: string;
-//     instances: number;
-//     date: any;
-//     inactiveDate: any;
-// }
 
 
 class CreateRequestPost extends React.Component<RequestProps, {}> {
     constructor(props: RequestProps) {
-        super(props);
+        super(props)
+        this.state = {
+ 
+        }
     }
+
 
     handleSubmit = (event: any) => {
         event.preventDefault();
@@ -41,9 +39,9 @@ class CreateRequestPost extends React.Component<RequestProps, {}> {
             method: 'POST',
             body: JSON.stringify({
                 recipient: {
-                    title: this.props.title, 
+                    title: this.props.title,
                     description: this.props.description,
-                    availability: this.props.availability, // Check boxes -- Why don't they work?!
+                    availability: this.props.availabilityArray, // Check boxes -- Why don't they work?!
                     instances: this.props.instances,
                     date: this.props.date, // Auto populate -- Need to format!
                     inactiveDate: this.props.inactiveDate,
@@ -70,9 +68,10 @@ class CreateRequestPost extends React.Component<RequestProps, {}> {
         if (!this.props.sessionToken) {
             return <Redirect to="/menu" />
         } else {
-            return <Redirect to="/volunteer/create" />
+            return <Redirect to="/request/create" />
         }
     }
+
 
     render() {
         return (
@@ -125,10 +124,9 @@ class CreateRequestPost extends React.Component<RequestProps, {}> {
                                 Availability
                             </Label>
                             <br />
-                            <Availability />
+                            <Availability setAvailability={this.props.setAvailability} availabilityArray={this.props.availabilityArray} setAvailabilityArray={this.props.setAvailabilityArray} />
                         </FormGroup>
                         <FormGroup>
-
                             <Label
                                 htmlFor="instances">
                                 Instances
@@ -138,7 +136,7 @@ class CreateRequestPost extends React.Component<RequestProps, {}> {
                                 onChange={(e) => { this.props.setInstances(e.target.value) }}
                                 value={this.props.instances} />
                         </FormGroup>
-                        <Button type="submit">Submit Request Post</Button>
+                        <Button type="submit">Submit Post</Button>
                     </Form>
                 </Card>
             </Container>

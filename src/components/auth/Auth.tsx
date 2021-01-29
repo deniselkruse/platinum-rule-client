@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Container, Row, Col } from 'reactstrap';
+import { Button, Container, Col } from 'reactstrap';
 
 import Login from './Login';
 import Register from './Register';

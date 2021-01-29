@@ -2,27 +2,33 @@ import React, { Component } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Modal } from 'reactstrap';
 
 import Header from './components/home/Header';
 import Footer from './components/home/Footer';
 import HomePage from './components/home/HomePage';
-import Auth from './components/auth/Auth';
 import Menu from './components/home/Menu';
 
 
 type AppStates = {
   sessionToken: any;
+  currentUser: string;
+  userId: string;
+  fetchHelpPosts: any;
 }
 
 class App extends React.Component<{}, AppStates> {
   constructor(props: any) {
     super(props);
     this.state = {
+      currentUser: "",
       sessionToken: "",
-    }
+      userId: "",
+      fetchHelpPosts: "",
+    };
   }
 
-  getToken = () => {
+  getToken() {
     if (localStorage.getItem('token')) {
       this.setState({ sessionToken: localStorage.getItem('token') });
     } else {
@@ -34,25 +40,31 @@ class App extends React.Component<{}, AppStates> {
     this.getToken()
   }
 
-  updateToken = (newToken: any) => {
+  updateToken(newToken: any) {
     localStorage.setItem('token', newToken);
     this.setState({ sessionToken: newToken });
     console.log(newToken);
   };
 
-  clearToken = () => {
+  clearToken() {
     localStorage.clear();
     this.setState({ sessionToken: '' });
     console.log('Hello.')
   };
 
+  userId() {
+    const userId = localStorage.getItem('userId');
+    if (userId) {
+      this.setState({ currentUser: userId })
+    }
+  }
 
   render() {
     return (
       <div>
-
+ 
         <Router>
-          <Header clearToken={this.clearToken} sessionToken={this.state.sessionToken}/>
+          <Header clearToken={this.clearToken} sessionToken={this.state.sessionToken} />
 
           <Switch>
 
@@ -61,8 +73,11 @@ class App extends React.Component<{}, AppStates> {
                 <HomePage updateToken={this.updateToken} />
               </Route>
               :
-              <Route>
-                <Menu sessionToken={this.state.sessionToken} />
+              <Route path="/menu">
+                <Menu sessionToken={this.state.sessionToken}
+                  userId={this.state.userId}
+                  fetchHelpPosts={this.state.fetchHelpPosts}
+                />
               </Route>
             }
 

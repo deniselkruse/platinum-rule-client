@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from "react-router-dom";
 import { Button, Card, Container, Form, FormGroup, Input, Label } from 'reactstrap';
 
 import Availability from '../forms/Availability';
@@ -17,20 +18,14 @@ type HelpProps = {
     setDate: (e: any) => any;
     setInactiveDate: (e: any) => any;
     sessionToken?: any;
+    setAvailabilityArray: (e: any) => void;
+    availabilityArray: Array<string>
 }
-
-// type HelpState = {
-//     title: string;
-//     description: string;
-//     availability: string;
-//     instances: number;
-//     date: any;
-//     inactiveDate: any;
-// }
 
 class CreateHelpPost extends React.Component<HelpProps, {}> {
     constructor(props: HelpProps) {
-        super(props);
+        super(props)
+
     }
 
     handleSubmit = (event: any) => {
@@ -39,7 +34,7 @@ class CreateHelpPost extends React.Component<HelpProps, {}> {
             method: 'POST',
             body: JSON.stringify({
                 help: {
-                    title: this.props.title, 
+                    title: this.props.title,
                     description: this.props.description,
                     availability: this.props.availability, // Why don't the checkboxes work?!
                     instances: this.props.instances,
@@ -63,12 +58,20 @@ class CreateHelpPost extends React.Component<HelpProps, {}> {
             })
     }
 
+    componentDidMount() {
+        if (!this.props.sessionToken) {
+            return <Redirect to="/menu" />
+        } else {
+            return <Redirect to="/volunteer/create" />
+        }
+    }
+
     render() {
         return (
             <Container className="postContainer">
                 <Card body inverse style={{ backgroundColor: '#CECECE', borderColor: '#525252', borderWidth: '.25em' }}>
-        
-                    <h4 className="postHeader">New Help Post</h4>
+
+                    <h4 className="postHeader">New Help Available Post</h4>
                     <br />
                     <Form className="postForm" onSubmit={this.handleSubmit}>
                         <FormGroup>
@@ -115,10 +118,13 @@ class CreateHelpPost extends React.Component<HelpProps, {}> {
                                 Availability
                             </Label>
                             <br />
-                            <Availability />
+                            <Availability 
+                            setAvailability={this.props.setAvailability}
+                            availabilityArray={this.props.availabilityArray}
+                            setAvailabilityArray={this.props.setAvailabilityArray}
+                                />
                         </FormGroup>
                         <FormGroup>
-                    
                             <Label
                                 htmlFor="instances">
                                 Instances
@@ -128,7 +134,7 @@ class CreateHelpPost extends React.Component<HelpProps, {}> {
                                 onChange={(e) => { this.props.setInstances(e.target.value) }}
                                 value={this.props.instances} />
                         </FormGroup>
-                        <Button type="submit">Submit Services Post</Button>
+                        <Button type="submit">Submit Post</Button>
                     </Form>
                 </Card>
             </Container>

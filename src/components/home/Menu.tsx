@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { Button } from 'reactstrap';
+import { Button, Modal } from 'reactstrap';
 
 import CreateHelpPost from '../volunteers/CreateHelpPost';
 import CreateRequestPost from '../recipients/CreateRequestPost';
 import ViewHelpPosts from '../volunteers/ViewHelpPosts';
 import ViewRequestPosts from '../recipients/ViewRequestPosts';
-
+import EditRequestPost from '../recipients/EditRequestPost';
 
 type postProps = {
-  sessionToken: any;
+  sessionToken?: any;
+  userId: any;
+  fetchHelpPosts: any;
 }
 
 type postStates = {
@@ -27,6 +29,10 @@ type postStates = {
   setInactiveDate: (e: any) => any;
   updateToken: any;
   sessionToken: any;
+  availabilityArray: Array<string>
+  setAvailabilityArray: (e: any) => void;
+  isOpen: any;
+  setIsOpen: (e: any) => void;
 }
 
 class Menu extends React.Component<postProps, postStates> {
@@ -41,6 +47,14 @@ class Menu extends React.Component<postProps, postStates> {
       inactiveDate: " ",
       updateToken: "",
       sessionToken: "",
+      isOpen: false,
+      setIsOpen: (e) => {
+        this.setState({ isOpen: e })
+      },
+      availabilityArray: [],
+      setAvailabilityArray: (e) => {
+        this.setState({ availabilityArray: e })
+      },
       setTitle: (e) => {
         this.setState({
           title: e
@@ -70,9 +84,20 @@ class Menu extends React.Component<postProps, postStates> {
         this.setState({
           inactiveDate: e
         })
-      }
+      },
     }
+    this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
   }
+
+  openModal() {
+    this.state.setIsOpen(true)
+  }
+
+  closeModal() {
+    this.state.setIsOpen(false)
+  }
+
 
   render() {
     return (
@@ -109,11 +134,15 @@ class Menu extends React.Component<postProps, postStates> {
                 setInstances={this.state.setInstances}
                 setDate={this.state.setDate}
                 setInactiveDate={this.state.setInactiveDate}
-                sessionToken={this.props.sessionToken} />
+                sessionToken={this.props.sessionToken}
+                setAvailabilityArray={this.state.setAvailabilityArray}
+                availabilityArray={this.state.availabilityArray}
+              />
             </Route>
 
             <Route path='/menu/volunteer/posts'>
-              <ViewHelpPosts />
+              <ViewHelpPosts
+                sessionToken={this.props.sessionToken} />
             </Route>
 
             <Route path='/menu/request/create'>
@@ -130,11 +159,30 @@ class Menu extends React.Component<postProps, postStates> {
                 setInstances={this.state.setInstances}
                 setDate={this.state.setDate}
                 setInactiveDate={this.state.setInactiveDate}
-                sessionToken={this.props.sessionToken} />
+                sessionToken={this.props.sessionToken}
+                setAvailabilityArray={this.state.setAvailabilityArray}
+                availabilityArray={this.state.availabilityArray}
+              />
             </Route>
 
             <Route path='/menu/request/posts'>
-              <ViewRequestPosts />
+              <ViewRequestPosts
+                sessionToken={this.props.sessionToken}
+                userId={this.props.userId}
+                setAvailabilityArray={this.state.setAvailabilityArray}
+                isOpen={this.state.isOpen}
+                setIsOpen={this.state.setIsOpen}
+              />
+            </Route>
+
+            <Route path='/menu/request/posts/edit'>
+              <EditRequestPost
+                sessionToken={this.props.sessionToken}
+                userId={this.props.userId}
+                setAvailabilityArray={this.state.setAvailabilityArray}
+                isOpen={this.state.isOpen}
+                setIsOpen={this.state.setIsOpen}
+              />
             </Route>
 
           </Switch>
