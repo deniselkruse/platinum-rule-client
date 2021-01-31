@@ -7,6 +7,8 @@ import CreateRequestPost from '../recipients/CreateRequestPost';
 import ViewHelpPosts from '../volunteers/ViewVolunteerPosts';
 import ViewRequestPosts from '../recipients/ViewRequestPosts';
 
+import houses from '../../assets/houses.gif';
+
 type postProps = {
   sessionToken?: any;
   isCurrentUser: boolean;
@@ -32,20 +34,25 @@ class Menu extends React.Component<postProps, {}> {
               <br />
               <Col>
                 <Card>
-                  <h3>I AM AVAILABLE TO HELP!</h3>
-                  <Button href='/menu/volunteer/create'>Create a New Volunteer Post</Button>
+                  <h3 className="menuHeader">Volunteer to Help</h3>
                   <br />
-                  <Button href='/menu/request/posts'>View Neighbor Request Posts</Button>
+                  <Button href='/menu/request/posts'>View Help Requests</Button>
+                  <br />
+                  <Button href='/menu/volunteer/create'>Create a Volunteer Post</Button>
                 </Card>
 
                 <br /><br />
 
                 <Card>
-                  <h3>I NEED HELP!</h3>
-                  <Button href='/menu/request/create'>Create a New Request Post</Button>
+                  <h3 className="menuHeader">Request Help</h3>
                   <br />
-                  <Button href='/menu/volunteer/posts'>View Available Volunteer Posts</Button>
+                  <Button href='/menu/volunteer/posts'>View Volunteer Posts</Button>
+                  <br />
+                  <Button href='/menu/request/create'>Create a Help Request</Button>
                 </Card>
+
+                <img src={houses} alt="loading..." className="houses" />
+                <br />
               </Col>
             </Route>
 

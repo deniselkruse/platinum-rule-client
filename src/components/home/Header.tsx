@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Button, Collapse, Navbar, NavbarToggler, Nav, NavItem, NavLink } from 'reactstrap';
+import { Button, Col, Collapse, Navbar, NavbarToggler, Nav, NavItem, NavLink } from 'reactstrap';
+
+import platinum_rule_logo from '../../assets/platinum_rule_logo.png'
 
 
 type HeaderProps = {
@@ -29,24 +31,39 @@ class Header extends React.Component<HeaderProps, HeaderStates> {
     render() {
         return (
             <div>
-                <Navbar className="navbar">
-                    <NavbarToggler className="mr-2" id="hamburger" right onClick={this.toggle} />
+                <Navbar id="header" className="navbar navbar-light" background-color="#D1DADC">
+
+                    <img src={platinum_rule_logo}
+                        alt="logo"
+                        className="logo" />
+
+                    <NavbarToggler id="hamburger" onClick={this.toggle} />
+
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav navbar>
-                            <NavItem>
-                                <NavLink href="/menu/volunteer/posts" >Service Posts</NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <NavLink href="/menu/request/posts">Help Request Posts</NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <NavLink href="">Link</NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <Button onClick={this.props.clearToken}>Logout</Button>
-                            </NavItem>
+                            <Col className="navbarColumn">
+                                <NavItem>
+                                    <NavLink href='/menu'>Menu</NavLink>
+                                    <NavLink href='/menu/request/posts'>View Help Requests</NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink href='/menu/volunteer/create'>Create a Volunteer Post</NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink href='/menu/volunteer/posts'>View Volunteer Posts</NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink href='/menu/request/create'>Create a Help Request</NavLink>
+                                </NavItem>
+                                <br />
+                                <NavItem>
+                                    <Button onClick={this.props.clearToken}>Logout</Button>
+                                </NavItem>
+                                <br />
+                            </Col>
                         </Nav>
                     </Collapse>
+
                 </Navbar>
             </div>
         )
