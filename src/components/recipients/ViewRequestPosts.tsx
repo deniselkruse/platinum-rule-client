@@ -74,10 +74,6 @@ class ViewRequestPosts extends React.Component<ViewRequestPostsProps, ViewReques
         this.fetchRequestPosts();
     }
 
-    toggle = () => {
-        this.setState({ modal: !this.state.modal })
-    }
-
     openModal = () => {
         this.setState({ openModal: true })
     }

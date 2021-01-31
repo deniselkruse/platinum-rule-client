@@ -74,10 +74,6 @@ class ViewHelpPosts extends React.Component<ViewHelpPostsProps, ViewHelpPostsSta
         this.fetchHelpPosts();
     }
 
-    toggle = () => {
-        this.setState({ modal: !this.state.modal })
-    }
-
     openModal = () => {
         this.setState({ openModal: true })
     }
@@ -151,7 +147,7 @@ class ViewHelpPosts extends React.Component<ViewHelpPostsProps, ViewHelpPostsSta
                                             <Button
                                                 type="button"
                                                 className="editPost"
-                                                onClick={this.toggle}>
+                                                onClick={this.openModal}>
                                                 Edit Help Post
                                             </Button>
                                         </> : <></>
