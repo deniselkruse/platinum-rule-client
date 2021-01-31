@@ -2,34 +2,88 @@ import React, { Component } from 'react';
 import { Redirect } from "react-router-dom";
 import { Button, Card, Container, Form, FormGroup, Input, Label } from 'reactstrap';
 
-import Availability from '../forms/Availability';
-
 type RequestProps = {
-    title: string;
-    description: string;
-    availability: string;
-    instances: number;
-    date: string;
-    inactiveDate: string;
-    setTitle: (e: any) => any;
-    setDescription: (e: any) => any;
-    setAvailability: (e: any) => any;
-    setInstances: (e: any) => any;
-    setDate: (e: any) => any;
-    setInactiveDate: (e: any) => any;
     sessionToken?: any;
-    setAvailabilityArray: (e: any) => void;
-    availabilityArray: Array<string>
 }
 
+export type Weekdays = "Sundays" | "Mondays" | "Tuesdays" | "Wednesdays" | "Thursdays" | "Fridays" | "Saturdays"
 
+export type NewAvail = Record<Weekdays, boolean> // Type of object with keys drawn from weekdays and value of boolean
 
-class CreateRequestPost extends React.Component<RequestProps, {}> {
+type RequestState = {
+    title: string;
+    description: string;
+    availability: NewAvail;
+    instances: number;
+    date: any;
+    inactiveDate: any;
+    setTitle: (e: any) => void;
+    setDescription: (e: any) => void;
+    setAvailability: (e: any) => void;
+    setInstances: (e: any) => void;
+    setDate: (e: any) => void;
+    setInactiveDate: (e: any) => void;
+}
+
+class CreateRequestPost extends React.Component<RequestProps, RequestState> {
     constructor(props: RequestProps) {
         super(props)
         this.state = {
- 
+            title: "",
+            description: "",
+            instances: 0,
+            date: " ",
+            inactiveDate: " ",
+            setTitle: (e) => {
+                this.setState({
+                    title: e
+                })
+            },
+            setDescription: (e) => {
+                this.setState({
+                    description: e
+                })
+            },
+            setAvailability: (e) => {
+                this.setState({
+                    availability: e
+                })
+            },
+            setInstances: (e) => {
+                this.setState({
+                    instances: e
+                })
+            },
+            setDate: (e) => {
+                this.setState({
+                    date: e
+                })
+            },
+            setInactiveDate: (e) => {
+                this.setState({
+                    inactiveDate: e
+                })
+            },
+            availability: {
+                Sundays: false,
+                Mondays: false,
+                Tuesdays: false,
+                Wednesdays: false,
+                Thursdays: false,
+                Fridays: false,
+                Saturdays: false
+            },
         }
+        this.updateAvailability = this.updateAvailability.bind(this)
+    }
+
+    updateAvailability(newAvail: NewAvail) {
+        this.setState({
+            availability: {
+                ...this.state.availability,
+                ...newAvail
+            }
+        })
     }
 
 
@@ -39,12 +93,12 @@ class CreateRequestPost extends React.Component<RequestProps, {}> {
             method: 'POST',
             body: JSON.stringify({
                 recipient: {
-                    title: this.props.title,
-                    description: this.props.description,
-                    availability: this.props.availabilityArray, // Check boxes -- Why don't they work?!
-                    instances: this.props.instances,
-                    date: this.props.date, // Auto populate -- Need to format!
-                    inactiveDate: this.props.inactiveDate,
+                    title: this.state.title,
+                    description: this.state.description,
+                    availability: this.state.availability,
+                    instances: this.state.instances,
+                    date: this.state.date, // Auto populate -- Need to format!
+                    inactiveDate: this.state.inactiveDate,
                 }
             }),
             headers: new Headers({
@@ -55,12 +109,12 @@ class CreateRequestPost extends React.Component<RequestProps, {}> {
             .then((response) => response.json())
             .then((data) => {
                 console.log(data);
-                this.props.setTitle('');
-                this.props.setDescription('');
-                this.props.setAvailability('');
-                this.props.setInstances('');
-                this.props.setDate('');
-                this.props.setInactiveDate('');
+                this.state.setTitle('');
+                this.state.setDescription('');
+                this.state.setAvailability('');
+                this.state.setInstances('');
+                this.state.setDate('');
+                this.state.setInactiveDate('');
             })
     }
 
@@ -78,19 +132,19 @@ class CreateRequestPost extends React.Component<RequestProps, {}> {
             <Container className="postContainer">
                 <Card body inverse style={{ backgroundColor: '#CECECE', borderColor: '#525252', borderWidth: '.25em' }}>
                     <h4 className='postHeader'>New Help Request Post</h4>
-
+                    <br />
                     <Form className='postForm' onSubmit={this.handleSubmit}>
                         <FormGroup>
                             <Label
                                 htmlFor="helpTitle"
                                 className="helpTitle">
-                                Type of Help Available
+                                Type of Help Needed
                         </Label>
                             <Input
                                 className="helpTitle"
                                 type="select"
-                                onChange={(e) => { this.props.setTitle(e.target.value) }}
-                                value={this.props.title}>
+                                onChange={(e) => { this.state.setTitle(e.target.value) }}
+                                value={this.state.title}>
                                 <option value="">Select One</option>
                                 <option value="Rake Leaves">Rake Leaves</option>
                                 <option value="Shovel Snow">Shovel Snow</option>
@@ -108,13 +162,13 @@ class CreateRequestPost extends React.Component<RequestProps, {}> {
                             <Label
                                 htmlFor="description"
                                 className="helpDescription">
-                                Description
+                                Description/Details
                             </Label>
                             <Input
                                 className="helpDescription"
                                 type="textarea"
-                                onChange={(e) => { this.props.setDescription(e.target.value) }}
-                                value={this.props.description}>
+                                onChange={(e) => { this.state.setDescription(e.target.value) }}
+                                value={this.state.description}>
                             </Input>
                         </FormGroup>
                         <FormGroup>
@@ -124,7 +178,18 @@ class CreateRequestPost extends React.Component<RequestProps, {}> {
                                 Availability
                             </Label>
                             <br />
-                            <Availability setAvailability={this.props.setAvailability} availabilityArray={this.props.availabilityArray} setAvailabilityArray={this.props.setAvailabilityArray} />
+                            {Object.entries(this.state.availability).map(([day, value], i: number) => (
+                                <li>
+                                    <Input type="checkbox" key={i}
+                                        checked={value}
+                                        // @ts-ignore
+                                        onChange={() => this.updateAvailability({ [day]: !value })}
+                                    // value={value}
+                                    />
+                                    {day}
+                                </li>
+                            ))
+                            }
                         </FormGroup>
                         <FormGroup>
                             <Label
@@ -133,8 +198,8 @@ class CreateRequestPost extends React.Component<RequestProps, {}> {
                                 </Label>
                             <Input
                                 id="instances"
-                                onChange={(e) => { this.props.setInstances(e.target.value) }}
-                                value={this.props.instances} />
+                                onChange={(e) => { this.state.setInstances(e.target.value) }}
+                                value={this.state.instances} />
                         </FormGroup>
                         <Button type="submit">Submit Post</Button>
                     </Form>

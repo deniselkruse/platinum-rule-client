@@ -12,13 +12,6 @@ import doors8 from '../../assets/doors8.jpg';
 import doors9 from '../../assets/doors9.jpg';
 import doors10 from '../../assets/doors10.jpg';
 
-type CarouselProps = {
-    items: [],
-    indicators: boolean, // default: true
-    controls: boolean, // default: true
-    autoPlay: boolean, // default: true
-};
-
 class DoorsImages extends React.Component {
 
     render() {

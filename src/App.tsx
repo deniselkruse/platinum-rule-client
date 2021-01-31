@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { Modal } from 'reactstrap';
 
 import Header from './components/home/Header';
 import Footer from './components/home/Footer';
@@ -12,23 +11,36 @@ import Menu from './components/home/Menu';
 
 type AppStates = {
   sessionToken: any;
-  currentUser: string;
+  isCurrentUser: boolean;
   userId: string;
   fetchHelpPosts: any;
+  modal: boolean;
 }
 
 class App extends React.Component<{}, AppStates> {
   constructor(props: any) {
     super(props);
     this.state = {
-      currentUser: "",
+      isCurrentUser: false,
       sessionToken: "",
       userId: "",
       fetchHelpPosts: "",
+      modal: false,
     };
+    this.getToken = this.getToken.bind(this);
+    this.updateToken = this.updateToken.bind(this);
+    this.clearToken = this.clearToken.bind(this);
+    this.userId = this.userId.bind(this);
+    this.currentUser = this.currentUser.bind(this);
   }
 
-  getToken() {
+  componentDidMount() {
+    this.getToken()
+    this.userId()
+    this.currentUser()
+  }
+
+  getToken = () => {
     if (localStorage.getItem('token')) {
       this.setState({ sessionToken: localStorage.getItem('token') });
     } else {
@@ -36,33 +48,43 @@ class App extends React.Component<{}, AppStates> {
     }
   };
 
-  componentDidMount() {
-    this.getToken()
-  }
-
-  updateToken(newToken: any) {
+  updateToken = (newToken: any) => {
     localStorage.setItem('token', newToken);
     this.setState({ sessionToken: newToken });
     console.log(newToken);
   };
 
-  clearToken() {
+  clearToken = () => {
     localStorage.clear();
     this.setState({ sessionToken: '' });
     console.log('Hello.')
   };
 
-  userId() {
+  userId = () => {
     const userId = localStorage.getItem('userId');
     if (userId) {
-      this.setState({ currentUser: userId })
+      this.setState({ userId: userId })
+      console.log("userId:", userId)
     }
+  }
+
+  currentUser = () => {
+    if (this.state.userId === localStorage.getItem('userId')) {
+      this.setState({ isCurrentUser: true })
+      console.log(this.state.userId)
+    } else {
+      this.setState({ isCurrentUser: false })
+    }
+  }
+
+  toggle = () => {
+    this.setState({ modal: !this.state.modal })
   }
 
   render() {
     return (
       <div>
- 
+
         <Router>
           <Header clearToken={this.clearToken} sessionToken={this.state.sessionToken} />
 
@@ -77,6 +99,7 @@ class App extends React.Component<{}, AppStates> {
                 <Menu sessionToken={this.state.sessionToken}
                   userId={this.state.userId}
                   fetchHelpPosts={this.state.fetchHelpPosts}
+                  isCurrentUser={this.state.isCurrentUser}
                 />
               </Route>
             }

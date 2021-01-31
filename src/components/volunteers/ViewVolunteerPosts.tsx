@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import { Button, Card, CardHeader, CardTitle, CardText, Col, Container, Modal } from 'reactstrap';
 
-import EditRequestPost from '../recipients/EditRequestPost';
+import EditHelpPost from './EditVolunteerPost';
 
-type ViewRequestPostsProps = {
+type ViewHelpPostsProps = {
     sessionToken?: any;
     userId: any;
     isCurrentUser: boolean;
 }
 
-type ViewRequestPostsState = {
-    requestPosts: any;
-    recipientId: number;
+type ViewHelpPostsState = {
+    helpPosts: any;
+    helpId: number;
     currentUser: boolean;
     modal: boolean;
     openModal: boolean;
@@ -19,12 +19,12 @@ type ViewRequestPostsState = {
     setUpdateActive: (e: any) => void;
 }
 
-class ViewRequestPosts extends React.Component<ViewRequestPostsProps, ViewRequestPostsState> {
-    constructor(props: ViewRequestPostsProps) {
+class ViewHelpPosts extends React.Component<ViewHelpPostsProps, ViewHelpPostsState> {
+    constructor(props: ViewHelpPostsProps) {
         super(props)
         this.state = {
-            requestPosts: [],
-            recipientId: 0,
+            helpPosts: [],
+            helpId: 0,
             currentUser: false,
             modal: false,
             openModal: false,
@@ -33,22 +33,22 @@ class ViewRequestPosts extends React.Component<ViewRequestPostsProps, ViewReques
                 this.setState({
                     updateActive: e
                 })
-            }
+            },
         };
-        this.fetchRequestPosts = this.fetchRequestPosts.bind(this);
+        this.fetchHelpPosts = this.fetchHelpPosts.bind(this);
     }
 
     componentDidMount() {
-        this.fetchRequestPosts();
+        this.fetchHelpPosts();
     }
 
-    setRequestPosts = (postArray: any) => {
+    setHelpPosts = (postArray: any) => {
         console.log("postArray: ", postArray)
-        this.setState({ requestPosts: postArray })
+        this.setState({ helpPosts: postArray })
     }
 
-    fetchRequestPosts = () => {
-        fetch(`http://localhost:3000/recipient`, {
+    fetchHelpPosts = () => {
+        fetch(`http://localhost:3000/help`, {
             method: 'GET',
             headers: new Headers({
                 'Content-Type': 'application/json',
@@ -57,12 +57,12 @@ class ViewRequestPosts extends React.Component<ViewRequestPostsProps, ViewReques
         })
             .then(response => response.json())
             .then((data) => {
-                this.setRequestPosts(data)
+                this.setHelpPosts(data)
             })
     }
 
     deletePost = (event: any) => {
-        fetch(`http://localhost:3000/recipient/${this.state.recipientId}`, {
+        fetch(`http://localhost:3000/help/${this.state.helpId}`, {
             method: 'DELETE',
             headers: new Headers({
                 'Content-Type': 'application/json',
@@ -71,7 +71,7 @@ class ViewRequestPosts extends React.Component<ViewRequestPostsProps, ViewReques
         })
             .then(response => response.json());
         console.log('Post successfully deleted.');
-        this.fetchRequestPosts();
+        this.fetchHelpPosts();
     }
 
     toggle = () => {
@@ -89,18 +89,18 @@ class ViewRequestPosts extends React.Component<ViewRequestPostsProps, ViewReques
     render() {
         return (
             <div>
-                <h4>THESE ARE THE REQUEST/RECIPIENT POSTS</h4>
+                <h4>VIEWING VOLUNTEER POSTS</h4>
                 <div>
-                    {this.state.requestPosts.length > 0 ? (this.state.requestPosts.map((event: any, index: any) => (
+                    {this.state.helpPosts.length > 0 ? (this.state.helpPosts.map((event: any, index: any) => (
 
-                        <Container key={this.state.requestPosts.id} className="serviceCard">
+                        <Container key={this.state.helpPosts.id} className="serviceCard">
 
                             <Card
                                 onMouseEnter={e => {
                                     this.setState({
-                                        recipientId: event.id
+                                        helpId: event.id
                                     })
-                                    console.log(this.state.recipientId)
+                                    console.log(this.state.helpId)
                                 }}
                                 body inverse style={{
                                     backgroundColor: '#CECECE',
@@ -109,27 +109,25 @@ class ViewRequestPosts extends React.Component<ViewRequestPostsProps, ViewReques
                                 }}>
 
                                 <CardHeader tag="h4">
-                                    Help Request
+                                    HEADER HERE
                                 </CardHeader>
                                 <CardTitle>
-                                    {this.state.requestPosts[index].user.username}
-                                    <p> needs help with</p>
-                                    {this.state.requestPosts[index].title}
+                                    {this.state.helpPosts[index].user.username}
+                                    <p>is available to help with</p>
+                                    {this.state.helpPosts[index].title}
                                 </CardTitle>
                                 <CardText>
-                                    Help request posted on
-                                    <br />
-                                    {this.state.requestPosts[index].createdAt}
+                                    posted on
+                                    {this.state.helpPosts[index].date}
                                 </CardText>
                                 <CardText>
                                     Description:
-                                    <br />
-                                    {this.state.requestPosts[index].description}
+                                    {this.state.helpPosts[index].description}
                                 </CardText>
                                 <CardText >
                                     Availability:
                                     <br />
-                                    {Object.entries(this.state.requestPosts[index].availability).map((day, i) => (
+                                    {Object.entries(this.state.helpPosts[index].availability).map((day, i) => (
                                         <div key={i}>
                                             { day[1] ? <span>{day[0]}</span> : null}
                                         </div>))
@@ -137,9 +135,9 @@ class ViewRequestPosts extends React.Component<ViewRequestPostsProps, ViewReques
                                 </CardText>
                                 <CardText >
                                     Instances:
-                                    {this.state.requestPosts[index].instances}
+                                    {this.state.helpPosts[index].instances}
                                 </CardText>
-                                <Button >Volunteer to help {this.state.requestPosts[index].user.username}</Button>
+                                <Button >Request help from {this.state.helpPosts[index].user.username} </Button>
 
                                 <Col >
                                     {!this.props.isCurrentUser ?
@@ -153,7 +151,7 @@ class ViewRequestPosts extends React.Component<ViewRequestPostsProps, ViewReques
                                             <Button
                                                 type="button"
                                                 className="editPost"
-                                                onClick={this.openModal}>
+                                                onClick={this.toggle}>
                                                 Edit Help Post
                                             </Button>
                                         </> : <></>
@@ -162,14 +160,14 @@ class ViewRequestPosts extends React.Component<ViewRequestPostsProps, ViewReques
                                         <></> : <></>}
                                 </Col>
                             </Card>
-                            <Modal isOpen={this.state.openModal}>
-                                <EditRequestPost
+                            <Modal
+                                isOpen={this.state.openModal}>
+                                <EditHelpPost
                                     userId={this.props.userId}
                                     sessionToken={this.props.sessionToken}
-                                    recipientId={this.state.recipientId}
+                                    helpId={this.state.helpId}
                                     closeModal={this.closeModal}
-                                    fetchRequestPosts={this.fetchRequestPosts}
-                                />
+                                    fetchHelpPosts={this.fetchHelpPosts} />
                             </Modal>
 
                         </Container>
@@ -185,4 +183,4 @@ class ViewRequestPosts extends React.Component<ViewRequestPostsProps, ViewReques
     }
 }
 
-export default ViewRequestPosts;
+export default ViewHelpPosts;

@@ -2,30 +2,88 @@ import React, { Component } from 'react';
 import { Redirect } from "react-router-dom";
 import { Button, Card, Container, Form, FormGroup, Input, Label } from 'reactstrap';
 
-import Availability from '../forms/Availability';
-
-type HelpProps = {
-    title: string;
-    description: string;
-    availability: string;
-    instances: number;
-    date: string;
-    inactiveDate: string;
-    setTitle: (e: any) => any;
-    setDescription: (e: any) => any;
-    setAvailability: (e: any) => any;
-    setInstances: (e: any) => any;
-    setDate: (e: any) => any;
-    setInactiveDate: (e: any) => any;
+type VolunteerProps = {
     sessionToken?: any;
-    setAvailabilityArray: (e: any) => void;
-    availabilityArray: Array<string>
 }
 
-class CreateHelpPost extends React.Component<HelpProps, {}> {
-    constructor(props: HelpProps) {
-        super(props)
+export type Weekdays = "Sundays" | "Mondays" | "Tuesdays" | "Wednesdays" | "Thursdays" | "Fridays" | "Saturdays"
 
+export type NewAvail = Record<Weekdays, boolean> // Type of object with keys drawn from weekdays and value of boolean
+
+type VolunteerState = {
+    title: string;
+    description: string;
+    availability: NewAvail;
+    instances: number;
+    date: any;
+    inactiveDate: any;
+    setTitle: (e: any) => void;
+    setDescription: (e: any) => void;
+    setAvailability: (e: any) => void;
+    setInstances: (e: any) => void;
+    setDate: (e: any) => void;
+    setInactiveDate: (e: any) => void;
+}
+
+class CreateVolunteerPost extends React.Component<VolunteerProps, VolunteerState> {
+    constructor(props: VolunteerProps) {
+        super(props)
+        this.state = {
+            title: "",
+            description: "",
+            instances: 0,
+            date: " ",
+            inactiveDate: " ",
+            setTitle: (e) => {
+                this.setState({
+                    title: e
+                })
+            },
+            setDescription: (e) => {
+                this.setState({
+                    description: e
+                })
+            },
+            setAvailability: (e) => {
+                this.setState({
+                    availability: e
+                })
+            },
+            setInstances: (e) => {
+                this.setState({
+                    instances: e
+                })
+            },
+            setDate: (e) => {
+                this.setState({
+                    date: e
+                })
+            },
+            setInactiveDate: (e) => {
+                this.setState({
+                    inactiveDate: e
+                })
+            },
+            availability: {
+                Sundays: false,
+                Mondays: false,
+                Tuesdays: false,
+                Wednesdays: false,
+                Thursdays: false,
+                Fridays: false,
+                Saturdays: false
+            }
+        }
+        this.updateAvailability = this.updateAvailability.bind(this)
+    }
+
+    updateAvailability(newAvail: NewAvail) {
+        this.setState({
+            availability: {
+                ...this.state.availability,
+                ...newAvail
+            }
+        })
     }
 
     handleSubmit = (event: any) => {
@@ -34,12 +92,12 @@ class CreateHelpPost extends React.Component<HelpProps, {}> {
             method: 'POST',
             body: JSON.stringify({
                 help: {
-                    title: this.props.title,
-                    description: this.props.description,
-                    availability: this.props.availability, // Why don't the checkboxes work?!
-                    instances: this.props.instances,
-                    date: this.props.date, // Fix date formatting
-                    inactiveDate: this.props.inactiveDate,
+                    title: this.state.title,
+                    description: this.state.description,
+                    availability: this.state.availability,
+                    instances: this.state.instances,
+                    date: this.state.date, // Fix date formatting
+                    inactiveDate: this.state.inactiveDate,
                 }
             }),
             headers: new Headers({
@@ -50,11 +108,11 @@ class CreateHelpPost extends React.Component<HelpProps, {}> {
             .then((response) => response.json())
             .then((data) => {
                 console.log(data);
-                this.props.setTitle('');
-                this.props.setDescription('');
-                this.props.setAvailability('');
-                this.props.setInstances('');
-                this.props.setInactiveDate('');
+                this.state.setTitle('');
+                this.state.setDescription('');
+                this.state.setAvailability('');
+                this.state.setInstances('');
+                this.state.setInactiveDate('');
             })
     }
 
@@ -83,8 +141,8 @@ class CreateHelpPost extends React.Component<HelpProps, {}> {
                             <Input
                                 className="helpTitle"
                                 type="select"
-                                onChange={(e) => { this.props.setTitle(e.target.value) }}
-                                value={this.props.title}>
+                                onChange={(e) => { this.state.setTitle(e.target.value) }}
+                                value={this.state.title}>
                                 <option value="">Select One</option>
                                 <option value="Rake Leaves">Rake Leaves</option>
                                 <option value="Shovel Snow">Shovel Snow</option>
@@ -102,13 +160,13 @@ class CreateHelpPost extends React.Component<HelpProps, {}> {
                             <Label
                                 htmlFor="description"
                                 className="helpDescription">
-                                Description
+                                Description/Details
                             </Label>
                             <Input
                                 className="helpDescription"
                                 type="textarea"
-                                onChange={(e) => { this.props.setDescription(e.target.value) }}
-                                value={this.props.description}>
+                                onChange={(e) => { this.state.setDescription(e.target.value) }}
+                                value={this.state.description}>
                             </Input>
                         </FormGroup>
                         <FormGroup>
@@ -118,11 +176,18 @@ class CreateHelpPost extends React.Component<HelpProps, {}> {
                                 Availability
                             </Label>
                             <br />
-                            <Availability 
-                            setAvailability={this.props.setAvailability}
-                            availabilityArray={this.props.availabilityArray}
-                            setAvailabilityArray={this.props.setAvailabilityArray}
-                                />
+                            {Object.entries(this.state.availability).map(([day, value], i: number) => (
+                                <li>
+                                    <Input type="checkbox" key={i}
+                                        checked={value}
+                                        // @ts-ignore
+                                        onChange={() => this.updateAvailability({ [day]: !value })}
+                                    // value={value}
+                                    />
+                                    {day}
+                                </li>
+                            ))
+                            }
                         </FormGroup>
                         <FormGroup>
                             <Label
@@ -131,8 +196,8 @@ class CreateHelpPost extends React.Component<HelpProps, {}> {
                                 </Label>
                             <Input
                                 id="instances"
-                                onChange={(e) => { this.props.setInstances(e.target.value) }}
-                                value={this.props.instances} />
+                                onChange={(e) => { this.state.setInstances(e.target.value) }}
+                                value={this.state.instances} />
                         </FormGroup>
                         <Button type="submit">Submit Post</Button>
                     </Form>
@@ -142,4 +207,4 @@ class CreateHelpPost extends React.Component<HelpProps, {}> {
     }
 }
 
-export default CreateHelpPost;
+export default CreateVolunteerPost;

@@ -2,19 +2,19 @@ import React, { Component } from 'react';
 import { Redirect } from "react-router-dom";
 import { Button, Card, Container, Form, FormGroup, Input, Label, Modal, ModalBody, ModalHeader, Row } from 'reactstrap';
 
-type EditRequestProps = {
+type EditVolunteerProps = {
     sessionToken?: any;
     userId: any;
-    recipientId: number;
+    helpId: any;
     closeModal: () => void;
-    fetchRequestPosts: () => void;
+    fetchHelpPosts: () => void;
 }
 
 export type Weekdays = "Sundays" | "Mondays" | "Tuesdays" | "Wednesdays" | "Thursdays" | "Fridays" | "Saturdays"
 
 export type NewAvail = Record<Weekdays, boolean>
 
-type EditRequestState = {
+type EditVolunteerState = {
     title: string;
     description: string;
     availability: NewAvail;
@@ -32,9 +32,8 @@ type EditRequestState = {
     setUpdateActive: (e: any) => void;
 }
 
-
-class EditRequestPost extends React.Component<EditRequestProps, EditRequestState> {
-    constructor(props: EditRequestProps) {
+class EditVolunteerPost extends React.Component<EditVolunteerProps, EditVolunteerState> {
+    constructor(props: EditVolunteerProps) {
         super(props);
         this.state = {
             modal: false,
@@ -92,6 +91,7 @@ class EditRequestPost extends React.Component<EditRequestProps, EditRequestState
         this.updateAvailability = this.updateAvailability.bind(this)
     }
 
+
     updateAvailability(newAvail: NewAvail) {
         this.setState({
             availability: {
@@ -103,10 +103,10 @@ class EditRequestPost extends React.Component<EditRequestProps, EditRequestState
 
     handleSubmit = (event: any) => {
         event.preventDefault();
-        fetch(`http://localhost:3000/recipient/${this.props.recipientId}`, {
+        fetch(`http://localhost:3000/help/${this.props.helpId}`, {
             method: 'PUT',
             body: JSON.stringify({
-                recipient: {
+                help: {
                     title: this.state.title,
                     description: this.state.description,
                     availability: this.state.availability,
@@ -133,7 +133,7 @@ class EditRequestPost extends React.Component<EditRequestProps, EditRequestState
             }).then((data) => {
                 console.log(data);
                 this.props.closeModal();
-                this.props.fetchRequestPosts();
+                this.props.fetchHelpPosts();
             })
     };
 
@@ -141,16 +141,17 @@ class EditRequestPost extends React.Component<EditRequestProps, EditRequestState
         if (!this.props.sessionToken) {
             return <Redirect to="/menu" />
         } else {
-            return <Redirect to="/recipient/posts" />
+            return <Redirect to="/volunteer/posts" />
         }
     }
 
-    render() {
 
+    render() {
         return (
+
             <Modal isOpen={true}>
-                <h1> THIS IS EDIT REQUEST</h1>
-                <ModalHeader>Update Help Request Post</ModalHeader>
+                <h1>THIS IS EDIT HELP POST</h1>
+                <ModalHeader>Update Volunteer Post</ModalHeader>
                 <ModalBody>
                     <Container className="postContainer">
                         <Card
@@ -159,12 +160,12 @@ class EditRequestPost extends React.Component<EditRequestProps, EditRequestState
                                 borderColor: '#525252',
                                 borderWidth: '.25em'
                             }}>
-                            <Form className='postForm' onSubmit={this.handleSubmit} >
+                            <Form className='postForm' onSubmit={this.handleSubmit}>
                                 <FormGroup>
                                     <Label
                                         htmlFor="helpTitle"
                                         className="helpTitle">
-                                        Type of Help Needed
+                                        Type of Help Available
                                 </Label>
                                     <Input
                                         className="helpTitle"
@@ -216,6 +217,7 @@ class EditRequestPost extends React.Component<EditRequestProps, EditRequestState
                                         </li>
                                     ))
                                     }
+
                                 </FormGroup>
                                 <FormGroup>
                                     <Label
@@ -232,10 +234,9 @@ class EditRequestPost extends React.Component<EditRequestProps, EditRequestState
                                     <Button
                                         type="button"
                                         id="cancelButton"
-                                        onClick={this.props.closeModal}
-                                    >
+                                        onClick={this.props.closeModal}>
                                         Cancel
-                                    </Button>
+                                </Button>
 
                                     <Button
                                         type="submit"
@@ -243,7 +244,6 @@ class EditRequestPost extends React.Component<EditRequestProps, EditRequestState
                                         Update
                                     </Button>
                                 </Row>
-
                             </Form>
                         </Card>
                     </Container>
@@ -254,4 +254,4 @@ class EditRequestPost extends React.Component<EditRequestProps, EditRequestState
 }
 
 
-export default EditRequestPost;
+export default EditVolunteerPost;
