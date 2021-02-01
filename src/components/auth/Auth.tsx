@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Container, Col } from 'reactstrap';
+import { Button, Container, Col, Row } from 'reactstrap';
 
 import Login from './Login';
 import Register from './Register';
@@ -74,39 +74,37 @@ class Auth extends React.Component<{ updateToken: any }, AuthStates> {
   render() {
     return (
       <Container className="auth-container">
-
-        {this.state.register ?
-          <Col md="6">
-            <Login
-              email={this.state.email}
-              password={this.state.password}
-              setEmail={this.state.setEmail}
-              setPassword={this.state.setPassword}
-              sessionToken={this.state.sessionToken}
-              updateToken={this.props.updateToken}
-              getToken={this.state.getToken} />
-          </Col>
-          :
-          <Col md="6">
-            <Register
-              firstName={this.state.firstName}
-              lastName={this.state.lastName}
-              email={this.state.email}
-              username={this.state.username}
-              zipCode={this.state.zipCode}
-              password={this.state.password}
-              setEmail={this.state.setEmail}
-              setPassword={this.state.setPassword}
-              setFirstName={this.state.setFirstName}
-              setLastName={this.state.setLastName}
-              setUsername={this.state.setUsername}
-              setZipCode={this.state.setZipCode}
-              sessionToken={this.state.sessionToken}
-              updateToken={this.props.updateToken}
-              getToken={this.state.getToken} />
-          </Col>
-        }
+    
+          {this.state.register ?
         
+              <Login
+                email={this.state.email}
+                password={this.state.password}
+                setEmail={this.state.setEmail}
+                setPassword={this.state.setPassword}
+                sessionToken={this.state.sessionToken}
+                updateToken={this.props.updateToken}
+                getToken={this.state.getToken} />
+            :
+              <Register
+                firstName={this.state.firstName}
+                lastName={this.state.lastName}
+                email={this.state.email}
+                username={this.state.username}
+                zipCode={this.state.zipCode}
+                password={this.state.password}
+                setEmail={this.state.setEmail}
+                setPassword={this.state.setPassword}
+                setFirstName={this.state.setFirstName}
+                setLastName={this.state.setLastName}
+                setUsername={this.state.setUsername}
+                setZipCode={this.state.setZipCode}
+                sessionToken={this.state.sessionToken}
+                updateToken={this.props.updateToken}
+                getToken={this.state.getToken} />
+            
+          }
+
         <br />
         <Button
           onClick={() => {
@@ -118,7 +116,7 @@ class Auth extends React.Component<{ updateToken: any }, AuthStates> {
             :
             "Already have a login? Click here."}
         </Button>
-
+        <br /> <br />
       </Container>
     );
   }

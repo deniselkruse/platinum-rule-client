@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Button, Card, CardHeader, CardTitle, CardText, Col, Container, Modal } from 'reactstrap';
+import { Redirect } from "react-router-dom";
+import { Button, Card, CardHeader, CardText, Container, Modal, Row } from 'reactstrap';
 
 import EditRequestPost from '../recipients/EditRequestPost';
 
@@ -7,6 +8,7 @@ type ViewRequestPostsProps = {
     sessionToken?: any;
     userId: any;
     isCurrentUser: boolean;
+    currentUser: () => void;
 }
 
 type ViewRequestPostsState = {
@@ -39,7 +41,13 @@ class ViewRequestPosts extends React.Component<ViewRequestPostsProps, ViewReques
     }
 
     componentDidMount() {
+        this.props.currentUser()
         this.fetchRequestPosts();
+        if (!this.props.sessionToken) {
+            return <Redirect to="/" />
+        } else {
+            return <Redirect to="/menu" />
+        }
     }
 
     setRequestPosts = (postArray: any) => {
@@ -85,7 +93,12 @@ class ViewRequestPosts extends React.Component<ViewRequestPostsProps, ViewReques
     render() {
         return (
             <div>
-                <h4>THESE ARE THE REQUEST/RECIPIENT POSTS</h4>
+                <div className="viewPostsHeader">
+                    <h4 className="viewRequestHeader">
+                        Find Neighbors</h4> 
+                    <h4 className="viewRequestHeader">
+                        to Help</h4>
+                </div>
                 <div>
                     {this.state.requestPosts.length > 0 ? (this.state.requestPosts.map((event: any, index: any) => (
 
@@ -99,73 +112,74 @@ class ViewRequestPosts extends React.Component<ViewRequestPostsProps, ViewReques
                                     console.log(this.state.recipientId)
                                 }}
                                 body inverse style={{
-                                    backgroundColor: '#CECECE',
-                                    borderColor: '#525252',
+                                    backgroundColor: '#AA9996',
+                                    borderColor: '#716664',
                                     borderWidth: '.25em'
                                 }}>
 
-                                <CardHeader tag="h4">
-                                    Help Request
+                                <CardHeader
+                                    style={{
+                                        backgroundColor: '#716664'
+                                    }}>
+                                    <p className="cardText">Your neighbor</p>
+                                    <p className="cardUsername">{this.state.requestPosts[index].user.username}</p>
+                                    <p className="cardText"> needs help with</p>
+                                    <p className="cardHelpType">{this.state.requestPosts[index].title}</p>
                                 </CardHeader>
-                                <CardTitle>
-                                    {this.state.requestPosts[index].user.username}
-                                    <p> needs help with</p>
-                                    {this.state.requestPosts[index].title}
-                                </CardTitle>
+                                <br />
                                 <CardText>
-                                    Help request posted on
-                                    <br />
-                                    {this.state.requestPosts[index].createdAt}
-                                </CardText>
-                                <CardText>
-                                    Description:
-                                    <br />
-                                    {this.state.requestPosts[index].description}
+                                    <p className="cardText">Description: </p>
+                                    <p className="cardText">{this.state.requestPosts[index].description}</p>
                                 </CardText>
                                 <CardText >
-                                    Availability:
+                                    <p className="cardText">Availability:
                                     <br />
-                                    {Object.entries(this.state.requestPosts[index].availability).map((day, i) => (
-                                        <div key={i}>
-                                            { day[1] ? <span>{day[0]}</span> : null}
-                                        </div>))
-                                    }
+                                        {Object.entries(this.state.requestPosts[index].availability).map((day, i) => (
+                                            <div key={i}>
+                                                { day[1] ? <span>{day[0]}</span> : null}
+                                            </div>))
+                                        }</p>
                                 </CardText>
                                 <CardText >
-                                    Instances:
-                                    {this.state.requestPosts[index].instances}
+                                    <p className="cardText">Instances: {this.state.requestPosts[index].instances}/{this.state.requestPosts[index].instances}</p>
                                 </CardText>
-                                <Button >Volunteer to help {this.state.requestPosts[index].user.username}</Button>
+                                <CardText>
+                                    <p className="cardText">Posted on:
+                                    {this.state.requestPosts[index].createdAt}</p>
+                                </CardText>
+                                <Row className="cardButtons">
+                                    <Button className="volunteerHelpButton">Volunteer to help {this.state.requestPosts[index].user.username}</Button>
+                                </Row>
 
-                                <Col >
+                                <Row className="cardButtons">
                                     {!this.props.isCurrentUser ?
                                         <>
                                             <Button
                                                 type="button"
-                                                className="deletePost"
+                                                className="recipientDeletePost"
                                                 onClick={this.deletePost}>
-                                                Delete Help Post
+                                                Delete
                                             </Button>
                                             <Button
                                                 type="button"
-                                                className="editPost"
+                                                className="recipientEditPost"
                                                 onClick={this.openModal}>
-                                                Edit Help Post
+                                                Edit
                                             </Button>
                                         </> : <></>
                                     }
                                     {this.props.isCurrentUser ?
                                         <></> : <></>}
-                                </Col>
+                                </Row>
                             </Card>
+
                             <Modal isOpen={this.state.openModal}>
                                 <EditRequestPost
                                     userId={this.props.userId}
                                     sessionToken={this.props.sessionToken}
                                     recipientId={this.state.recipientId}
                                     closeModal={this.closeModal}
-                                    fetchRequestPosts={this.fetchRequestPosts}
-                                />
+                                    fetchRequestPosts={this.fetchRequestPosts} />
                             </Modal>
 
                         </Container>

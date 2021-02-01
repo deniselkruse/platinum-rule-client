@@ -100,7 +100,7 @@ class App extends React.Component<{}, AppStates> {
                   userId={this.state.userId}
                   fetchHelpPosts={this.state.fetchHelpPosts}
                   isCurrentUser={this.state.isCurrentUser}
-                />
+                  currentUser={this.currentUser} />
               </Route>
             }
 

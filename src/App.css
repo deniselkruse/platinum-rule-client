@@ -36,19 +36,17 @@
 /* HOMEPAGE */
 
 .platinum {
+    background-color: #E5E5E5; 
+    width: 100%;
+}
+
+#platinum {
     display: block;
     position: relative;
-    text-align: center;
-    background-color: #E5E5E5; 
-    max-width: 100;
-    padding-left: 1.1em;
-    padding-right: 1.1em;
+    text-align: center; 
 }
 
 .welcome {
-    display: block;
-    position: relative;
-    text-align: center;
     font-family: 'Montserrat', sans-serif;
     font-weight: 500;
     color: #525252;
@@ -56,9 +54,6 @@
 }
 
 .helpful {
-    display: block;
-    position: relative;
-    text-align: center;
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
     color: #525252;
@@ -67,7 +62,42 @@
 
 .dustyBlue {
     background-color: #D1DADC; 
-    max-width: 100;
+}
+
+/* AUTH */
+
+.auth-container {
+    display: block;
+    position: relative;
+    text-align: center; 
+}
+
+.auth {
+    display: flex;
+    position: relative;
+    align-items: center; 
+    text-align: center;
+    justify-content: center;
+}
+
+.login {
+    display: inline-block;
+    position: relative;
+    text-align: center;
+}
+
+.register {
+    display: inline-block;
+    position: relative;
+    text-align: center; 
+}
+
+.email {
+    width: 2em;
+    }
+    
+.password {
+    width: 20em;
 }
 
 /* FOOTER */
@@ -100,34 +130,192 @@
     display: block;
     position: relative;
     text-align: center;
+    margin-top: 2em;
+    margin-bottom: 2em;
 }
 
 .checkbox {
     margin: 20px;
 }
 
+.availabilityList {
+    float: left;
+    width: 50%;
+}
+
 #instances {
     display: block;
     position: relative;
     text-align: center;
-    width: 8em;
+    width: 4em;
+    height: 1.75em;
+    margin-left: .75em;
+    margin-top: -0.5em;
 }
 
-/* SERVICE POSTS */
+.instancesRow {
+    display: block;
+    position: relative;
+    align-items: center; 
+    text-align: center;
+    justify-content: center;
+    margin-bottom: 1em;
+}
 
-.serviceCard {
-    display: inline-block;
+#volunteerSubmitButton {
+    background-color: #E3CDC9!important;
+    color: #525252!important;
+    font-weight: 700!important;
+    width: 7em;
+    margin-bottom: 1em;
+}
+
+.recipientSubmitButton, 
+.recipientCancelButton {
+    background-color: #C9DFE3!important;
+    color: #525252!important;
+    font-weight: 700!important;
+    width: 10em;
+    margin-bottom: 1em;
+}
+
+/* UPDATE POST */
+
+#recipientCancelButton, 
+#recipientUpdateButton {
+    margin-left: .5em;
+    margin-right: .5em;
+    width: 6.5em;
+    height: 2.5em!important;
+    background-color: #C9DFE3!important;
+    color: #525252!important;
+    font-weight: 700!important;
+}
+
+#volunteerSubmitButton, 
+#volunteerCancelButton {
+    margin-left: .5em;
+    margin-right: .5em;
+    width: 6.5em;
+    height: 2.5em!important;
+    background-color: #E3CDC9!important;
+    color: #525252!important;
+    font-weight: 700!important;
+}
+
+.updateButtons {
+    display: flex;
+    position: relative;
+    justify-content: center;
+}
+
+/* VIEW POSTS */
+
+.viewPostsHeader {
+    display: block;
     position: relative;
     text-align: center;
+    margin-top: 1.25em;
+}
+
+.viewVolunteerHeader {
+    font-size: 2em;
+    font-weight: 700;
+    color: #4B5354;
+}
+
+.viewRequestHeader {
+    font-size: 2em;
+    font-weight: 700;
+    color: #544C4B;
+}
+
+.serviceCard {
+    display: flex;
+    position: relative;
+    align-items: center; 
+    text-align: center;
+    justify-content: center;
     margin-bottom: 1.25em;
+    margin-top: 1.25em;
 }
 
 ul {
     list-style: none;
 }
 
+.cardUsername {
+    font-size: 1.75em;
+    margin-bottom: .15em;
+    margin-top: .15em;
+}
+
+.cardText {
+    font-size: 1.25em;
+    font-weight: 500;
+    margin-bottom: .15em;
+}
+
+.cardHelpType {
+    font-size: 1.5em;
+    margin-bottom: .15em;
+}
+
+.requestButton {
+    width: 14em;
+}
+
+.cardButtons {
+    display: flex;
+    position: relative;
+    align-items: center; 
+    text-align: center;
+    justify-content: center;
+}
+
+.volunteerDeletePost, .volunteerEditPost {
+    margin-left: .5em;
+    margin-right: .5em;
+    width: 7.5em;
+    background-color: #C9DFE3!important;
+    color: #525252!important;
+    font-weight: 700!important;
+}
+
+.requestHelpButton {
+    background-color: #C9DFE3!important;
+    color: #525252!important;
+    font-weight: 700!important;
+    width: 16em;
+    margin-bottom: 1em;
+}
+
+.recipientDeletePost, .recipientEditPost {
+    margin-left: .5em;
+    margin-right: .5em;
+    width: 7.5em;
+    background-color: #E3CDC9!important;
+    color: #525252!important;
+    font-weight: 700!important;
+}
+
+.volunteerHelpButton {
+    background-color: #E3CDC9!important;
+    color: #525252!important;
+    font-weight: 700!important;
+    width: 16em;
+    margin-bottom: 1em;
+}
 
 /* MENU */
+
+.menuCard {
+    display: flex;
+    position: relative;
+    align-items: center; 
+    text-align: center;
+    justify-content: center;
+}
 
 .menuHeader{
     display: inline-block;
@@ -137,7 +325,26 @@ ul {
     word-spacing: .1em;
 }
 
+#volunteerHeader {
+    color: #544C4B;
+}
+
+#recipientHeader {
+    color: #4B5354;
+}
+
 .houses {
     display:block;
-    margin: 0 auto;    
+    margin: 0 auto;
+    margin-top: -1.5em;    
+}
+
+.volunteerButton {
+    background-color: #AA9996!important;
+    width: 15em;
+}
+
+.recipientButton {
+    background-color: #96A7AA!important;
+    width: 15em;
 }

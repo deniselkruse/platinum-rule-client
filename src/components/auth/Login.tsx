@@ -61,7 +61,6 @@ class Login extends React.Component<LoginAcceptedProps, {redirect: null | string
             <div className="input-group mb-3">
               <Input
                 className="email"
-                name="email"
                 placeholder="Email"
                 onChange={(e) =>
                   this.props.setEmail(e.target.value)}
@@ -71,7 +70,6 @@ class Login extends React.Component<LoginAcceptedProps, {redirect: null | string
           <FormGroup>
             <Input
               className="password"
-              name="password"
               placeholder="Password"
               onChange={(e) =>
                 this.props.setPassword(e.target.value)}

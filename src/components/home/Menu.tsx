@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import { Redirect } from "react-router-dom";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { Button, Card, Col, Row } from 'reactstrap';
+import { Button, Card, Col } from 'reactstrap';
 
 import CreateHelpPost from '../volunteers/CreateVolunteerPost';
 import CreateRequestPost from '../recipients/CreateRequestPost';
@@ -14,6 +15,7 @@ type postProps = {
   isCurrentUser: boolean;
   userId: string;
   fetchHelpPosts: any;
+  currentUser: () => void;
 }
 
 class Menu extends React.Component<postProps, {}> {
@@ -22,6 +24,16 @@ class Menu extends React.Component<postProps, {}> {
     this.state = {
     }
   }
+
+  componentDidMount() {
+    this.props.currentUser()
+    if (!this.props.sessionToken) {
+      return <Redirect to="/" />
+    } else {
+      return <Redirect to="/menu" />
+    }
+  }
+
 
   render() {
     return (
@@ -33,22 +45,24 @@ class Menu extends React.Component<postProps, {}> {
             <Route exact path='/menu'>
               <br />
               <Col>
-                <Card>
-                  <h3 className="menuHeader">Volunteer to Help</h3>
+                <Card className="menuCard">
                   <br />
-                  <Button href='/menu/request/posts'>View Help Requests</Button>
+                  <h3 className="menuHeader" id="volunteerHeader">Volunteer to Help</h3>
                   <br />
-                  <Button href='/menu/volunteer/create'>Create a Volunteer Post</Button>
+                  <Button href='/menu/request/posts' className="volunteerButton">View Help Requests</Button>
+                  <br />
+                  <Button href='/menu/volunteer/create' className="volunteerButton">Create a Volunteer Post</Button>
+                  <br />
                 </Card>
-
-                <br /><br />
-
-                <Card>
-                  <h3 className="menuHeader">Request Help</h3>
+                <br />
+                <Card className="menuCard">
                   <br />
-                  <Button href='/menu/volunteer/posts'>View Volunteer Posts</Button>
+                  <h3 className="menuHeader" id="recipientHeader">Request Help</h3>
                   <br />
-                  <Button href='/menu/request/create'>Create a Help Request</Button>
+                  <Button href='/menu/volunteer/posts' className="recipientButton">View Volunteer Posts</Button>
+                  <br />
+                  <Button href='/menu/request/create' className="recipientButton">Create a Help Request</Button>
+                  <br />
                 </Card>
 
                 <img src={houses} alt="loading..." className="houses" />
@@ -59,7 +73,9 @@ class Menu extends React.Component<postProps, {}> {
 
             <Route path='/menu/volunteer/create'>
               <CreateHelpPost
-                sessionToken={this.props.sessionToken} />
+                sessionToken={this.props.sessionToken}
+                userId={this.props.userId}
+                isCurrentUser={this.props.isCurrentUser} />
             </Route>
 
             <Route path='/menu/volunteer/posts'>
@@ -73,6 +89,8 @@ class Menu extends React.Component<postProps, {}> {
             <Route path='/menu/request/create'>
               <CreateRequestPost
                 sessionToken={this.props.sessionToken}
+                userId={this.props.userId}
+                isCurrentUser={this.props.isCurrentUser}
               />
             </Route>
 
@@ -81,6 +99,7 @@ class Menu extends React.Component<postProps, {}> {
                 sessionToken={this.props.sessionToken}
                 userId={this.props.userId}
                 isCurrentUser={this.props.isCurrentUser}
+                currentUser={this.props.currentUser}
               />
             </Route>
 

@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { Redirect } from "react-router-dom";
-import { Button, Card, Container, Form, FormGroup, Input, Label } from 'reactstrap';
+import { Button, Card, CardHeader, Container, Form, FormGroup, Input, Label, Row } from 'reactstrap';
 
 type RequestProps = {
     sessionToken?: any;
+    userId: any;
+    isCurrentUser: boolean;
 }
 
 export type Weekdays = "Sundays" | "Mondays" | "Tuesdays" | "Wednesdays" | "Thursdays" | "Fridays" | "Saturdays"
@@ -97,7 +99,7 @@ class CreateRequestPost extends React.Component<RequestProps, RequestState> {
                     description: this.state.description,
                     availability: this.state.availability,
                     instances: this.state.instances,
-                    date: this.state.date, // Auto populate -- Need to format!
+                    date: this.state.date, //Fix date format
                     inactiveDate: this.state.inactiveDate,
                 }
             }),
@@ -130,30 +132,42 @@ class CreateRequestPost extends React.Component<RequestProps, RequestState> {
     render() {
         return (
             <Container className="postContainer">
-                <Card body inverse style={{ backgroundColor: '#CECECE', borderColor: '#525252', borderWidth: '.25em' }}>
-                    <h4 className='postHeader'>New Help Request Post</h4>
+                <Card body inverse
+                    style={{
+                        backgroundColor: '#96A7AA',
+                        borderColor: '#646F71',
+                        borderWidth: '.25em'
+                    }}>
+                    <CardHeader
+                        style={{
+                            backgroundColor: '#646F71'
+                        }}>
+                        <h4 className="postHeader">
+                            What do you need help with?
+                        </h4>
+                    </CardHeader>
                     <br />
                     <Form className='postForm' onSubmit={this.handleSubmit}>
                         <FormGroup>
                             <Label
                                 htmlFor="helpTitle"
                                 className="helpTitle">
-                                Type of Help Needed
-                        </Label>
+                                <p className="cardText">Please select a task:</p>
+                            </Label>
                             <Input
                                 className="helpTitle"
                                 type="select"
                                 onChange={(e) => { this.state.setTitle(e.target.value) }}
                                 value={this.state.title}>
                                 <option value="">Select One</option>
-                                <option value="Rake Leaves">Rake Leaves</option>
-                                <option value="Shovel Snow">Shovel Snow</option>
-                                <option value="Take Out Trash">Take Out Trash</option>
-                                <option value="Mow Lawn">Mow Lawn</option>
-                                <option value="Walk Dogs">Walk Dogs</option>
-                                <option value="Grocery Run">Grocery Run</option>
-                                <option value="Pharmacy Pickup">Pharmacy Pickup</option>
-                                <option value="Essential Errand">Essential Errand</option>
+                                <option value="Raking Leaves">Raking Leaves</option>
+                                <option value="Shoveling Snow">Shoveling Snow</option>
+                                <option value="Take Out Trash">Taking Out Trash</option>
+                                <option value="Mow Lawn">Mowing a Lawn</option>
+                                <option value="Walk Dogs">Walking Dog/s</option>
+                                <option value="Grocery Run">A Grocery Run</option>
+                                <option value="Pharmacy Pickup">A Pharmacy Pickup</option>
+                                <option value="Essential Errand">An Essential Errand</option>
                                 <option value="Phone Check-ins">Phone Check-ins</option>
                                 <option value="Other">Other - Please list in description.</option>
                             </Input>
@@ -162,7 +176,7 @@ class CreateRequestPost extends React.Component<RequestProps, RequestState> {
                             <Label
                                 htmlFor="description"
                                 className="helpDescription">
-                                Description/Details
+                                <p className="cardText">Description:</p>
                             </Label>
                             <Input
                                 className="helpDescription"
@@ -175,11 +189,12 @@ class CreateRequestPost extends React.Component<RequestProps, RequestState> {
                             <Label
                                 htmlFor="availability"
                                 className="availability">
-                                Availability
+                                <p className="cardText">Availability:</p>
                             </Label>
                             <br />
+                            <Row> 
                             {Object.entries(this.state.availability).map(([day, value], i: number) => (
-                                <li>
+                                <li className="availabilityList">
                                     <Input type="checkbox" key={i}
                                         checked={value}
                                         // @ts-ignore
@@ -190,18 +205,22 @@ class CreateRequestPost extends React.Component<RequestProps, RequestState> {
                                 </li>
                             ))
                             }
+                            </Row>
                         </FormGroup>
                         <FormGroup>
-                            <Label
-                                htmlFor="instances">
-                                Instances
+                            <Row className="instancesRow">
+                                <Label
+                                    htmlFor="instances">
+                                    <p className="cardText">Instances:</p>
                                 </Label>
-                            <Input
-                                id="instances"
-                                onChange={(e) => { this.state.setInstances(e.target.value) }}
-                                value={this.state.instances} />
+                                <Input
+                                    id="instances"
+                                    onChange={(e) => { this.state.setInstances(e.target.value) }}
+                                    value={this.state.instances} />
+                            </Row>
                         </FormGroup>
-                        <Button type="submit">Submit Post</Button>
+
+                        <Button type="submit" className="recipientSubmitButton">Submit Post</Button>
                     </Form>
                 </Card>
             </Container>

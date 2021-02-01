@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Button, Card, CardHeader, CardTitle, CardText, Col, Container, Modal } from 'reactstrap';
+import { Redirect } from "react-router-dom";
+import { Button, Card, CardHeader, CardText, Container, Modal, Row } from 'reactstrap';
 
 import EditHelpPost from './EditVolunteerPost';
 
@@ -40,6 +41,11 @@ class ViewHelpPosts extends React.Component<ViewHelpPostsProps, ViewHelpPostsSta
 
     componentDidMount() {
         this.fetchHelpPosts();
+        if (!this.props.sessionToken) {
+            return <Redirect to="/" />
+        } else {
+            return <Redirect to="/menu" />
+        }
     }
 
     setHelpPosts = (postArray: any) => {
@@ -85,7 +91,10 @@ class ViewHelpPosts extends React.Component<ViewHelpPostsProps, ViewHelpPostsSta
     render() {
         return (
             <div>
-                <h4>VIEWING VOLUNTEER POSTS</h4>
+                <div className="viewPostsHeader"> 
+                <h4 className="viewVolunteerHeader">Find Volunteers</h4>
+                </div>
+                
                 <div>
                     {this.state.helpPosts.length > 0 ? (this.state.helpPosts.map((event: any, index: any) => (
 
@@ -98,66 +107,71 @@ class ViewHelpPosts extends React.Component<ViewHelpPostsProps, ViewHelpPostsSta
                                     })
                                     console.log(this.state.helpId)
                                 }}
-                                body inverse style={{
-                                    backgroundColor: '#CECECE',
-                                    borderColor: '#525252',
+                                body inverse
+                                style={{
+                                    backgroundColor: '#96A7AA',
+                                    borderColor: '#646F71',
                                     borderWidth: '.25em'
                                 }}>
 
-                                <CardHeader tag="h4">
-                                    HEADER HERE
+                                <CardHeader
+                                    style={{
+                                        backgroundColor: '#646F71'
+                                    }}>
+                                    <p className="cardText">Your neighbor</p>
+                                    <p className="cardUsername">{this.state.helpPosts[index].user.username}</p>
+                                    <p className="cardText">is available to help with</p>
+                                    <p className="cardHelpType">{this.state.helpPosts[index].title}</p>
                                 </CardHeader>
-                                <CardTitle>
-                                    {this.state.helpPosts[index].user.username}
-                                    <p>is available to help with</p>
-                                    {this.state.helpPosts[index].title}
-                                </CardTitle>
+                                <br />
                                 <CardText>
-                                    posted on
-                                    {this.state.helpPosts[index].date}
-                                </CardText>
-                                <CardText>
-                                    Description:
-                                    {this.state.helpPosts[index].description}
+                                    <p className="cardText">Description:</p>
+                                    <p className="cardText">{this.state.helpPosts[index].description}</p>
                                 </CardText>
                                 <CardText >
-                                    Availability:
+                                    <p className="cardText">Availability:
                                     <br />
-                                    {Object.entries(this.state.helpPosts[index].availability).map((day, i) => (
-                                        <div key={i}>
-                                            { day[1] ? <span>{day[0]}</span> : null}
-                                        </div>))
-                                    }
+                                        {Object.entries(this.state.helpPosts[index].availability).map((day, i) => (
+                                            <div key={i}>
+                                                { day[1] ? <span>{day[0]}</span> : null}
+                                            </div>))
+                                        }</p>
                                 </CardText>
                                 <CardText >
-                                    Instances:
-                                    {this.state.helpPosts[index].instances}
+                                    <p className="cardText">Instances: {this.state.helpPosts[index].instances}/{this.state.helpPosts[index].instances}</p>
                                 </CardText>
-                                <Button >Request help from {this.state.helpPosts[index].user.username} </Button>
+                                <CardText>
+                                    <p className="cardText">Posted on:
+                                    {this.state.helpPosts[index].createdAt}</p>
+                                </CardText>
+                                <Row className="cardButtons">
+                                    <Button className="requestHelpButton">Request help from {this.state.helpPosts[index].user.username}</Button>
+                                </Row>
 
-                                <Col >
-                                    {!this.props.isCurrentUser ?
+                                <Row className="cardButtons">
+                                    {this.props.isCurrentUser ?
                                         <>
                                             <Button
                                                 type="button"
-                                                className="deletePost"
+                                                className="volunteerDeletePost"
                                                 onClick={this.deletePost}>
-                                                Delete Help Post
+                                                Delete
                                             </Button>
+
                                             <Button
                                                 type="button"
-                                                className="editPost"
+                                                className="volunteerEditPost"
                                                 onClick={this.openModal}>
-                                                Edit Help Post
+                                                Edit
                                             </Button>
                                         </> : <></>
                                     }
                                     {this.props.isCurrentUser ?
                                         <></> : <></>}
-                                </Col>
+                                </Row>
                             </Card>
-                            <Modal
-                                isOpen={this.state.openModal}>
+
+                            <Modal isOpen={this.state.openModal}>
                                 <EditHelpPost
                                     userId={this.props.userId}
                                     sessionToken={this.props.sessionToken}
@@ -173,6 +187,7 @@ class ViewHelpPosts extends React.Component<ViewHelpPostsProps, ViewHelpPostsSta
 
                             </div>
                         )}
+                    <br />
                 </div>
             </div>
         )
