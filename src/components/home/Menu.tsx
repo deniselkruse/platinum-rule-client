@@ -12,10 +12,10 @@ import houses from '../../assets/houses.gif';
 
 type postProps = {
   sessionToken?: any;
-  isCurrentUser: boolean;
+  // isCurrentUser: boolean;
   userId: string;
   fetchHelpPosts: any;
-  currentUser: () => void;
+  // currentUser: () => void;
 }
 
 class Menu extends React.Component<postProps, {}> {
@@ -26,7 +26,7 @@ class Menu extends React.Component<postProps, {}> {
   }
 
   componentDidMount() {
-    this.props.currentUser()
+    // this.props.currentUser()
     if (!this.props.sessionToken) {
       return <Redirect to="/" />
     } else {
@@ -75,14 +75,15 @@ class Menu extends React.Component<postProps, {}> {
               <CreateHelpPost
                 sessionToken={this.props.sessionToken}
                 userId={this.props.userId}
-                isCurrentUser={this.props.isCurrentUser} />
+                // isCurrentUser={this.props.isCurrentUser} 
+                />
             </Route>
 
             <Route path='/menu/volunteer/posts'>
               <ViewHelpPosts
                 sessionToken={this.props.sessionToken}
                 userId={this.props.userId}
-                isCurrentUser={this.props.isCurrentUser}
+                // isCurrentUser={this.props.isCurrentUser}
               />
             </Route>
 
@@ -90,7 +91,7 @@ class Menu extends React.Component<postProps, {}> {
               <CreateRequestPost
                 sessionToken={this.props.sessionToken}
                 userId={this.props.userId}
-                isCurrentUser={this.props.isCurrentUser}
+                // isCurrentUser={this.props.isCurrentUser}
               />
             </Route>
 
@@ -98,8 +99,8 @@ class Menu extends React.Component<postProps, {}> {
               <ViewRequestPosts
                 sessionToken={this.props.sessionToken}
                 userId={this.props.userId}
-                isCurrentUser={this.props.isCurrentUser}
-                currentUser={this.props.currentUser}
+                // isCurrentUser={this.props.isCurrentUser}
+                // currentUser={this.props.currentUser}
               />
             </Route>
 

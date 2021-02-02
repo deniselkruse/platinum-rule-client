@@ -7,8 +7,8 @@ import EditRequestPost from '../recipients/EditRequestPost';
 type ViewRequestPostsProps = {
     sessionToken?: any;
     userId: any;
-    isCurrentUser: boolean;
-    currentUser: () => void;
+    // isCurrentUser: boolean;
+    // currentUser: () => void;
 }
 
 type ViewRequestPostsState = {
@@ -41,7 +41,7 @@ class ViewRequestPosts extends React.Component<ViewRequestPostsProps, ViewReques
     }
 
     componentDidMount() {
-        this.props.currentUser()
+        // this.props.currentUser()
         this.fetchRequestPosts();
         if (!this.props.sessionToken) {
             return <Redirect to="/" />
@@ -152,8 +152,8 @@ class ViewRequestPosts extends React.Component<ViewRequestPostsProps, ViewReques
                                 </Row>
 
                                 <Row className="cardButtons">
-                                    {!this.props.isCurrentUser ?
-                                        <>
+                                    {/* {!this.props.isCurrentUser ? */}
+                                        {/* <> */}
                                             <Button
                                                 type="button"
                                                 className="recipientDeletePost"
@@ -166,10 +166,10 @@ class ViewRequestPosts extends React.Component<ViewRequestPostsProps, ViewReques
                                                 onClick={this.openModal}>
                                                 Edit
                                             </Button>
-                                        </> : <></>
-                                    }
-                                    {this.props.isCurrentUser ?
-                                        <></> : <></>}
+                                        {/* </> : <></> */}
+                                    {/* } */}
+                                    {/* {this.props.isCurrentUser ? */}
+                                        {/* <></> : <></>} */}
                                 </Row>
                             </Card>
 

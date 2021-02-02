@@ -7,7 +7,7 @@ import EditHelpPost from './EditVolunteerPost';
 type ViewHelpPostsProps = {
     sessionToken?: any;
     userId: any;
-    isCurrentUser: boolean;
+    // isCurrentUser: boolean;
 }
 
 type ViewHelpPostsState = {
@@ -149,8 +149,8 @@ class ViewHelpPosts extends React.Component<ViewHelpPostsProps, ViewHelpPostsSta
                                 </Row>
 
                                 <Row className="cardButtons">
-                                    {this.props.isCurrentUser ?
-                                        <>
+                                    {/* {this.props.isCurrentUser ? */}
+                                        {/* <> */}
                                             <Button
                                                 type="button"
                                                 className="volunteerDeletePost"
@@ -164,10 +164,10 @@ class ViewHelpPosts extends React.Component<ViewHelpPostsProps, ViewHelpPostsSta
                                                 onClick={this.openModal}>
                                                 Edit
                                             </Button>
-                                        </> : <></>
-                                    }
-                                    {this.props.isCurrentUser ?
-                                        <></> : <></>}
+                                        {/* </> : <></> */}
+                                    {/* // } */}
+                                    {/* // {this.props.isCurrentUser ? */}
+                                    {/* //     <></> : <></>} */}
                                 </Row>
                             </Card>
 

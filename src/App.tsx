@@ -96,11 +96,13 @@ class App extends React.Component<{}, AppStates> {
               </Route>
               :
               <Route path="/menu">
-                <Menu sessionToken={this.state.sessionToken}
+                <Menu 
+                sessionToken={this.state.sessionToken}
                   userId={this.state.userId}
                   fetchHelpPosts={this.state.fetchHelpPosts}
-                  isCurrentUser={this.state.isCurrentUser}
-                  currentUser={this.currentUser} />
+                  // isCurrentUser={this.state.isCurrentUser}
+                  // currentUser={this.currentUser} 
+                  />
               </Route>
             }
 
