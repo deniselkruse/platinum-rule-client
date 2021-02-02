@@ -8,36 +8,32 @@ import Footer from './components/home/Footer';
 import HomePage from './components/home/HomePage';
 import Menu from './components/home/Menu';
 
-
 type AppStates = {
   sessionToken: any;
-  isCurrentUser: boolean;
-  userId: string;
   fetchHelpPosts: any;
-  modal: boolean;
+  currentUser: any;
+  userId: number,
 }
 
 class App extends React.Component<{}, AppStates> {
   constructor(props: any) {
     super(props);
     this.state = {
-      isCurrentUser: false,
+      userId: 0,
+      currentUser: "",
       sessionToken: "",
-      userId: "",
       fetchHelpPosts: "",
-      modal: false,
     };
     this.getToken = this.getToken.bind(this);
     this.updateToken = this.updateToken.bind(this);
+    // this.getUser = this.getUser.bind(this);
+    // this.updateUser = this.updateUser.bind(this);
     this.clearToken = this.clearToken.bind(this);
-    this.userId = this.userId.bind(this);
-    this.currentUser = this.currentUser.bind(this);
   }
 
   componentDidMount() {
-    this.getToken()
-    this.userId()
-    this.currentUser()
+    this.getToken();
+    this.getUser();
   }
 
   getToken = () => {
@@ -48,38 +44,30 @@ class App extends React.Component<{}, AppStates> {
     }
   };
 
-  updateToken = (newToken: any) => {
+  updateToken = (newToken: string, userId: number) => {
     localStorage.setItem('token', newToken);
     this.setState({ sessionToken: newToken });
     console.log(newToken);
+    localStorage.setItem('id', userId.toString());
+    this.setState({ userId: userId })
+    console.log(userId)
+  }
+
+  getUser = () => {
+    const id = localStorage.getItem('id')
+    if (id) {
+      this.setState({ userId: parseInt(id) });
+    } else {
+      console.log(id)
+      console.log('Login required.')
+    }
   };
 
   clearToken = () => {
     localStorage.clear();
     this.setState({ sessionToken: '' });
-    console.log('Hello.')
+    console.log('User is currently logged out.')
   };
-
-  userId = () => {
-    const userId = localStorage.getItem('userId');
-    if (userId) {
-      this.setState({ userId: userId })
-      console.log("userId:", userId)
-    }
-  }
-
-  currentUser = () => {
-    if (this.state.userId === localStorage.getItem('userId')) {
-      this.setState({ isCurrentUser: true })
-      console.log(this.state.userId)
-    } else {
-      this.setState({ isCurrentUser: false })
-    }
-  }
-
-  toggle = () => {
-    this.setState({ modal: !this.state.modal })
-  }
 
   render() {
     return (
@@ -97,10 +85,8 @@ class App extends React.Component<{}, AppStates> {
               :
               <Route path="/menu">
                 <Menu sessionToken={this.state.sessionToken}
-                  userId={this.state.userId}
                   fetchHelpPosts={this.state.fetchHelpPosts}
-                  isCurrentUser={this.state.isCurrentUser}
-                  currentUser={this.currentUser} />
+                  userId={this.state.userId} />
               </Route>
             }
 

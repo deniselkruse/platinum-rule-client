@@ -1,10 +1,10 @@
 # The Platinum Rule
 
-The Platinum Rule is a full stack web application that enables users to post and search for neighbors in need of help and volunteer availability.
+The Platinum Rule is a full-stack web application built using PostgreSQL, Express, React, and Node.js (PERN) that enables users to post and search for neighbors in need of help and volunteer availability.
 
-The idea behind The Platinum Rule was born during the early days of the Covid-19 global pandemic. 
+We've all heard of the Golden Rule, which goes something like this: Do unto others as you would have them do to you. Because all people and situations are different, The Platinum Rule extends the principal of acts of kindness and goodwill by treating others as they want to be treated.  
 
-Due to the communicability of Covid-19, daily activities may present a challenge for neighbors at higher risk. Often, people that need help rarely ask for it. While on the other hand, people often offer to help, but are rarely taken up on it. 
+The idea behind The Platinum Rule application was born during the early days of the Covid-19 global pandemic. Due to the communicability of Covid-19, daily activities may present a challenge for neighbors at higher risk. However, often the people that need help rarely ask for it. At the same time, the people who often offer to help, are rarely taken up on it. 
 
 The Platinum Rule allows neighbors who need help with daily tasks to find someone nearby who can help while encouraging volunteer-minded neighbors to offer their time and services.
 

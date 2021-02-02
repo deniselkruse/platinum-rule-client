@@ -1,8 +1,13 @@
 import React, { Component } from "react";
-import { Button, Container, Col, Row } from 'reactstrap';
+import { Button, Container } from 'reactstrap';
 
 import Login from './Login';
 import Register from './Register';
+
+type AuthProps = {
+  sessionToken?: any,
+  updateToken: any;
+}
 
 type AuthStates = {
   email: string;
@@ -17,14 +22,11 @@ type AuthStates = {
   setLastName: (e: any) => any;
   setUsername: (e: any) => any;
   setZipCode: (e: any) => any;
-  sessionToken: any;
-  updateToken: any;
-  getToken: any;
   register: boolean;
 }
 
-class Auth extends React.Component<{ updateToken: any }, AuthStates> {
-  constructor(props: any) {
+class Auth extends React.Component<AuthProps, AuthStates> {
+  constructor(props: AuthProps) {
     super(props)
     this.state = {
       email: "",
@@ -33,9 +35,6 @@ class Auth extends React.Component<{ updateToken: any }, AuthStates> {
       lastName: "",
       username: "",
       zipCode: 0,
-      sessionToken: "",
-      getToken: "",
-      updateToken: "",
       register: true,
       setEmail: (e) => {
         this.setState({
@@ -82,9 +81,8 @@ class Auth extends React.Component<{ updateToken: any }, AuthStates> {
                 password={this.state.password}
                 setEmail={this.state.setEmail}
                 setPassword={this.state.setPassword}
-                sessionToken={this.state.sessionToken}
                 updateToken={this.props.updateToken}
-                getToken={this.state.getToken} />
+                sessionToken={this.props.sessionToken} />
             :
               <Register
                 firstName={this.state.firstName}
@@ -98,11 +96,9 @@ class Auth extends React.Component<{ updateToken: any }, AuthStates> {
                 setFirstName={this.state.setFirstName}
                 setLastName={this.state.setLastName}
                 setUsername={this.state.setUsername}
-                setZipCode={this.state.setZipCode}
-                sessionToken={this.state.sessionToken}
+                setZipCode={this.state.setZipCode} 
                 updateToken={this.props.updateToken}
-                getToken={this.state.getToken} />
-            
+                sessionToken={this.props.sessionToken}/>   
           }
 
         <br />

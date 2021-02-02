@@ -8,14 +8,14 @@ import CreateRequestPost from '../recipients/CreateRequestPost';
 import ViewHelpPosts from '../volunteers/ViewVolunteerPosts';
 import ViewRequestPosts from '../recipients/ViewRequestPosts';
 
+import About from './About';
+
 import houses from '../../assets/houses.gif';
 
 type postProps = {
   sessionToken?: any;
-  isCurrentUser: boolean;
-  userId: string;
   fetchHelpPosts: any;
-  currentUser: () => void;
+  userId: any;
 }
 
 class Menu extends React.Component<postProps, {}> {
@@ -26,7 +26,6 @@ class Menu extends React.Component<postProps, {}> {
   }
 
   componentDidMount() {
-    this.props.currentUser()
     if (!this.props.sessionToken) {
       return <Redirect to="/" />
     } else {
@@ -74,35 +73,32 @@ class Menu extends React.Component<postProps, {}> {
             <Route path='/menu/volunteer/create'>
               <CreateHelpPost
                 sessionToken={this.props.sessionToken}
-                userId={this.props.userId}
-                isCurrentUser={this.props.isCurrentUser} />
+                userId={this.props.userId} />
             </Route>
 
             <Route path='/menu/volunteer/posts'>
               <ViewHelpPosts
                 sessionToken={this.props.sessionToken}
-                userId={this.props.userId}
-                isCurrentUser={this.props.isCurrentUser}
-              />
+                userId={this.props.userId} />
             </Route>
 
             <Route path='/menu/request/create'>
               <CreateRequestPost
                 sessionToken={this.props.sessionToken}
-                userId={this.props.userId}
-                isCurrentUser={this.props.isCurrentUser}
-              />
+                userId={this.props.userId} />
             </Route>
 
             <Route path='/menu/request/posts'>
               <ViewRequestPosts
                 sessionToken={this.props.sessionToken}
-                userId={this.props.userId}
-                isCurrentUser={this.props.isCurrentUser}
-                currentUser={this.props.currentUser}
-              />
+                userId={this.props.userId} />
             </Route>
 
+
+            <Route path='/menu/about'>
+              <About
+                sessionToken={this.props.sessionToken} />
+            </Route>
 
           </Switch>
         </Router>
