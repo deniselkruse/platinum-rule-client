@@ -4,8 +4,8 @@ import { Button, Card, CardHeader, Container, Form, FormGroup, Input, Label, Mod
 
 type EditRequestProps = {
     sessionToken?: any;
-    userId: any;
     recipientId: number;
+    userId: any;
     closeModal: () => void;
     fetchRequestPosts: () => void;
 }
@@ -127,7 +127,6 @@ class EditRequestPost extends React.Component<EditRequestProps, EditRequestState
                     console.log(response);
                 } else {
                     console.log('Update failed.')
-                    console.log(this.props.userId)
                 }
                 return response.json();
             }).then((data) => {
@@ -181,12 +180,12 @@ class EditRequestPost extends React.Component<EditRequestProps, EditRequestState
                                         <option value="">Select One</option>
                                         <option value="Raking Leaves">Raking Leaves</option>
                                         <option value="Shoveling Snow">Shoveling Snow</option>
-                                        <option value="Take Out Trash">Taking Out Trash</option>
-                                        <option value="Mow Lawn">Mowing a Lawn</option>
-                                        <option value="Walk Dogs">Walking Dog/s</option>
-                                        <option value="Grocery Run">A Grocery Run</option>
-                                        <option value="Pharmacy Pickup">A Pharmacy Pickup</option>
-                                        <option value="Essential Errand">An Essential Errand</option>
+                                        <option value="Taking Out Trash">Taking Out Trash</option>
+                                        <option value="Mowing a Lawn">Mowing a Lawn</option>
+                                        <option value="Walking Dogs">Walking Dog/s</option>
+                                        <option value="A Grocery Run">A Grocery Run</option>
+                                        <option value="A Pharmacy Pickup">A Pharmacy Pickup</option>
+                                        <option value="An Essential Errand">An Essential Errand</option>
                                         <option value="Phone Check-ins">Phone Check-ins</option>
                                         <option value="Other">Other - Please list in description.</option>
                                     </Input>
@@ -239,7 +238,7 @@ class EditRequestPost extends React.Component<EditRequestProps, EditRequestState
                                             value={this.state.instances} />
                                     </Row>
                                 </FormGroup>
-                                
+
                                 <Container>
                                     <Row className="updateButtons">
                                         <Button

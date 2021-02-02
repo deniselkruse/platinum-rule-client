@@ -7,14 +7,11 @@ import EditRequestPost from '../recipients/EditRequestPost';
 type ViewRequestPostsProps = {
     sessionToken?: any;
     userId: any;
-    isCurrentUser: boolean;
-    currentUser: () => void;
 }
 
 type ViewRequestPostsState = {
     requestPosts: any;
     recipientId: number;
-    currentUser: boolean;
     modal: boolean;
     openModal: boolean;
     updateActive: boolean;
@@ -27,7 +24,6 @@ class ViewRequestPosts extends React.Component<ViewRequestPostsProps, ViewReques
         this.state = {
             requestPosts: [],
             recipientId: 0,
-            currentUser: false,
             modal: false,
             openModal: false,
             updateActive: false,
@@ -41,7 +37,6 @@ class ViewRequestPosts extends React.Component<ViewRequestPostsProps, ViewReques
     }
 
     componentDidMount() {
-        this.props.currentUser()
         this.fetchRequestPosts();
         if (!this.props.sessionToken) {
             return <Redirect to="/" />
@@ -69,6 +64,8 @@ class ViewRequestPosts extends React.Component<ViewRequestPostsProps, ViewReques
             })
     }
 
+
+
     deletePost = (event: any) => {
         fetch(`http://localhost:3000/recipient/${this.state.recipientId}`, {
             method: 'DELETE',
@@ -95,7 +92,7 @@ class ViewRequestPosts extends React.Component<ViewRequestPostsProps, ViewReques
             <div>
                 <div className="viewPostsHeader">
                     <h4 className="viewRequestHeader">
-                        Find Neighbors</h4> 
+                        Find Neighbors</h4>
                     <h4 className="viewRequestHeader">
                         to Help</h4>
                 </div>
@@ -122,55 +119,51 @@ class ViewRequestPosts extends React.Component<ViewRequestPostsProps, ViewReques
                                         backgroundColor: '#716664'
                                     }}>
                                     <p className="cardText">Your neighbor</p>
-                                    <p className="cardUsername">{this.state.requestPosts[index].user.username}</p>
+                                    <p className="cardUsername">{event.user.username}</p>
                                     <p className="cardText"> needs help with</p>
-                                    <p className="cardHelpType">{this.state.requestPosts[index].title}</p>
+                                    <p className="cardHelpType">{event.title}</p>
                                 </CardHeader>
                                 <br />
                                 <CardText>
                                     <p className="cardText">Description: </p>
-                                    <p className="cardText">{this.state.requestPosts[index].description}</p>
+                                    <p className="cardText">{event.description}</p>
                                 </CardText>
                                 <CardText >
                                     <p className="cardText">Availability:
                                     <br />
-                                        {Object.entries(this.state.requestPosts[index].availability).map((day, i) => (
+                                        {Object.entries(event.availability).map((day, i) => (
                                             <div key={i}>
                                                 { day[1] ? <span>{day[0]}</span> : null}
                                             </div>))
                                         }</p>
                                 </CardText>
                                 <CardText >
-                                    <p className="cardText">Instances: {this.state.requestPosts[index].instances}/{this.state.requestPosts[index].instances}</p>
+                                    <p className="cardText">Instances: {event.instances}/{event.instances}</p>
                                 </CardText>
                                 <CardText>
-                                    <p className="cardText">Posted on:
-                                    {this.state.requestPosts[index].createdAt}</p>
+                                    {/* <p className="cardText">Posted on:
+                                    {this.state.requestPosts[index].createdAt}</p> */}
                                 </CardText>
                                 <Row className="cardButtons">
-                                    <Button className="volunteerHelpButton">Volunteer to help {this.state.requestPosts[index].user.username}</Button>
+                                    <Button className="volunteerHelpButton">Volunteer to help {event.user.username}</Button>
                                 </Row>
 
-                                <Row className="cardButtons">
-                                    {!this.props.isCurrentUser ?
-                                        <>
-                                            <Button
-                                                type="button"
-                                                className="recipientDeletePost"
-                                                onClick={this.deletePost}>
-                                                Delete
+                                {(event.userId === this.props.userId) ?
+                                    <Row className="cardButtons">
+                                        <Button
+                                            type="button"
+                                            className="recipientDeletePost"
+                                            onClick={this.deletePost}>
+                                            Delete
                                             </Button>
-                                            <Button
-                                                type="button"
-                                                className="recipientEditPost"
-                                                onClick={this.openModal}>
-                                                Edit
+                                        <Button
+                                            type="button"
+                                            className="recipientEditPost"
+                                            onClick={this.openModal}>
+                                            Edit
                                             </Button>
-                                        </> : <></>
-                                    }
-                                    {this.props.isCurrentUser ?
-                                        <></> : <></>}
-                                </Row>
+                                    </Row>
+                                    : <></>}
                             </Card>
 
                             <Modal isOpen={this.state.openModal}>
@@ -185,10 +178,10 @@ class ViewRequestPosts extends React.Component<ViewRequestPostsProps, ViewReques
                         </Container>
                     ))
                     ) : (
-                            <div>
+                        <div>
 
-                            </div>
-                        )}
+                        </div>
+                    )}
                 </div>
             </div>
         )

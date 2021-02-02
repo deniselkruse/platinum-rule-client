@@ -1,6 +1,6 @@
 import React, { Component } from "react";
+import { Redirect } from 'react-router-dom';
 import { Form, FormGroup, Input, Button } from 'reactstrap';
-import {Redirect} from 'react-router-dom';
 
 
 type LoginAcceptedProps = {
@@ -8,12 +8,13 @@ type LoginAcceptedProps = {
   password: string;
   setEmail: (e: any) => any;
   setPassword: (e: any) => any;
-  sessionToken: any;
+  sessionToken?: any,
   updateToken: any;
-  getToken: any;
+  // isAdmin: boolean;
+  // checkAdmin: () => void;
 }
 
-class Login extends React.Component<LoginAcceptedProps, {redirect: null | string}> {
+class Login extends React.Component<LoginAcceptedProps, { redirect: null | string }> {
   constructor(props: LoginAcceptedProps) {
     super(props)
     this.state = {
@@ -44,14 +45,23 @@ class Login extends React.Component<LoginAcceptedProps, {redirect: null | string
         return response.json();
       })
       .then((data) => {
-        this.props.updateToken(data.sessionToken);
-        this.setState({redirect: '/menu'})
+        this.props.updateToken(data.sessionToken, data.user.id);
+        this.setState({ redirect: '/menu' })
       })
+  }
+  // this.props.updateToken(data.sessionToken, data.user.id);
+  
+  checkforToken = () => {
+    if (!this.props.sessionToken || this.props.email === undefined) {
+      return <Redirect to='./menu' />;
+    } else {
+      return <Redirect to='/' />;
+    }
   }
 
   render() {
-    if (this.state.redirect){
-      return <Redirect to = {this.state.redirect} />
+    if (this.state.redirect) {
+      return <Redirect to={this.state.redirect} />
     }
     return (
       <div>
