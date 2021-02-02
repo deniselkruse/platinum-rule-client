@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
-import { Col, Container, Row } from 'reactstrap';
+import { Col, Row } from 'reactstrap';
 
 import DoorsImages from './DoorsImages';
 import Auth from '../auth/Auth';
 
-class HomePage extends React.Component<{ updateToken: any }, {}> {
+type HomePageProps = {
+  updateToken?: any,
+  // isAdmin: boolean,
+  // checkAdmin: () => void;
+}
+
+class HomePage extends React.Component<HomePageProps, {}> {
 
   render() {
     return (
@@ -35,7 +41,11 @@ class HomePage extends React.Component<{ updateToken: any }, {}> {
         </Row>
         <br />
 
-        <Auth updateToken={this.props.updateToken} />
+        <Auth
+          updateToken={this.props.updateToken}
+          // isAdmin={this.props.isAdmin}
+          // checkAdmin={this.props.checkAdmin} 
+          />
 
       </div>
     );

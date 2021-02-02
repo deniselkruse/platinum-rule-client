@@ -10,6 +10,8 @@ type LoginAcceptedProps = {
   setPassword: (e: any) => any;
   sessionToken?: any,
   updateToken: any;
+  // isAdmin: boolean;
+  // checkAdmin: () => void;
 }
 
 class Login extends React.Component<LoginAcceptedProps, { redirect: null | string }> {
@@ -47,7 +49,8 @@ class Login extends React.Component<LoginAcceptedProps, { redirect: null | strin
         this.setState({ redirect: '/menu' })
       })
   }
-
+  // this.props.updateToken(data.sessionToken, data.user.id);
+  
   checkforToken = () => {
     if (!this.props.sessionToken || this.props.email === undefined) {
       return <Redirect to='./menu' />;

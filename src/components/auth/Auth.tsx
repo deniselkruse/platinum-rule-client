@@ -7,6 +7,8 @@ import Register from './Register';
 type AuthProps = {
   sessionToken?: any,
   updateToken: any;
+  // isAdmin: boolean;
+  // checkAdmin: () => void;
 }
 
 type AuthStates = {
@@ -82,7 +84,10 @@ class Auth extends React.Component<AuthProps, AuthStates> {
                 setEmail={this.state.setEmail}
                 setPassword={this.state.setPassword}
                 updateToken={this.props.updateToken}
-                sessionToken={this.props.sessionToken} />
+                sessionToken={this.props.sessionToken} 
+                // checkAdmin={this.props.checkAdmin}
+                // isAdmin={this.props.isAdmin}
+                />
             :
               <Register
                 firstName={this.state.firstName}
@@ -98,7 +103,10 @@ class Auth extends React.Component<AuthProps, AuthStates> {
                 setUsername={this.state.setUsername}
                 setZipCode={this.state.setZipCode} 
                 updateToken={this.props.updateToken}
-                sessionToken={this.props.sessionToken}/>   
+                sessionToken={this.props.sessionToken}
+                // checkAdmin={this.props.checkAdmin}
+                // isAdmin={this.props.isAdmin}
+                />   
           }
 
         <br />

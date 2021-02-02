@@ -17,6 +17,8 @@ type RegisterAcceptedProps = {
   setZipCode: (e: any) => any;
   sessionToken?: any,
   updateToken: any;
+  // isAdmin: boolean;
+  // checkAdmin: () => void;
 }
 
 

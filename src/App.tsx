@@ -12,28 +12,29 @@ type AppStates = {
   sessionToken: any;
   fetchHelpPosts: any;
   currentUser: any;
-  userId: number,
+  userId: any,
+  isAdmin: boolean,
 }
 
 class App extends React.Component<{}, AppStates> {
   constructor(props: any) {
     super(props);
     this.state = {
-      userId: 0,
+      isAdmin: false,
+      userId: "",
       currentUser: "",
       sessionToken: "",
       fetchHelpPosts: "",
     };
     this.getToken = this.getToken.bind(this);
     this.updateToken = this.updateToken.bind(this);
-    // this.getUser = this.getUser.bind(this);
-    // this.updateUser = this.updateUser.bind(this);
     this.clearToken = this.clearToken.bind(this);
   }
 
   componentDidMount() {
     this.getToken();
     this.getUser();
+    this.clearToken();
   }
 
   getToken = () => {
@@ -44,15 +45,17 @@ class App extends React.Component<{}, AppStates> {
     }
   };
 
-  updateToken = (newToken: string, userId: number) => {
+  updateToken = (newToken: string, userId: any) => {
     localStorage.setItem('token', newToken);
     this.setState({ sessionToken: newToken });
     console.log(newToken);
-    localStorage.setItem('id', userId.toString());
+    localStorage.setItem('id', userId);
     this.setState({ userId: userId })
     console.log(userId)
   }
 
+  // localStorage.setItem('id', userId.toString());
+  
   getUser = () => {
     const id = localStorage.getItem('id')
     if (id) {
@@ -69,6 +72,11 @@ class App extends React.Component<{}, AppStates> {
     console.log('User is currently logged out.')
   };
 
+  // checkAdmin = () => {
+  //   this.setState({ isAdmin: true })
+  // }
+
+
   render() {
     return (
       <div>
@@ -80,7 +88,9 @@ class App extends React.Component<{}, AppStates> {
 
             {!this.state.sessionToken ?
               <Route>
-                <HomePage updateToken={this.updateToken} />
+                <HomePage updateToken={this.updateToken} 
+                // isAdmin={this.state.isAdmin}
+                />
               </Route>
               :
               <Route path="/menu">

@@ -218,7 +218,6 @@ class CreateRequestPost extends React.Component<RequestProps, RequestState> {
                                     value={this.state.instances} />
                             </Row>
                         </FormGroup>
-
                         <Button type="submit" className="recipientSubmitButton">Submit Post</Button>
                     </Form>
                 </Card>

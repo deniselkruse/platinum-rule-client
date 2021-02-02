@@ -40,7 +40,7 @@ class Header extends React.Component<HeaderProps, HeaderStates> {
 
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav navbar>
-                            {this.props.sessionToken ?
+                            {/* {this.props.sessionToken ? */}
                                 <Col className="navbarColumn">
                                     <NavItem>
                                         <NavLink href='/menu'>Menu</NavLink>
@@ -66,7 +66,7 @@ class Header extends React.Component<HeaderProps, HeaderStates> {
                                     </NavItem>
                                     <br />
                                 </Col>
-                                : <></>}
+                                {/* : <></>} */}
 
                             {!this.props.sessionToken ?
                                 <Col className="navbarColumn">
