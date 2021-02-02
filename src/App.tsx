@@ -11,7 +11,6 @@ import Menu from './components/home/Menu';
 
 type AppStates = {
   sessionToken: any;
-  isCurrentUser: boolean;
   userId: string;
   fetchHelpPosts: any;
   modal: boolean;
@@ -21,7 +20,6 @@ class App extends React.Component<{}, AppStates> {
   constructor(props: any) {
     super(props);
     this.state = {
-      isCurrentUser: false,
       sessionToken: "",
       userId: "",
       fetchHelpPosts: "",
@@ -31,13 +29,11 @@ class App extends React.Component<{}, AppStates> {
     this.updateToken = this.updateToken.bind(this);
     this.clearToken = this.clearToken.bind(this);
     this.userId = this.userId.bind(this);
-    this.currentUser = this.currentUser.bind(this);
   }
 
   componentDidMount() {
     this.getToken()
     this.userId()
-    this.currentUser()
   }
 
   getToken = () => {
@@ -68,15 +64,6 @@ class App extends React.Component<{}, AppStates> {
     }
   }
 
-  currentUser = () => {
-    if (this.state.userId === localStorage.getItem('userId')) {
-      this.setState({ isCurrentUser: true })
-      console.log(this.state.userId)
-    } else {
-      this.setState({ isCurrentUser: false })
-    }
-  }
-
   toggle = () => {
     this.setState({ modal: !this.state.modal })
   }
@@ -100,8 +87,6 @@ class App extends React.Component<{}, AppStates> {
                 sessionToken={this.state.sessionToken}
                   userId={this.state.userId}
                   fetchHelpPosts={this.state.fetchHelpPosts}
-                  // isCurrentUser={this.state.isCurrentUser}
-                  // currentUser={this.currentUser} 
                   />
               </Route>
             }

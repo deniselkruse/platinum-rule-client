@@ -348,3 +348,44 @@ ul {
     background-color: #96A7AA!important;
     width: 15em;
 }
+
+/* ABOUT */
+
+.aboutPage {
+    margin-bottom: 1em;
+    margin-left: .25em;
+    margin-right: .25em;
+}
+
+#about {
+    padding-top: 1.5em;
+    padding-bottom: 1.5em;
+}
+
+#aboutHeader {
+    text-align: center;
+    margin-bottom: .5em;
+    color: #544C4B;
+    font-weight: 800;
+}
+
+.lead {
+    font-size: 1em!important;
+    text-align: justify;
+}
+
+#mission {
+    padding-top: 2.5em;
+    padding-bottom: 2.5em;
+}
+
+#missionText {
+    font-style: italic;
+    font-size: 1.25em!important;
+    text-align: center!important;
+}
+
+#userStories {
+    padding-top: 2em;
+    padding-bottom: 2em;
+}

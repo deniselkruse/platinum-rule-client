@@ -41,26 +41,44 @@ class Header extends React.Component<HeaderProps, HeaderStates> {
 
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav navbar>
-                            <Col className="navbarColumn">
-                                <NavItem>
-                                    <NavLink href='/menu'>Menu</NavLink>
-                                    <NavLink href='/menu/request/posts'>View Help Requests</NavLink>
-                                </NavItem>
-                                <NavItem>
-                                    <NavLink href='/menu/volunteer/create'>Create a Volunteer Post</NavLink>
-                                </NavItem>
-                                <NavItem>
-                                    <NavLink href='/menu/volunteer/posts'>View Volunteer Posts</NavLink>
-                                </NavItem>
-                                <NavItem>
-                                    <NavLink href='/menu/request/create'>Create a Help Request</NavLink>
-                                </NavItem>
-                                <br />
-                                <NavItem>
-                                    <Button onClick={this.props.clearToken}>Logout</Button>
-                                </NavItem>
-                                <br />
-                            </Col>
+                            {this.props.sessionToken ?
+                                <Col className="navbarColumn">
+                                    <NavItem>
+                                        <NavLink href='/menu'>Menu</NavLink>
+                                    </NavItem>
+                                    <NavItem>
+                                        <NavLink href="/menu/about">About</NavLink>
+                                    </NavItem>
+                                    <NavItem>
+                                        <NavLink href='/menu/request/posts'>View Help Requests</NavLink>
+                                    </NavItem>
+                                    <NavItem>
+                                        <NavLink href='/menu/volunteer/create'>Create a Volunteer Post</NavLink>
+                                    </NavItem>
+                                    <NavItem>
+                                        <NavLink href='/menu/volunteer/posts'>View Volunteer Posts</NavLink>
+                                    </NavItem>
+                                    <NavItem>
+                                        <NavLink href='/menu/request/create'>Create a Help Request</NavLink>
+                                    </NavItem>
+                                    <br />
+                                    <NavItem>
+                                        <Button onClick={this.props.clearToken}>Logout</Button>
+                                    </NavItem>
+                                    <br />
+                                </Col>
+                                : <></>}
+
+                            {!this.props.sessionToken ?
+                                <Col className="navbarColumn">
+                                    <NavItem>
+                                        <NavLink href="/menu/about">About</NavLink>
+                                    </NavItem>
+                                </Col>
+                                : <> </>
+                            }
+
+
                         </Nav>
                     </Collapse>
 

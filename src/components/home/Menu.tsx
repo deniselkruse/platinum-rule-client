@@ -8,14 +8,15 @@ import CreateRequestPost from '../recipients/CreateRequestPost';
 import ViewHelpPosts from '../volunteers/ViewVolunteerPosts';
 import ViewRequestPosts from '../recipients/ViewRequestPosts';
 
+import About from '../home/About';
+
+
 import houses from '../../assets/houses.gif';
 
 type postProps = {
   sessionToken?: any;
-  // isCurrentUser: boolean;
   userId: string;
   fetchHelpPosts: any;
-  // currentUser: () => void;
 }
 
 class Menu extends React.Component<postProps, {}> {
@@ -75,7 +76,6 @@ class Menu extends React.Component<postProps, {}> {
               <CreateHelpPost
                 sessionToken={this.props.sessionToken}
                 userId={this.props.userId}
-                // isCurrentUser={this.props.isCurrentUser} 
                 />
             </Route>
 
@@ -83,7 +83,6 @@ class Menu extends React.Component<postProps, {}> {
               <ViewHelpPosts
                 sessionToken={this.props.sessionToken}
                 userId={this.props.userId}
-                // isCurrentUser={this.props.isCurrentUser}
               />
             </Route>
 
@@ -91,7 +90,6 @@ class Menu extends React.Component<postProps, {}> {
               <CreateRequestPost
                 sessionToken={this.props.sessionToken}
                 userId={this.props.userId}
-                // isCurrentUser={this.props.isCurrentUser}
               />
             </Route>
 
@@ -99,11 +97,13 @@ class Menu extends React.Component<postProps, {}> {
               <ViewRequestPosts
                 sessionToken={this.props.sessionToken}
                 userId={this.props.userId}
-                // isCurrentUser={this.props.isCurrentUser}
-                // currentUser={this.props.currentUser}
               />
             </Route>
 
+            <Route path='/menu/about'>
+              <About
+                sessionToken={this.props.sessionToken} />
+            </Route>
 
           </Switch>
         </Router>
