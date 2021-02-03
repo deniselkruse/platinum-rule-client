@@ -44,7 +44,7 @@ class Login extends React.Component<LoginAcceptedProps, {redirect: null | string
         return response.json();
       })
       .then((data) => {
-        this.props.updateToken(data.sessionToken);
+        this.props.updateToken(data.sessionToken, data.user.id);
         this.setState({redirect: '/menu'})
       })
   }

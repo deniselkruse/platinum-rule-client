@@ -4,7 +4,7 @@ import { Button, Card, CardHeader, Container, Form, FormGroup, Input, Label, Mod
 
 type EditVolunteerProps = {
     sessionToken?: any;
-    userId: any;
+    userId: number;
     helpId: any;
     closeModal: () => void;
     fetchHelpPosts: () => void;

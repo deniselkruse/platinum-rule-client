@@ -4,8 +4,7 @@ import { Button, Card, CardHeader, Container, Form, FormGroup, Input, Label, Row
 
 type VolunteerProps = {
     sessionToken?: any;
-    userId: any;
-    // isCurrentUser: boolean;
+    userId: number;
 }
 
 export type Weekdays = "Sundays" | "Mondays" | "Tuesdays" | "Wednesdays" | "Thursdays" | "Fridays" | "Saturdays"

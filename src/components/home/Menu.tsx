@@ -15,7 +15,7 @@ import houses from '../../assets/houses.gif';
 
 type postProps = {
   sessionToken?: any;
-  userId: string;
+  userId: number;
   fetchHelpPosts: any;
 }
 
@@ -27,7 +27,6 @@ class Menu extends React.Component<postProps, {}> {
   }
 
   componentDidMount() {
-    // this.props.currentUser()
     if (!this.props.sessionToken) {
       return <Redirect to="/" />
     } else {

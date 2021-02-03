@@ -11,7 +11,7 @@ import Menu from './components/home/Menu';
 
 type AppStates = {
   sessionToken: any;
-  userId: string;
+  userId: number;
   fetchHelpPosts: any;
   modal: boolean;
 }
@@ -21,19 +21,20 @@ class App extends React.Component<{}, AppStates> {
     super(props);
     this.state = {
       sessionToken: "",
-      userId: "",
+      userId: 0,
       fetchHelpPosts: "",
       modal: false,
     };
     this.getToken = this.getToken.bind(this);
+    this.getUser = this.getUser.bind(this);
     this.updateToken = this.updateToken.bind(this);
     this.clearToken = this.clearToken.bind(this);
-    this.userId = this.userId.bind(this);
   }
 
   componentDidMount() {
-    this.getToken()
-    this.userId()
+    this.getToken();
+    this.getUser();
+    this.clearToken(); // Mount updateToken?
   }
 
   getToken = () => {
@@ -44,25 +45,28 @@ class App extends React.Component<{}, AppStates> {
     }
   };
 
-  updateToken = (newToken: any) => {
+  updateToken = (newToken: string, userId: number) => {
     localStorage.setItem('token', newToken);
-    this.setState({ sessionToken: newToken });
-    console.log(newToken);
+    this.setState({ sessionToken: newToken, userId : userId });
+    localStorage.setItem('userId', JSON.stringify(userId))
+    console.log(newToken, userId);
+  };
+
+  getUser = () => {
+    const id = localStorage.getItem('id')
+    if (id) {
+      this.setState({ userId: parseInt(id) });
+    } else {
+      console.log(id)
+      console.log('Login required.')
+    }
   };
 
   clearToken = () => {
     localStorage.clear();
     this.setState({ sessionToken: '' });
-    console.log('Hello.')
+    console.log('User has logged out.')
   };
-
-  userId = () => {
-    const userId = localStorage.getItem('userId');
-    if (userId) {
-      this.setState({ userId: userId })
-      console.log("userId:", userId)
-    }
-  }
 
   toggle = () => {
     this.setState({ modal: !this.state.modal })
@@ -73,7 +77,9 @@ class App extends React.Component<{}, AppStates> {
       <div>
 
         <Router>
-          <Header clearToken={this.clearToken} sessionToken={this.state.sessionToken} />
+          <Header 
+          clearToken={this.clearToken} 
+          sessionToken={this.state.sessionToken} />
 
           <Switch>
 
@@ -85,8 +91,8 @@ class App extends React.Component<{}, AppStates> {
               <Route path="/menu">
                 <Menu 
                 sessionToken={this.state.sessionToken}
-                  userId={this.state.userId}
-                  fetchHelpPosts={this.state.fetchHelpPosts}
+                fetchHelpPosts={this.state.fetchHelpPosts}
+                userId={this.state.userId}
                   />
               </Route>
             }

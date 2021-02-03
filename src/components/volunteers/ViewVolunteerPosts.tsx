@@ -6,8 +6,7 @@ import EditHelpPost from './EditVolunteerPost';
 
 type ViewHelpPostsProps = {
     sessionToken?: any;
-    userId: any;
-    // isCurrentUser: boolean;
+    userId: number;
 }
 
 type ViewHelpPostsState = {
@@ -91,14 +90,14 @@ class ViewHelpPosts extends React.Component<ViewHelpPostsProps, ViewHelpPostsSta
     render() {
         return (
             <div>
-                <div className="viewPostsHeader"> 
-                <h4 className="viewVolunteerHeader">Find Volunteers</h4>
+                <div className="viewPostsHeader">
+                    <h4 className="viewVolunteerHeader">Find Volunteers</h4>
                 </div>
-                
+
                 <div>
                     {this.state.helpPosts.length > 0 ? (this.state.helpPosts.map((event: any, index: any) => (
 
-                        <Container key={this.state.helpPosts.id} className="serviceCard">
+                        <Container key={event.id} className="serviceCard">
 
                             <Card
                                 onMouseEnter={e => {
@@ -119,55 +118,52 @@ class ViewHelpPosts extends React.Component<ViewHelpPostsProps, ViewHelpPostsSta
                                         backgroundColor: '#646F71'
                                     }}>
                                     <p className="cardText">Your neighbor</p>
-                                    <p className="cardUsername">{this.state.helpPosts[index].user.username}</p>
+                                    <p className="cardUsername">{event.user.username}</p>
                                     <p className="cardText">is available to help with</p>
-                                    <p className="cardHelpType">{this.state.helpPosts[index].title}</p>
+                                    <p className="cardHelpType">{event.title}</p>
                                 </CardHeader>
                                 <br />
                                 <CardText>
                                     <p className="cardText">Description:</p>
-                                    <p className="cardText">{this.state.helpPosts[index].description}</p>
+                                    <p className="cardText">{event.description}</p>
                                 </CardText>
                                 <CardText >
                                     <p className="cardText">Availability:
                                     <br />
-                                        {Object.entries(this.state.helpPosts[index].availability).map((day, i) => (
+                                        {Object.entries(event.availability).map((day, i) => (
                                             <div key={i}>
                                                 { day[1] ? <span>{day[0]}</span> : null}
                                             </div>))
                                         }</p>
                                 </CardText>
                                 <CardText >
-                                    <p className="cardText">Instances: {this.state.helpPosts[index].instances}/{this.state.helpPosts[index].instances}</p>
+                                    <p className="cardText">Instances: {event.instances}/{event.instances}</p>
                                 </CardText>
-                                <CardText>
+                                {/* <CardText>
                                     <p className="cardText">Posted on:
                                     {this.state.helpPosts[index].createdAt}</p>
-                                </CardText>
+                                </CardText> */}
                                 <Row className="cardButtons">
-                                    <Button className="requestHelpButton">Request help from {this.state.helpPosts[index].user.username}</Button>
+                                    <Button className="requestHelpButton">Request help from {event.user.username}</Button>
                                 </Row>
 
                                 <Row className="cardButtons">
-                                    {/* {this.props.isCurrentUser ? */}
-                                        {/* <> */}
+                                    {(event.user.id === this.props.userId) ?
+                                        <>
                                             <Button
                                                 type="button"
                                                 className="volunteerDeletePost"
                                                 onClick={this.deletePost}>
                                                 Delete
                                             </Button>
-
                                             <Button
                                                 type="button"
                                                 className="volunteerEditPost"
                                                 onClick={this.openModal}>
                                                 Edit
                                             </Button>
-                                        {/* </> : <></> */}
-                                    {/* // } */}
-                                    {/* // {this.props.isCurrentUser ? */}
-                                    {/* //     <></> : <></>} */}
+                                        </> : <></>
+                                    }
                                 </Row>
                             </Card>
 
@@ -183,10 +179,10 @@ class ViewHelpPosts extends React.Component<ViewHelpPostsProps, ViewHelpPostsSta
                         </Container>
                     ))
                     ) : (
-                            <div>
+                        <div>
 
-                            </div>
-                        )}
+                        </div>
+                    )}
                     <br />
                 </div>
             </div>

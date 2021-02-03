@@ -4,7 +4,7 @@ import { Button, Card, CardHeader, Container, Form, FormGroup, Input, Label, Mod
 
 type EditRequestProps = {
     sessionToken?: any;
-    userId: any;
+    userId: number;
     recipientId: number;
     closeModal: () => void;
     fetchRequestPosts: () => void;
