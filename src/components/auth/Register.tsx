@@ -15,9 +15,10 @@ type RegisterAcceptedProps = {
   setLastName: (e: any) => any;
   setUsername: (e: any) => any;
   setZipCode: (e: any) => any;
-  sessionToken: any;
+  sessionToken?: any,
   updateToken: any;
-  getToken: any;
+  // isAdmin: boolean;
+  // checkAdmin: () => void;
 }
 
 
@@ -60,6 +61,14 @@ class Register extends React.Component<RegisterAcceptedProps, { redirect: null |
         this.setState({ redirect: '/menu' })
       })
   }
+
+checkToken = () => {
+  if (!this.props.sessionToken || this.props.username === undefined) {
+    return <Redirect to='/'/>
+  } else {
+    return <Redirect to="/menu"/>
+  }
+}
 
 
   render() {

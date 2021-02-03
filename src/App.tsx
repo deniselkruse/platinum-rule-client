@@ -34,7 +34,6 @@ class App extends React.Component<{}, AppStates> {
   componentDidMount() {
     this.getToken();
     this.getUser();
-    this.clearToken(); // Mount updateToken?
   }
 
   getToken = () => {
@@ -48,7 +47,7 @@ class App extends React.Component<{}, AppStates> {
   updateToken = (newToken: string, userId: number) => {
     localStorage.setItem('token', newToken);
     this.setState({ sessionToken: newToken, userId : userId });
-    localStorage.setItem('userId', JSON.stringify(userId))
+    localStorage.setItem('id', JSON.stringify(userId))
     console.log(newToken, userId);
   };
 
@@ -85,7 +84,8 @@ class App extends React.Component<{}, AppStates> {
 
             {!this.state.sessionToken ?
               <Route>
-                <HomePage updateToken={this.updateToken} />
+                <HomePage updateToken={this.updateToken}
+                userId={this.state.userId} />
               </Route>
               :
               <Route path="/menu">

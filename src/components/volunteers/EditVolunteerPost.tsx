@@ -127,7 +127,6 @@ class EditVolunteerPost extends React.Component<EditVolunteerProps, EditVoluntee
                     console.log(response);
                 } else {
                     console.log('Update failed.')
-                    console.log(this.props.userId)
                 }
                 return response.json();
             }).then((data) => {
@@ -179,17 +178,17 @@ class EditVolunteerPost extends React.Component<EditVolunteerProps, EditVoluntee
                                         type="select"
                                         onChange={(e) => { this.state.setTitle(e.target.value) }}
                                         value={this.state.title}>
-                                        <option value="">Select One</option>
-                                        <option value="Raking Leaves">Raking Leaves</option>
-                                        <option value="Shoveling Snow">Shoveling Snow</option>
-                                        <option value="Take Out Trash">Taking Out Trash</option>
-                                        <option value="Mow Lawn">Mowing a Lawn</option>
-                                        <option value="Walk Dogs">Walking Dog/s</option>
-                                        <option value="Grocery Run">A Grocery Run</option>
-                                        <option value="Pharmacy Pickup">A Pharmacy Pickup</option>
-                                        <option value="Essential Errand">An Essential Errand</option>
-                                        <option value="Phone Check-ins">Phone Check-ins</option>
-                                        <option value="Other">Other - Please list in description.</option>
+                                <option value="">Select One</option>
+                                <option value="Raking Leaves">Raking Leaves</option>
+                                <option value="Shoveling Snow">Shoveling Snow</option>
+                                <option value="Taking Out Trash">Taking Out Trash</option>
+                                <option value="Mowing a Lawn">Mowing a Lawn</option>
+                                <option value="Walking Dogs">Walking Dog/s</option>
+                                <option value="A Grocery Run">A Grocery Run</option>
+                                <option value="A Pharmacy Pickup">A Pharmacy Pickup</option>
+                                <option value="An Essential Errand">An Essential Errand</option>
+                                <option value="Phone Check-ins">Phone Check-ins</option>
+                                <option value="Other">Other - Please list in description.</option>
                                     </Input>
                                 </FormGroup>
                                 <FormGroup>

@@ -11,6 +11,7 @@ type LoginAcceptedProps = {
   sessionToken: any;
   updateToken: any;
   getToken: any;
+  userId: number;
 }
 
 class Login extends React.Component<LoginAcceptedProps, {redirect: null | string}> {
