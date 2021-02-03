@@ -17,8 +17,7 @@ type RegisterAcceptedProps = {
   setZipCode: (e: any) => any;
   sessionToken?: any,
   updateToken: any;
-  // isAdmin: boolean;
-  // checkAdmin: () => void;
+  userId: number;
 }
 
 
@@ -62,13 +61,13 @@ class Register extends React.Component<RegisterAcceptedProps, { redirect: null |
       })
   }
 
-checkToken = () => {
-  if (!this.props.sessionToken || this.props.username === undefined) {
-    return <Redirect to='/'/>
-  } else {
-    return <Redirect to="/menu"/>
+  checkToken = () => {
+    if (!this.props.sessionToken || this.props.username === undefined) {
+      return <Redirect to='/' />
+    } else {
+      return <Redirect to="/menu" />
+    }
   }
-}
 
 
   render() {

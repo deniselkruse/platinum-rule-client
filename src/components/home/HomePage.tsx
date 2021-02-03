@@ -6,8 +6,7 @@ import Auth from '../auth/Auth';
 
 type HomePageProps = {
   updateToken?: any,
-  // isAdmin: boolean,
-  // checkAdmin: () => void;
+  userId: number;
 }
 
 class HomePage extends React.Component<HomePageProps, {}> {
@@ -43,9 +42,8 @@ class HomePage extends React.Component<HomePageProps, {}> {
 
         <Auth
           updateToken={this.props.updateToken}
-          // isAdmin={this.props.isAdmin}
-          // checkAdmin={this.props.checkAdmin} 
-          />
+          userId={this.props.userId}
+        />
 
       </div>
     );

@@ -10,7 +10,6 @@ type LoginAcceptedProps = {
   setPassword: (e: any) => any;
   sessionToken: any;
   updateToken: any;
-  getToken: any;
   userId: number;
 }
 

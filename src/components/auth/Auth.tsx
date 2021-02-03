@@ -7,8 +7,7 @@ import Register from './Register';
 type AuthProps = {
   sessionToken?: any,
   updateToken: any;
-  // isAdmin: boolean;
-  // checkAdmin: () => void;
+  userId: number
 }
 
 type AuthStates = {
@@ -75,39 +74,37 @@ class Auth extends React.Component<AuthProps, AuthStates> {
   render() {
     return (
       <Container className="auth-container">
-    
-          {this.state.register ?
-        
-              <Login
-                email={this.state.email}
-                password={this.state.password}
-                setEmail={this.state.setEmail}
-                setPassword={this.state.setPassword}
-                updateToken={this.props.updateToken}
-                sessionToken={this.props.sessionToken} 
-                // checkAdmin={this.props.checkAdmin}
-                // isAdmin={this.props.isAdmin}
-                />
-            :
-              <Register
-                firstName={this.state.firstName}
-                lastName={this.state.lastName}
-                email={this.state.email}
-                username={this.state.username}
-                zipCode={this.state.zipCode}
-                password={this.state.password}
-                setEmail={this.state.setEmail}
-                setPassword={this.state.setPassword}
-                setFirstName={this.state.setFirstName}
-                setLastName={this.state.setLastName}
-                setUsername={this.state.setUsername}
-                setZipCode={this.state.setZipCode} 
-                updateToken={this.props.updateToken}
-                sessionToken={this.props.sessionToken}
-                // checkAdmin={this.props.checkAdmin}
-                // isAdmin={this.props.isAdmin}
-                />   
-          }
+
+        {this.state.register ?
+
+          <Login
+            email={this.state.email}
+            password={this.state.password}
+            setEmail={this.state.setEmail}
+            setPassword={this.state.setPassword}
+            updateToken={this.props.updateToken}
+            sessionToken={this.props.sessionToken}
+            userId={this.props.userId}
+          />
+          :
+          <Register
+            firstName={this.state.firstName}
+            lastName={this.state.lastName}
+            email={this.state.email}
+            username={this.state.username}
+            zipCode={this.state.zipCode}
+            password={this.state.password}
+            setEmail={this.state.setEmail}
+            setPassword={this.state.setPassword}
+            setFirstName={this.state.setFirstName}
+            setLastName={this.state.setLastName}
+            setUsername={this.state.setUsername}
+            setZipCode={this.state.setZipCode}
+            updateToken={this.props.updateToken}
+            sessionToken={this.props.sessionToken}
+            userId={this.props.userId}
+          />
+        }
 
         <br />
         <Button
