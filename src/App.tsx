@@ -8,25 +8,25 @@ import Footer from './components/home/Footer';
 import HomePage from './components/home/HomePage';
 import Menu from './components/home/Menu';
 
+
 type AppStates = {
   sessionToken: any;
+  userId: number;
   fetchHelpPosts: any;
-  currentUser: any;
-  userId: any,
-  isAdmin: boolean,
+  modal: boolean;
 }
 
 class App extends React.Component<{}, AppStates> {
   constructor(props: any) {
     super(props);
     this.state = {
-      isAdmin: false,
-      userId: "",
-      currentUser: "",
       sessionToken: "",
+      userId: 0,
       fetchHelpPosts: "",
+      modal: false,
     };
     this.getToken = this.getToken.bind(this);
+    this.getUser = this.getUser.bind(this);
     this.updateToken = this.updateToken.bind(this);
     this.clearToken = this.clearToken.bind(this);
   }
@@ -34,7 +34,6 @@ class App extends React.Component<{}, AppStates> {
   componentDidMount() {
     this.getToken();
     this.getUser();
-    this.clearToken();
   }
 
   getToken = () => {
@@ -45,17 +44,13 @@ class App extends React.Component<{}, AppStates> {
     }
   };
 
-  updateToken = (newToken: string, userId: any) => {
+  updateToken = (newToken: string, userId: number) => {
     localStorage.setItem('token', newToken);
-    this.setState({ sessionToken: newToken });
-    console.log(newToken);
-    localStorage.setItem('id', userId);
-    this.setState({ userId: userId })
-    console.log(userId)
-  }
+    this.setState({ sessionToken: newToken, userId : userId });
+    localStorage.setItem('id', JSON.stringify(userId))
+    console.log(newToken, userId);
+  };
 
-  // localStorage.setItem('id', userId.toString());
-  
   getUser = () => {
     const id = localStorage.getItem('id')
     if (id) {
@@ -69,34 +64,36 @@ class App extends React.Component<{}, AppStates> {
   clearToken = () => {
     localStorage.clear();
     this.setState({ sessionToken: '' });
-    console.log('User is currently logged out.')
+    console.log('User has logged out.')
   };
 
-  // checkAdmin = () => {
-  //   this.setState({ isAdmin: true })
-  // }
-
+  toggle = () => {
+    this.setState({ modal: !this.state.modal })
+  }
 
   render() {
     return (
       <div>
 
         <Router>
-          <Header clearToken={this.clearToken} sessionToken={this.state.sessionToken} />
+          <Header 
+          clearToken={this.clearToken} 
+          sessionToken={this.state.sessionToken} />
 
           <Switch>
 
             {!this.state.sessionToken ?
               <Route>
-                <HomePage updateToken={this.updateToken} 
-                // isAdmin={this.state.isAdmin}
-                />
+                <HomePage updateToken={this.updateToken}
+                userId={this.state.userId} />
               </Route>
               :
               <Route path="/menu">
-                <Menu sessionToken={this.state.sessionToken}
-                  fetchHelpPosts={this.state.fetchHelpPosts}
-                  userId={this.state.userId} />
+                <Menu 
+                sessionToken={this.state.sessionToken}
+                fetchHelpPosts={this.state.fetchHelpPosts}
+                userId={this.state.userId}
+                  />
               </Route>
             }
 

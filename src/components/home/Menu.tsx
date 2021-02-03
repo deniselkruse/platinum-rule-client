@@ -8,14 +8,15 @@ import CreateRequestPost from '../recipients/CreateRequestPost';
 import ViewHelpPosts from '../volunteers/ViewVolunteerPosts';
 import ViewRequestPosts from '../recipients/ViewRequestPosts';
 
-import About from './About';
+import About from '../home/About';
+
 
 import houses from '../../assets/houses.gif';
 
 type postProps = {
   sessionToken?: any;
+  userId: number;
   fetchHelpPosts: any;
-  userId: any;
 }
 
 class Menu extends React.Component<postProps, {}> {
@@ -73,27 +74,30 @@ class Menu extends React.Component<postProps, {}> {
             <Route path='/menu/volunteer/create'>
               <CreateHelpPost
                 sessionToken={this.props.sessionToken}
-                userId={this.props.userId} />
+                userId={this.props.userId}
+                />
             </Route>
 
             <Route path='/menu/volunteer/posts'>
               <ViewHelpPosts
                 sessionToken={this.props.sessionToken}
-                userId={this.props.userId} />
+                userId={this.props.userId}
+              />
             </Route>
 
             <Route path='/menu/request/create'>
               <CreateRequestPost
                 sessionToken={this.props.sessionToken}
-                userId={this.props.userId} />
+                userId={this.props.userId}
+              />
             </Route>
 
             <Route path='/menu/request/posts'>
               <ViewRequestPosts
                 sessionToken={this.props.sessionToken}
-                userId={this.props.userId} />
+                userId={this.props.userId}
+              />
             </Route>
-
 
             <Route path='/menu/about'>
               <About

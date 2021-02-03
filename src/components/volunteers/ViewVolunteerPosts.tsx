@@ -6,12 +6,13 @@ import EditHelpPost from './EditVolunteerPost';
 
 type ViewHelpPostsProps = {
     sessionToken?: any;
-    userId: any;
+    userId: number;
 }
 
 type ViewHelpPostsState = {
     helpPosts: any;
     helpId: number;
+    currentUser: boolean;
     modal: boolean;
     openModal: boolean;
     updateActive: boolean;
@@ -24,6 +25,7 @@ class ViewHelpPosts extends React.Component<ViewHelpPostsProps, ViewHelpPostsSta
         this.state = {
             helpPosts: [],
             helpId: 0,
+            currentUser: false,
             modal: false,
             openModal: false,
             updateActive: false,
@@ -95,7 +97,7 @@ class ViewHelpPosts extends React.Component<ViewHelpPostsProps, ViewHelpPostsSta
                 <div>
                     {this.state.helpPosts.length > 0 ? (this.state.helpPosts.map((event: any, index: any) => (
 
-                        <Container key={this.state.helpPosts.id} className="serviceCard">
+                        <Container key={event.id} className="serviceCard">
 
                             <Card
                                 onMouseEnter={e => {
@@ -137,29 +139,32 @@ class ViewHelpPosts extends React.Component<ViewHelpPostsProps, ViewHelpPostsSta
                                 <CardText >
                                     <p className="cardText">Instances: {event.instances}/{event.instances}</p>
                                 </CardText>
-                                <CardText>
-                                    {/* <p className="cardText">Posted on:
-                                    {this.state.helpPosts[index].createdAt}</p> */}
-                                </CardText>
+                                {/* <CardText>
+                                    <p className="cardText">Posted on:
+                                    {this.state.helpPosts[index].createdAt}</p>
+                                </CardText> */}
                                 <Row className="cardButtons">
                                     <Button className="requestHelpButton">Request help from {event.user.username}</Button>
                                 </Row>
-                                {(event.userId === this.props.userId) ?
-                                    <Row className="cardButtons">
-                                        <Button
-                                            type="button"
-                                            className="volunteerDeletePost"
-                                            onClick={this.deletePost}>
-                                            Delete
-                                        </Button>
-                                        <Button
-                                            type="button"
-                                            className="volunteerEditPost"
-                                            onClick={this.openModal}>
-                                            Edit
-                                        </Button>
-                                    </Row>
-                                    : <></>}
+
+                                <Row className="cardButtons">
+                                    {(event.user.id === this.props.userId) ?
+                                        <>
+                                            <Button
+                                                type="button"
+                                                className="volunteerDeletePost"
+                                                onClick={this.deletePost}>
+                                                Delete
+                                            </Button>
+                                            <Button
+                                                type="button"
+                                                className="volunteerEditPost"
+                                                onClick={this.openModal}>
+                                                Edit
+                                            </Button>
+                                        </> : <></>
+                                    }
+                                </Row>
                             </Card>
 
                             <Modal isOpen={this.state.openModal}>

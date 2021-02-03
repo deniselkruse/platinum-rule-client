@@ -4,7 +4,7 @@ import { Button, Card, CardHeader, Container, Form, FormGroup, Input, Label, Row
 
 type RequestProps = {
     sessionToken?: any;
-    userId: any;
+    userId: number;
 }
 
 export type Weekdays = "Sundays" | "Mondays" | "Tuesdays" | "Wednesdays" | "Thursdays" | "Fridays" | "Saturdays"
@@ -121,7 +121,7 @@ class CreateRequestPost extends React.Component<RequestProps, RequestState> {
 
     componentDidMount() {
         if (!this.props.sessionToken) {
-            return <Redirect to="/" />
+            return <Redirect to="/menu" />
         } else {
             return <Redirect to="/request/create" />
         }
@@ -161,12 +161,12 @@ class CreateRequestPost extends React.Component<RequestProps, RequestState> {
                                 <option value="">Select One</option>
                                 <option value="Raking Leaves">Raking Leaves</option>
                                 <option value="Shoveling Snow">Shoveling Snow</option>
-                                <option value="Taking Out Trash">Taking Out Trash</option>
-                                <option value="Mowing a Lawn">Mowing a Lawn</option>
-                                <option value="Walking Dogs">Walking Dog/s</option>
-                                <option value="A Grocery Run">A Grocery Run</option>
-                                <option value="A Pharmacy Pickup">A Pharmacy Pickup</option>
-                                <option value="An Essential Errand">An Essential Errand</option>
+                                <option value="Take Out Trash">Taking Out Trash</option>
+                                <option value="Mow Lawn">Mowing a Lawn</option>
+                                <option value="Walk Dogs">Walking Dog/s</option>
+                                <option value="Grocery Run">A Grocery Run</option>
+                                <option value="Pharmacy Pickup">A Pharmacy Pickup</option>
+                                <option value="Essential Errand">An Essential Errand</option>
                                 <option value="Phone Check-ins">Phone Check-ins</option>
                                 <option value="Other">Other - Please list in description.</option>
                             </Input>
@@ -218,6 +218,7 @@ class CreateRequestPost extends React.Component<RequestProps, RequestState> {
                                     value={this.state.instances} />
                             </Row>
                         </FormGroup>
+
                         <Button type="submit" className="recipientSubmitButton">Submit Post</Button>
                     </Form>
                 </Card>

@@ -3,9 +3,10 @@ import { Button, Col, Collapse, Navbar, NavbarToggler, Nav, NavItem, NavLink } f
 
 import platinum_rule_logo from '../../assets/platinum_rule_logo.png'
 
+
 type HeaderProps = {
     clearToken: any;
-    sessionToken?: any;
+    sessionToken: any;
 }
 
 type HeaderStates = {
@@ -20,12 +21,12 @@ class Header extends React.Component<HeaderProps, HeaderStates> {
             isOpen: false,
         };
     }
-
     toggle() {
         this.setState({
             isOpen: !this.state.isOpen
         });
     }
+
 
     render() {
         return (
@@ -40,7 +41,7 @@ class Header extends React.Component<HeaderProps, HeaderStates> {
 
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav navbar>
-                            {/* {this.props.sessionToken ? */}
+                            {this.props.sessionToken ?
                                 <Col className="navbarColumn">
                                     <NavItem>
                                         <NavLink href='/menu'>Menu</NavLink>
@@ -66,7 +67,7 @@ class Header extends React.Component<HeaderProps, HeaderStates> {
                                     </NavItem>
                                     <br />
                                 </Col>
-                                {/* : <></>} */}
+                                : <></>}
 
                             {!this.props.sessionToken ?
                                 <Col className="navbarColumn">
@@ -76,6 +77,7 @@ class Header extends React.Component<HeaderProps, HeaderStates> {
                                 </Col>
                                 : <> </>
                             }
+
 
                         </Nav>
                     </Collapse>
