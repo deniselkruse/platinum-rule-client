@@ -4,6 +4,8 @@ import { Button, Card, CardHeader, CardText, Container, Modal, Row } from 'react
 
 import EditHelpPost from './EditVolunteerPost';
 
+import APIURL from '../../helpers/environment';
+
 type ViewHelpPostsProps = {
     sessionToken?: any;
     userId: number;
@@ -53,7 +55,7 @@ class ViewHelpPosts extends React.Component<ViewHelpPostsProps, ViewHelpPostsSta
     }
 
     fetchHelpPosts = () => {
-        fetch(`http://localhost:3000/help`, {
+        fetch(`${APIURL}/help`, {
             method: 'GET',
             headers: new Headers({
                 'Content-Type': 'application/json',
@@ -67,7 +69,7 @@ class ViewHelpPosts extends React.Component<ViewHelpPostsProps, ViewHelpPostsSta
     }
 
     deletePost = (event: any) => {
-        fetch(`http://localhost:3000/help/${this.state.helpId}`, {
+        fetch(`${APIURL}/help/${this.state.helpId}`, {
             method: 'DELETE',
             headers: new Headers({
                 'Content-Type': 'application/json',

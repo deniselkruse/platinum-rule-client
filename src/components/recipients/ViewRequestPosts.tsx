@@ -4,6 +4,8 @@ import { Button, Card, CardHeader, CardText, Container, Modal, Row } from 'react
 
 import EditRequestPost from '../recipients/EditRequestPost';
 
+import APIURL from '../../helpers/environment';
+
 type ViewRequestPostsProps = {
     sessionToken?: any;
     userId: number;
@@ -54,7 +56,7 @@ class ViewRequestPosts extends React.Component<ViewRequestPostsProps, ViewReques
     }
 
     fetchRequestPosts = () => {
-        fetch(`http://localhost:3000/recipient`, {
+        fetch(`${APIURL}/recipient`, {
             method: 'GET',
             headers: new Headers({
                 'Content-Type': 'application/json',
@@ -68,7 +70,7 @@ class ViewRequestPosts extends React.Component<ViewRequestPostsProps, ViewReques
     }
 
     deletePost = (event: any) => {
-        fetch(`http://localhost:3000/recipient/${this.state.recipientId}`, {
+        fetch(`${APIURL}/recipient/${this.state.recipientId}`, {
             method: 'DELETE',
             headers: new Headers({
                 'Content-Type': 'application/json',

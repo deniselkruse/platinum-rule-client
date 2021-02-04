@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Container, Form, FormGroup, Input, Button } from 'reactstrap';
 import { Redirect } from 'react-router-dom';
 
+import APIURL from '../../helpers/environment';
+
 type RegisterAcceptedProps = {
   email: string;
   password: string;
@@ -31,7 +33,7 @@ class Register extends React.Component<RegisterAcceptedProps, { redirect: null |
 
   handleSubmit = (event: any) => {
     event.preventDefault();
-    fetch(`http://localhost:3000/user/register`, {
+    fetch(`${APIURL}/user/register`, {
       method: 'POST',
       body: JSON.stringify({
         user: {

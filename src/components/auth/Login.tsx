@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Form, FormGroup, Input, Button } from 'reactstrap';
 import {Redirect} from 'react-router-dom';
 
+import APIURL from '../../helpers/environment';
 
 type LoginAcceptedProps = {
   email: string;
@@ -23,7 +24,7 @@ class Login extends React.Component<LoginAcceptedProps, {redirect: null | string
 
   handleSubmit = (event: any) => {
     event.preventDefault();
-    fetch(`http://localhost:3000/user/login`, {
+    fetch(`${APIURL}/user/login`, {
       method: 'POST',
       body: JSON.stringify({
         user: {

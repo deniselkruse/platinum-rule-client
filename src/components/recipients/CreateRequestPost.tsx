@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { Redirect } from "react-router-dom";
 import { Button, Card, CardHeader, Container, Form, FormGroup, Input, Label, Row } from 'reactstrap';
 
+import APIURL from '../../helpers/environment';
+
+
 type RequestProps = {
     sessionToken?: any;
     userId: number;
@@ -90,7 +93,7 @@ class CreateRequestPost extends React.Component<RequestProps, RequestState> {
 
     handleSubmit = (event: any) => {
         event.preventDefault();
-        fetch(`http://localhost:3000/recipient/create`, {
+        fetch(`${APIURL}/recipient/create`, {
             method: 'POST',
             body: JSON.stringify({
                 recipient: {

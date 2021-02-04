@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Redirect } from "react-router-dom";
 import { Button, Card, CardHeader, Container, Form, FormGroup, Input, Label, Modal, ModalBody, Row } from 'reactstrap';
 
+import APIURL from '../../helpers/environment';
+
 type EditVolunteerProps = {
     sessionToken?: any;
     userId: number;
@@ -103,7 +105,7 @@ class EditVolunteerPost extends React.Component<EditVolunteerProps, EditVoluntee
 
     handleSubmit = (event: any) => {
         event.preventDefault();
-        fetch(`http://localhost:3000/help/${this.props.helpId}`, {
+        fetch(`${APIURL}/help/${this.props.helpId}`, {
             method: 'PUT',
             body: JSON.stringify({
                 help: {

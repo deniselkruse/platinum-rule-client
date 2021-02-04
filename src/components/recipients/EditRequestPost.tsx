@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Redirect } from "react-router-dom";
 import { Button, Card, CardHeader, Container, Form, FormGroup, Input, Label, Modal, ModalBody, Row } from 'reactstrap';
 
+import APIURL from '../../helpers/environment';
+
 type EditRequestProps = {
     sessionToken?: any;
     userId: number;
@@ -103,7 +105,7 @@ class EditRequestPost extends React.Component<EditRequestProps, EditRequestState
 
     handleSubmit = (event: any) => {
         event.preventDefault();
-        fetch(`http://localhost:3000/recipient/${this.props.recipientId}`, {
+        fetch(`${APIURL}/recipient/${this.props.recipientId}`, {
             method: 'PUT',
             body: JSON.stringify({
                 recipient: {
